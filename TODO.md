@@ -7,3 +7,9 @@
   
   * ImageNet 데이터 크기가 너무 큼...
   * 토렌트로 받기? 그냥 다른 데이터셋 쓰는 모델을 찾는게 나을듯
+
+  * WideResNet  
+    * https://pytorch.org/hub/pytorch_vision_wide_resnet/
+    * WRN 뒤의 숫자가 궁금...
+    * TODO: 9강 듣기
+    
