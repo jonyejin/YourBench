@@ -110,6 +110,9 @@ import torch.optim as optim
 from torchvision import datasets, transforms
 import numpy as np
 import matplotlib.pyplot as plt
+#for image saving
+import os
+from torchvision.utils import save_image
 
 # NOTE: This is a hack to get around "User-agent" limitations when downloading MNIST datasets
 #       see, https://github.com/pytorch/vision/issues/3497 for more information
@@ -156,8 +159,8 @@ urllib.request.install_opener(opener)
 ########################################################
 ###############----HYPER PARAMETERS----#################
 ########################################################
-epsilons = [0, .05]
-pretrained_model = "C:/Users/auspi/YourBench/Wonwhoo/lenet_mnist_model.pth"
+epsilons = [.05]
+pretrained_model = "data/lenet_mnist_model.pth"
 # if you see error
 # SyntaxError: (unicode error) 'unicodeescape' codec can't decode bytes in position 2-3: truncated \UXXXXXXXX escape
 # rename path using / except \
@@ -283,6 +286,9 @@ def test( model, device, test_loader, epsilon ):
     correct = 0
     adv_examples = []
 
+    #for image saving
+    iteration = 0
+
     # Loop over all examples in test set
     for data, target in test_loader:
 
@@ -315,6 +321,19 @@ def test( model, device, test_loader, epsilon ):
         # Call FGSM Attack
         perturbed_data = fgsm_attack(data, epsilon, data_grad)
 
+        # image saving process
+        # if folder does not exist, make one.
+        generated_image = perturbed_data[0]
+        
+        try:
+            if not os.path.exists("data/epsilon " + str(epsilon)):
+                os.makedirs("data/epsilon " + str(epsilon))
+        except OSError:
+            print ('Error: Creating directory. ' +  "data/epsilon " + str(epsilon))
+
+
+        save_image(generated_image, "data/epsilon " + str(epsilon) + "/image" + str(iteration) + ".png")
+        iteration = iteration + 1
         # Re-classify the perturbed image
         output = model(perturbed_data)
 
@@ -470,3 +489,17 @@ plt.show()
 
 print(accuracies)
 ## show bench results by some calculations
+results = list(zip(epsilons,accuracies))
+print(results)
+sum = 0
+ans = 0
+for (epsilon, accuracy) in results:
+    if epsilon == 0:
+        pass
+    else:
+        #print(epsilon, accuracy)
+        sum += epsilon * accuracy
+        ans += epsilon * accuracies[0]
+print(sum)
+print(ans)
+print("Your Benchmark result is", sum/ans*100)
