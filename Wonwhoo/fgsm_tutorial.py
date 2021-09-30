@@ -159,7 +159,7 @@ urllib.request.install_opener(opener)
 ########################################################
 ###############----HYPER PARAMETERS----#################
 ########################################################
-epsilons = [.05]
+epsilons = [0, .05, .1, .15, .2, .25, .3]
 pretrained_model = "data/lenet_mnist_model.pth"
 # if you see error
 # SyntaxError: (unicode error) 'unicodeescape' codec can't decode bytes in position 2-3: truncated \UXXXXXXXX escape
@@ -324,7 +324,7 @@ def test( model, device, test_loader, epsilon ):
         # image saving process
         # if folder does not exist, make one.
         generated_image = perturbed_data[0]
-        
+
         try:
             if not os.path.exists("data/epsilon " + str(epsilon)):
                 os.makedirs("data/epsilon " + str(epsilon))
@@ -500,6 +500,6 @@ for (epsilon, accuracy) in results:
         #print(epsilon, accuracy)
         sum += epsilon * accuracy
         ans += epsilon * accuracies[0]
-print(sum)
-print(ans)
+#print(sum)
+#print(ans)
 print("Your Benchmark result is", sum/ans*100)
