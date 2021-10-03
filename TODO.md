@@ -10,7 +10,9 @@
 
   * WideResNet  
     * https://pytorch.org/hub/pytorch_vision_wide_resnet/
-    * WRN 뒤의 숫자가 궁금...
+    * WRN 뒤의 숫자의 의미  
+      * ex) WRN-50-2에서 50은 깊이, 2는 넓이 인자 k를 의미.
+      * 참조) https://deep-learning-study.tistory.com/519
     * TODO: 9강 듣기
   * 그 외.. 설치가 복잡해서 못돌려봄
 3. 모델에다가 Attack해보기!
@@ -20,5 +22,7 @@
 7. 파일화
 
 +) 임의의 모델? 로드??
+
+torch.jit.script로 도전가능해보인다..
 
 예진: 커스텀, 논문에서 사용한 모델들 로드 하고 원후오빠의 공격과 합치기

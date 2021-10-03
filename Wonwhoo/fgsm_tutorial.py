@@ -113,6 +113,7 @@ import matplotlib.pyplot as plt
 #for image saving
 import os
 from torchvision.utils import save_image
+from generated_FGSM_examples import generate_fgsm_example
 #for model definition
 from LeNet_model_definition import Net
 #for fgsm_attack
@@ -295,19 +296,8 @@ def test( model, device, test_loader, epsilon ):
         # Call FGSM Attack
         perturbed_data = fgsm_attack(data, epsilon, data_grad)
 
-        # image saving process
-        # if folder does not exist, make one.
-        generated_image = perturbed_data[0]
+        generate_fgsm_example(perturbed_data, iteration, epsilon)
 
-        try:
-            if not os.path.exists("data/epsilon " + str(epsilon)):
-                os.makedirs("data/epsilon " + str(epsilon))
-        except OSError:
-            print ('Error: Creating directory. ' +  "data/epsilon " + str(epsilon))
-
-
-        save_image(generated_image, "data/epsilon " + str(epsilon) + "/image" + str(iteration) + ".png")
-        iteration = iteration + 1
         # Re-classify the perturbed image
         output = model(perturbed_data)
 
