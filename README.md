@@ -31,7 +31,7 @@ YourBench는 사용자의 모델을 입력받아 adversarial attack 에 얼마나 robust한지 평�
 ## 사용방법
 
 ```
-pip install yourbench
+python main.py --attack_method FGSM CW --model [WRN/ResNet18] --dataset [CIFAR-10/CIFAR-100/ImageNet]
 ```
 
 ###  :warning: 제약사항
