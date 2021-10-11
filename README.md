@@ -1,10 +1,163 @@
-# YourBench
+# YourBench - Pytorch
 
-* Version
-  * Python: 3.8.2
-  * IDE: (ì›¬ë§Œí•˜ë©´) VSCode
-  * PyTorch
+<p>
+  <a href="https://github.com/jonye/blob/master/LICENSE"><img alt="MIT License" src="https://img.shields.io/github/license/jonyejin/YourBench?&color=brightgreen" /></a>
+
+YourBench´Â »ç¿ëÀÚÀÇ ¸ğµ¨À» ÀÔ·Â¹Ş¾Æ adversarial attack ¿¡ ¾ó¸¶³ª robustÇÑÁö Æò°¡¸¦ ÇØÁÖ´Â pytorch libraryÀÔ´Ï´Ù. ¸ğµ¨ °³¹ßÀÚµéÀÌ ´õ¿í ½±°Ô adversarial trainingÀ» ÇÒ ¼ö ÀÖµµ·Ï ¸ğµ¨ÀÇ Æò°¡ ÁöÇ¥¸¦ Report¿Í ÇÔ²² Á¦°øÇÕ´Ï´Ù.
+
+## ¸ñÂ÷
+
+1. [¼­·Ğ](#¼­·Ğ)
+2. [»ç¿ë¹æ¹ı](#»ç¿ë¹æ¹ı)
+3. [¼º´Éºñ±³](#¼º´Éºñ±³)
+4. [Contribution](#contribution)
+5. [Âü°í»çÇ×](#Âü°í»çÇ×)
+
+
+
+## ¼­·Ğ
+
+### :mega: Àû´ëÀû °ø°İÀÌ¶õ?
+Àû´ëÀû °ø°İÀº µö·¯´× ¸ğµ¨À» °ø°İÇÏ´Â °¡Àå ´ëÇ¥ÀûÀÎ ¹æ¹ıÀÔ´Ï´Ù. µö·¯´× ¸ğµ¨À» ÇĞ½À½ÃÅ°´Â ¹æ¹ıÀ» ¿ªÀ¸·Î ¸ğµ¨ °ø°İ¿¡ ÀÌ¿ëÇÏ¿© ¸ğµ¨ÀÌ ¿Ã¹Ù¸¥ ¿¹ÃøÀ» ÇÏÁö ¸øÇÏµµ·Ï ¹æÇØÇÒ ¼ö ÀÖ½À´Ï´Ù. ÀÎ°£ÀÇ ´«¿¡´Â ¶È°°Àº µ¥ÀÌÅÍÀÌÁö¸¸, ¸ğµ¨¿¡ ÀÔ·ÂÇÏ¸é ÀüÇô ´Ù¸¥ °á°ú°¡ ³ª¿Ã ¼ö ÀÖ´Â °ÍÀÌÁÒ. **¸ğµ¨ÀÌ Å×½ºÆ® ÀÌ¹ÌÁö¸¦ Àß ºĞ·ùÇÏ´õ¶óµµ, ÀÌ·¯ÇÑ Àû´ëÀû °ø°İ¿¡ Ãë¾àÇÏ´Ù¸é »ç¿ëÇÏ±â ¾î·Á¿ï °ÍÀÔ´Ï´Ù.**
+
+
+### :pencil2: Àû´ëÀû ÇĞ½ÀÀÇ Áß¿ä¼º
+¸ğµ¨ÀÌ test data¿¡ ´ëÇØ¼­ ÃæºĞÈ÷ ½Å·Ú¼º ÀÖ´Â °á°ú¸¦ ³¾Áö¶óµµ, °£´ÜÇÑ µ¥ÀÌÅÍ Á¶ÀÛ¿¡ Ãë¾àÇÏ´Ù¸é ¸ğµ¨À» ¾µ ¼ö ¾ø°ÔµË´Ï´Ù. adversarial attack°ú model robustness´Â °æÂû°ú µµµÏ °ü°èÀÔ´Ï´Ù. ¼­·Î ²ÙÁØÈ÷ ¹ßÀüÇÏ¸é¼­ µû¶óÀâÀ¸·Á°í ÇÏ±â ¶§¹®ÀÔ´Ï´Ù. ÇöÀç ÀÚ½ÅÀÇ ½Å°æ¸Á, ¶Ç´Â ¸ğµ¨ÀÌ adversarial attack¿¡ ´ëÇØ¼­ robust ÇÒÁö¶óµµ, ¾ğÁ¦µçÁö »õ·Î¿î °ø°İ ±â¹ıÀÌ ³ªÅ¸³¯ ¼ö ÀÖ½À´Ï´Ù. µû¶ó¼­ ¸ğµ¨ °³¹ßÀÚ ÀÔÀå¿¡¼­ »õ·Î¿î °ø°İ±â¹ı¿¡ ´ëÇØ¼­ ´Ã ´ëºñÇÏ´Â ÀÚ¼¼°¡ Áß¿äÇÕ´Ï´Ù. **´Ù¸¸ ±× ºñ¿ë°ú ½Ã°£ÀÌ ¸¹ÀÌ µé±â ¶§¹®¿¡ ÀÚ½ÅÀÇ ½Å°æ¸ÁÀÌ ÇöÀç±îÁö ¾Ë·ÁÁö ÀÖ´Â °­·ÂÇÑ adversarial attack¿¡ ¾ó¸¶³ª robustÇÑÁö È®ÀÎÇÏ´Â ÇÁ·Î¼¼½º ¶ÇÇÑ Áß¿äÇÏ´Ù°í ÇÒ ¼ö ÀÖ½À´Ï´Ù.**
+
+### :bulb: ¶óÀÌºê·¯¸®ÀÇ ¸ñÀû
+´Ù¸¥ ¶óÀÌºê·¯¸®¿Í´Â ´Ş¸®, YourBench´Â °³ÀÎ Neural Network¸¦ ÀÔ·Â¹Ş¾Æ adversarial attack¿¡ ´ëÇÑ Benchmark Á¡¼ö¸¦ report¿Í ÇÔ²² Á¦°øÇÕ´Ï´Ù. Report´Â ¸ğµ¨ÀÇ Ãë¾àÁ¡°ú ±×¿¡ ´ëÇÑ °³¼± ¹æ¾ÈÀ» Á¦¾ÈÇÕ´Ï´Ù.°³¹ßÀÚ´Â ÀÌ¸¦ ÅëÇØ¼­ ÀÚ½ÅÀÇ ¸ğµ¨ÀÇ ¾ÈÁ¤¼ºÀÌ ¾î´ÀÁ¤µµ ÀÎÁö °¡´ÆÇÒ ¼ö ÀÖÀ» °ÍÀÔ´Ï´Ù. 
+
+
+## »ç¿ë¹æ¹ı
+
+```
+pip install yourbench
+```
+
+###  :warning: Á¦¾à»çÇ×
+YourBench´Â º¸´Ù Á¤È®ÇÑ test¸¦ ¼öÇàÇÏ°í report¸¦ Á¦°øÇÏ±â À§ÇØ¼­ ÃøÁ¤ °¡´ÉÇÑ ¸ğµ¨¿¡ ´ëÇØ¼­ Á¦¾à»çÇ×À» µÓ´Ï´Ù.
+* **No Zero Gradients** \
+Obfuscated Gradients·Î ¾Ë·ÁÁø Vanishing/Exploding gradients, Shattered Gradients, ±×¸®°í Stochastic Gradients¸¦ »ç¿ëÇÏ´Â ¸ğµ¨¿¡ ´ëÇØ¼­´Â »ç¿ëÀ» ±ÇÀåÇÏÁö ¾Ê½À´Ï´Ù. À§ gradients¸¦ »ç¿ëÇÏ´Â ¸ğµ¨Àº ÀûÇÕÇÑ ¹æ¾î ±â¹ıÀÌ ¾Æ´Ï¸ç, adversarial attack generationÀÌ ¸Å¿ì Èûµì´Ï´Ù. Obfuscated gradients¸¦ »ç¿ëÇÏ´Â ¸ğµ¨µéÀº EOT³ª BPDA, ReparameterizingÀ» ÅëÇØ °ø°İÇÏ´Â °ÍÀ» ±ÇÀåÇÕ´Ï´Ù.
+* **No Loops in Forward Pass** \
+Forward pass¿¡ loop°¡ ÀÖ´Â ¸ğµ¨Àº backpropagationÀÇ ºñ¿ëÀ» Áõ°¡½ÃÅ°°í, ½Ã°£ÀÌ ¿À·¡ °É¸®°Ô ÇÕ´Ï´Ù. ÀÌ·¯ÇÑ ¸ğµ¨µé¿¡ ´ëÇØ¼± loopÀÇ loss¿Í ÇØ´ç ¸ğµ¨ÀÇ task¸¦ ÇÕÇÏ¿© ÀûÀÀÀûÀ¸·Î Àû¿ëÇÒ ¼ö ÀÖ´Â °ø°İÀ» ±ÇÀåÇÕ´Ï´Ù.
+
+### :rocket: µ¥¸ğ
+
+* ³»Àå ¸ğµ¨·Î ½ÇÇàÇÏ±â
+```python
+import yourbench
+atk = yourbench.PGD(model, eps=8/255, alpha=2/255, steps=4)
+adv_images = atk(images, labels)
+```
+* »ç¿ëÀÚ·ÎºÎÅÍ µ¥ÀÌÅÍ¼Â°ú ¸ğµ¨, ±×¸®°í ÀÌ¹ÌÁö ·¹ÀÌºíÀ» ÀÔ·Â¹Ş¾Æ ´ÙÀ½À» ¼öÇàÇÒ ¼ö ÀÖ½À´Ï´Ù.
+
+```python
+# label from mapping function
+atk.set_mode_targeted_by_function(target_map_function=lambda images, labels:(labels+1)%10)
+```
+
+* Strong attacks
+```python
+atk1 = torchattacks.FGSM(model, eps=8/255)
+atk2 = torchattacks.PGD(model, eps=8/255, alpha=2/255, iters=40, random_start=True)
+atk = torchattacks.MultiAttack([atk1, atk2])
+```
+
+* Binary serach for CW
+```python
+atk1 = torchattacks.CW(model, c=0.1, steps=1000, lr=0.01)
+atk2 = torchattacks.CW(model, c=1, steps=1000, lr=0.01)
+atk = torchattacks.MultiAttack([atk1, atk2])
+```
+
+* ¿¹½Ã Report 
+</br>\
+![adversarial attack-17](https://user-images.githubusercontent.com/80820556/136702057-26e82c95-8536-4619-b9b1-d8cda12d9c55.jpg)
+
+</p></details>
+
+
+### :fire: ¼öÇàÇÏ´Â °ø°İÀÇ Á¾·ù¿Í ÀÎ¿ë ³í¹®
+
+|          Name          | Paper                                                        | Remark                                                       |
+| :--------------------: | ------------------------------------------------------------ | ------------------------------------------------------------ |
+|  **FGSM**<br />(Linf)  | Explaining and harnessing adversarial examples ([Goodfellow et al., 2014](https://arxiv.org/abs/1412.6572)) |                                                              |                   |
+|    **CW**<br />(L2)    | Towards Evaluating the Robustness of Neural Networks ([Carlini et al., 2016](https://arxiv.org/abs/1608.04644)) |                                                              |                    |
+|  **PGD**<br />(Linf)   | Towards Deep Learning Models Resistant to Adversarial Attacks ([Mardry et al., 2017](https://arxiv.org/abs/1706.06083)) | Projected Gradient Method                                    |
+| **DeepFool**<br />(L2) | DeepFool: A Simple and Accurate Method to Fool Deep Neural Networks ([Moosavi-Dezfooli et al., 2016](https://arxiv.org/abs/1511.04599)) |                               |
+
+
+
+## ¼º´Éºñ±³
+
+¸ğµ¨¿¡ ´ëÇÑ Á¡¼öÀÇ ½Å·Úµµ¸¦ ¾ò±â À§ÇØ¼­ [Robustbench](https://github.com/RobustBench/robustbench) ¸¦ ÀÎ¿ëÇÕ´Ï´Ù. 
+
+
+|  **Attack**  |     **Package**     |     Standard |     [Wong2020Fast](https://arxiv.org/abs/2001.03994) |     [Rice2020Overfitting](https://arxiv.org/abs/2002.11569) |     **Remark**     |
+| :----------------: | :-----------------: | -------------------------------------------: | -------------------------------------------: | ---------------------------------------------: | :----------------: |
+|      **FGSM** (Linf)      |    Torchattacks     | 34% (54ms) |                                 **48% (5ms)** |                                    62% (82ms) |                    |
+|  | **Foolbox<sup>*</sup>** | **34% (15ms)** |                                     48% (8ms) |                  **62% (30ms)** |                    |
+|                    |         ART         | 34% (214ms) |                                     48% (59ms) |                                   62% (768ms) |                    |
+| **PGD** (Linf) |    **Torchattacks** | **0% (174ms)** |                               **44% (52ms)** |            **58% (1348ms)** | :crown: ?**Fastest** |
+|                    | Foolbox<sup>*</sup> | 0% (354ms) |                                  44% (56ms) |              58% (1856ms) |                    |
+|                    |         ART         | 0% (1384 ms) |                                   44% (437ms) |                58% (4704ms) |                    |
+| **CW<sup>¢Ó?</sup>**(L2) |    **Torchattacks** | **0% / 0.40<br /> (2596ms)** |                **14% / 0.61 <br />(3795ms)** | **22% / 0.56<br />(43484ms)** | :crown: ?**Highest Success Rate** <br /> :crown: **Fastest** |
+|                    | Foolbox<sup>*</sup> | 0% / 0.40<br /> (2668ms) |                   32% / 0.41 <br />(3928ms) |                34% / 0.43<br />(44418ms) |  |
+|                    |         ART         | 0% / 0.59<br /> (196738ms) |                 24% / 0.70 <br />(66067ms) | 26% / 0.65<br />(694972ms) |  |
+| **PGD** (L2) |    **Torchattacks** | **0% / 0.41 (184ms)** |                  **68% / 0.5<br /> (52ms)** |                  **70% / 0.5<br />(1377ms)** | :crown: **Fastest** |
+|                    | Foolbox<sup>*</sup> | 0% / 0.41 (396ms) |                       68% / 0.5<br /> (57ms) |                     70% / 0.5<br /> (1968ms) |                    |
+|                    |         ART         | 0% / 0.40 (1364ms) |                       68% / 0.5<br /> (429ms) | 70% / 0.5<br /> (4777ms) |                           |
+
+<sup>*</sup> FoolBox´Â Á¤È®µµ¿Í adversarial image¸¦ µ¿½Ã¿¡ ¹İÈ¯ÇÏ±â ¶§¹®¿¡ ½ÇÁ¦ image generation ½Ã°£Àº ±âÀçµÈ °Íº¸´Ù ÂªÀ» ¼ö ÀÖ½À´Ï´Ù.
+
+
+## Contribution
+### :star2: Contribution Àº ¾ğÁ¦³ª È¯¿µÀÔ´Ï´Ù. 
+Adversarial AttackÀº ¾ÕÀ¸·Îµµ °è¼Ó »õ·Ó°Ô ³ª¿Ã °ÍÀÔ´Ï´Ù. YourBench´Â ÃßÈÄ¿¡µµ modelÀÇ adversarial robustness¸¦ Áõ¸íÇÒ ¶§  »ç¿ëµÇ´Â ¶óÀÌºê·¯¸®°¡ µÉ ¼ö ÀÖµµ·Ï ³ë·ÂÇÏ°íÀÚ ÇÕ´Ï´Ù. ¾ÕÀ¸·Î »õ·Î¿î adversarial attackÀÌ ³ª¿Â´Ù¸é ¾Ë·ÁÁÖ¼¼¿ä! YourBench ¿¡ contribute ÇÏ°í ½Í´Ù¸é ¾Æ·¡¸¦ Âü°íÇØÁÖ¼¼¿ä.
+[CONTRIBUTING.md](CONTRIBUTING.md).
+
+
+
+##  Âü°í»çÇ×
+
+* **Adversarial Attack Packages:**
   
-* References
-  * [FreeAdversarialTraining](https://github.com/mahyarnajibi/FreeAdversarialTraining/blob/master/main_free.py)
-  * []
+    * [https://github.com/IBM/adversarial-robustness-toolbox](https://github.com/IBM/adversarial-robustness-toolbox): Adversarial attack and defense package made by IBM. **TensorFlow, Keras, Pyotrch available.**
+    * [https://github.com/bethgelab/foolbox](https://github.com/bethgelab/foolbox): Adversarial attack package made by [Bethge Lab](http://bethgelab.org/). **TensorFlow, Pyotrch available.**
+    * [https://github.com/tensorflow/cleverhans](https://github.com/tensorflow/cleverhans): Adversarial attack package made by Google Brain. **TensorFlow available.**
+    * [https://github.com/BorealisAI/advertorch](https://github.com/BorealisAI/advertorch): Adversarial attack package made by [BorealisAI](https://www.borealisai.com/en/). **Pytorch available.**
+    * [https://github.com/DSE-MSU/DeepRobust](https://github.com/DSE-MSU/DeepRobust): Adversarial attack (especially on GNN) package made by [BorealisAI](https://www.borealisai.com/en/). **Pytorch available.**
+    * https://github.com/fra31/auto-attack: Set of attacks that is believed to be the strongest in existence. **TensorFlow, Pyotrch available.**
+    
+    
+    
+* **Adversarial Defense Leaderboard:**
+  
+    * [https://github.com/MadryLab/mnist_challenge](https://github.com/MadryLab/mnist_challenge)
+    * [https://github.com/MadryLab/cifar10_challenge](https://github.com/MadryLab/cifar10_challenge)
+    * [https://www.robust-ml.org/](https://www.robust-ml.org/)
+    * [https://robust.vision/benchmark/leaderboard/](https://robust.vision/benchmark/leaderboard/)
+    * https://github.com/RobustBench/robustbench
+    * https://github.com/Harry24k/adversarial-defenses-pytorch
+    
+    
+    
+* **Adversarial Attack and Defense Papers:**
+  
+    * https://nicholas.carlini.com/writing/2019/all-adversarial-example-papers.html: A Complete List of All (arXiv) Adversarial Example Papers made by Nicholas Carlini.
+    * https://github.com/chawins/Adversarial-Examples-Reading-List: Adversarial Examples Reading List made by Chawin Sitawarin.
+    * Seyed-Mohsen Moosavi-Dezfooli, Alhussein Fawzi, Pascal Frossard. DeepFool: a simple and accurate method to fool deep neural networks. CVPR, 2016
+    * Nicholas Carlini, David Wagner. Toward evaluating the robustness of neural networks. arXiv:1608.04644
+
+
+
+* **ETC**:
+
+  * https://github.com/Harry24k/gnn-meta-attack: Adversarial Poisoning Attack on Graph Neural Network.
+  * https://github.com/ChandlerBang/awesome-graph-attack-papers: Graph Neural Network Attack papers.
+  * https://github.com/Harry24k/adversarial-attacks-pytorch/blob/master/README_KOR.md
+  * https://sdc-james.gitbook.io/onebook/2.-1/1./1.1.5
+  * https://github.com/szagoruyko/pytorchviz
+  * https://github.com/Harry24k/adversarial-attacks-pytorch/blob/master/README_KOR.md
+  * https://www.koreascience.or.kr/article/JAKO202031659967733.pdf
+  
