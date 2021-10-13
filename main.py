@@ -18,9 +18,14 @@ import datetime
 from torch.autograd import Variable
 
 parser = argparse.ArgumentParser(description='✨Welcome to YourBench-Adversarial Attack Robustness Benchmarking & Reporting tools.✨')
-parser.add_argument('--attack_method', type=str, nargs='*', choices=['FGSM', 'CW'], help="--attack_method FGSM CW")
-parser.add_argument('--model', type=str, choices=['WRN', 'ResNet18'], help="--model WRN")
-parser.add_argument('--dataset', type=str, choices=['CIFAR-10', 'CIFAR-100', 'ImageNet'], help="--dataset CIFAR10")
+parser.add_argument('--attack_method', required=True, type=str, nargs='*', choices=['FGSM', 'CW'], dest='parsedAttackMethod', action='store')
+parser.add_argument('--model', required=True, type=str, choices=['WRN', 'ResNet18'], dest='parsedModel')
+parser.add_argument('--dataset', required=True, type=str, choices=['CIFAR-10', 'CIFAR-100', 'ImageNet'], dest='parsedDataset')
+
+args = parser.parse_args()
+print(args.parsedAttackMethod)
+print(args.parsedModel)
+print(args.parsedDataset)
 
 # parser.add_argument('--lr', default=0.1, type=float, help='learning_rate')
 # parser.add_argument('--net_type', default='wide-resnet', type=str, help='model')
