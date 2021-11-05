@@ -564,7 +564,7 @@ FGSM은 대표적인 one-step 공격 알고리즘입니다.\
 가장 가파른 (steepest) 방향으로 optimization loss J(θ, ?, ?)
 를 증가시키기 위해 loss의 gradient 방향 을 따라 이미지를 갱신합니다.\
 적대적 예제 x′은 다음과 같이 생성됩니다.\
-$x'= x - ε*sign(∇_xJ(θ, x, y))$\
+$x'= x - \epsilon *sign(\Delta_xJ(\Theta , x, y))$\
 $x :$ input to the model\
 $x':$ adversarial example\
 $J:$ optimization loss (adversarial loss)\
