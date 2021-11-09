@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # YourBench - attacks
 
 <p>
@@ -171,10 +170,9 @@ adv_images = attack(images, labels)
 **CW는 L2 norm을 사용하는 공격입니다.**\
 **파라미터로 model, c, kappa, steps, lr을 받습니다.**\
 **c(float) : box-constraint를 위한 값입니다. (Default: 1e-4)**\
-![cw_formula](https://user-images.githubusercontent.com/80820556/140865745-c03471d3-7be4-4048-89a3-68617f2ca481.png)
-\
+![lagrida_latex_editor (2)](https://user-images.githubusercontent.com/80820556/140870613-5f61196a-54d6-4220-87f5-09a1188b0a9e.png)\
 **kappa(float) : 논문에서 confidence로 등장합니다. (Default: 0)**\
-![lagrida_latex_editor](https://user-images.githubusercontent.com/80820556/140866260-680068d2-e80d-4739-b48e-47a4097c613e.png)
+![lagrida_latex_editor (3)](https://user-images.githubusercontent.com/80820556/140870614-967c2adf-d54d-4c85-9271-0162355607f9.png)
 \
 **steps (int) : 진행할 단계 (Default: 1000)**\
 **lr (float) : Adam optimizer의 learning rate (Default: 0.01)**
