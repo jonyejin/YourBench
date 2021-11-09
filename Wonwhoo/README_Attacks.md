@@ -171,7 +171,8 @@ adv_images = attack(images, labels)
 **CW는 L2 norm을 사용하는 공격입니다.**\
 **파라미터로 model, c, kappa, steps, lr을 받습니다.**\
 **c(float) : box-constraint를 위한 값입니다. (Default: 1e-4)**\
-$minimize∥12(tanh(w)+1)?x∥22+c?f(12(tanh(w)+1))$\
+![cw_minimize](https://user-images.githubusercontent.com/80820556/140865152-2df07840-08f7-4fc0-988a-b0c7c6a9e16d.gif)
+\
 **kappa(float) : 논문에서 confidence로 등장합니다. (Default: 0)**\
 $f(x′)=max(max{Z(x′)i:i≠t}?Z(x′)t,?κ)$
 **steps (int) : 진행할 단계 (Default: 1000)**\
@@ -548,7 +549,7 @@ Fast Gradient Signed Method, FGSM은 Ian Goodfellow et al. 이 제시한 adversarial 
 η이 매우 작을 경우, 분류기는 x와 x'을 같은 class로 구분합니다.\
 값들 사이의 관계는 다음과 같습니다.\
 \
-$w^Tx' = w^Tx + w^Tη$\
+![gif](https://user-images.githubusercontent.com/80820556/140694562-c7fcf1f1-85f4-431b-b6f8-ce002ffefd74.gif)\
 $w :$ weight vector\
 $x':$ adversarial example\
 $x :$ input to the model\
