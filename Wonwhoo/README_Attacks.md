@@ -171,7 +171,7 @@ adv_images = attack(images, labels)
 **CW는 L2 norm을 사용하는 공격입니다.**\
 **파라미터로 model, c, kappa, steps, lr을 받습니다.**\
 **c(float) : box-constraint를 위한 값입니다. (Default: 1e-4)**\
-![lagrida_latex_editor](https://user-images.githubusercontent.com/80820556/140865502-7f6c076f-d0a9-45c8-b585-88d0af81c6e4.png)
+![cw_formula](https://user-images.githubusercontent.com/80820556/140865745-c03471d3-7be4-4048-89a3-68617f2ca481.png)
 \
 **kappa(float) : 논문에서 confidence로 등장합니다. (Default: 0)**\
 $f(x′)=max(max{Z(x′)i:i≠t}?Z(x′)t,?κ)$
