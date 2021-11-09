@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # YourBench - attacks
 
 <p>
@@ -170,9 +171,11 @@ adv_images = attack(images, labels)
 **CW는 L2 norm을 사용하는 공격입니다.**\
 **파라미터로 model, c, kappa, steps, lr을 받습니다.**\
 **c(float) : box-constraint를 위한 값입니다. (Default: 1e-4)**\
-$minimize∥12(tanh(w)+1)?x∥22+c?f(12(tanh(w)+1))$\
+![cw_formula](https://user-images.githubusercontent.com/80820556/140865745-c03471d3-7be4-4048-89a3-68617f2ca481.png)
+\
 **kappa(float) : 논문에서 confidence로 등장합니다. (Default: 0)**\
-$f(x′)=max(max{Z(x′)i:i≠t}?Z(x′)t,?κ)$
+![lagrida_latex_editor](https://user-images.githubusercontent.com/80820556/140866260-680068d2-e80d-4739-b48e-47a4097c613e.png)
+\
 **steps (int) : 진행할 단계 (Default: 1000)**\
 **lr (float) : Adam optimizer의 learning rate (Default: 0.01)**
 
@@ -547,14 +550,20 @@ Fast Gradient Signed Method, FGSM은 Ian Goodfellow et al. 이 제시한 adversarial 
 η이 매우 작을 경우, 분류기는 x와 x'을 같은 class로 구분합니다.\
 값들 사이의 관계는 다음과 같습니다.\
 \
-$w^Tx' = w^Tx + w^Tη$\
-$w :$ weight vector\
-$x':$ adversarial example\
-$x :$ input to the model\
-$η :$ perturbation\
+![lagrida_latex_editor (1)](https://user-images.githubusercontent.com/80820556/140866522-4ceeab47-06d6-4824-a948-42b15e958613.png)
+\
+![lagrida_latex_editor](https://user-images.githubusercontent.com/80820556/140866950-340b12eb-8804-4051-a545-c8bc8f8408b2.png)
+\
+![lagrida_latex_editor (2)](https://user-images.githubusercontent.com/80820556/140866808-a656465b-c141-4457-ba0d-7cf5848c2990.png)
+\
+![lagrida_latex_editor (3)](https://user-images.githubusercontent.com/80820556/140866854-6c3b7d90-d466-4264-a202-c8da305b4e90.png)
+\
+![lagrida_latex_editor (4)](https://user-images.githubusercontent.com/80820556/140866887-dd166c33-3dc0-4f54-93ac-7bb3554ae796.png)
+\
 \
 이때 max norm contraint에 따라 η=sign(w)로 이 perturbation을 최대화 시킬 수 있습니다.\
-$η = ε*sign(w) = ε||w||$\
+![lagrida_latex_editor (1)](https://user-images.githubusercontent.com/80820556/140867054-cd759d0b-135a-4022-8d80-61b7224b7cdd.png)
+\
 w가 n차원의 벡터이고, element의 절댓값 평균이 m이라면 η값은 εmn이 됩니다.\
 wη는 차원n에 비례하기 증가할 수 있으며, 높은 차원의 문제에서 input에 작은 차이가 output에 큰 차이를 만들 수 잇습니다.\
 즉, 높은 차원에서 input에 작은 노이즈를 추가하여 Decision Boundary를 크게 넘길 수 있습니다.\
@@ -564,13 +573,14 @@ FGSM은 대표적인 one-step 공격 알고리즘입니다.\
 가장 가파른 (steepest) 방향으로 optimization loss J(θ, ?, ?)
 를 증가시키기 위해 loss의 gradient 방향 을 따라 이미지를 갱신합니다.\
 적대적 예제 x′은 다음과 같이 생성됩니다.\
-$x'= x - ε*sign(∇_xJ(θ, x, y))$\
-$x :$ input to the model\
-$x':$ adversarial example\
-$J:$ optimization loss (adversarial loss)\
-$θ: $ perturbation\
-$x: $ adversarial example\
-$y':$ iamge label\
+![lagrida_latex_editor](https://user-images.githubusercontent.com/80820556/140867337-93debfbf-4ae0-4399-8c35-b2d2ae43c206.png)\
+![lagrida_latex_editor (1)](https://user-images.githubusercontent.com/80820556/140867335-f40cb6e3-a652-46ef-a846-6674c7bc4325.png)\
+![lagrida_latex_editor (2)](https://user-images.githubusercontent.com/80820556/140867333-3b2015a3-b2d8-4bfd-8194-5b16c095016e.png)\
+![lagrida_latex_editor (3)](https://user-images.githubusercontent.com/80820556/140867332-352b8685-5cb7-405e-92bd-0bf3cde3a1e1.png)
+\
+![lagrida_latex_editor (4)](https://user-images.githubusercontent.com/80820556/140867343-e93515f6-77be-44ed-85b5-deda44e14877.png)\
+![lagrida_latex_editor (5)](https://user-images.githubusercontent.com/80820556/140867340-1f2d6ee6-4be0-4fe2-aa94-c51f9663aeab.png)\
+![lagrida_latex_editor (6)](https://user-images.githubusercontent.com/80820556/140867339-223b588e-dc7f-49ed-bb19-30c53a05eb75.png)\
 loss를 극대화시켜 오분류를 유도해야하기 때문에 loss를 감산합니다.\
 gradient는 backpropagation으로 계산할 수 있습니다.\
 
@@ -578,24 +588,26 @@ gradient는 backpropagation으로 계산할 수 있습니다.\
 ‘Towards Evaluating the Robustness of Neural Networks’ [https://arxiv.org/abs/1608.04644]\
 Carlini와 Wagner은 L0, L2, L∞세 개의 metric을 이용하여 적대적 예제를 생성해내는 최적화 기반의 적대적 공격을 제안하였습니다.\
 최적화 목적함수는 다음과 같습니다.\
-$min_δ D(x, x+δ) +c * f(x+δ)$\
-$δ:$ perturbation\
-$D(·, ·):$ distance metric\
-$f(·):$ loss term (classifier가 입력을 틀리게 분류하였을 때 0이하의 값을 반환)\
+![lagrida_latex_editor](https://user-images.githubusercontent.com/80820556/140867829-12d01026-04a8-4d65-93be-251d46563175.png)\
+![lagrida_latex_editor (1)](https://user-images.githubusercontent.com/80820556/140867828-bd1bb87a-39a0-409e-a0e2-51e55296167a.png)\
+![lagrida_latex_editor (2)](https://user-images.githubusercontent.com/80820556/140867824-470ea915-0e98-49c3-8a88-7f5e047282a7.png)\
+![lagrida_latex_editor (3)](https://user-images.githubusercontent.com/80820556/140867832-c7f56f0a-1fe3-44d5-b95f-251cbf427dfa.png)\
 \
-f(?’)은 다음과 같이 정의됩니다.\
-$f(x') = max(Z(x')_{l_x} - max Z(x')_i : i≠l_x, -K)$\
-$Z(?’):$ classifier의 logit(softmax 함수 직전 의 vector)\
-$?:$ confidence\
+f(x')은 다음과 같이 정의됩니다.\
+![lagrida_latex_editor](https://user-images.githubusercontent.com/80820556/140869591-9d21badd-3c47-458e-ac54-c6ec9c34bdb2.png)\
+
+![lagrida_latex_editor (5)](https://user-images.githubusercontent.com/80820556/140867830-7ba8762f-21f7-46dc-9f07-4bd48e9f2ab7.png)\
+![lagrida_latex_editor (1)](https://user-images.githubusercontent.com/80820556/140869637-ce2858b7-db1a-4546-8c04-173afbf2ce57.png)
+\
 CW attack은 파라미터 값들을 조정하여 공격의 강도를 조절 할 수 있다는 장점이 있습니다.\
-?의 값이 클수록 classifier가 적대적 예제를 더 높은 confidence로 틀리게 분류합니다.\
+ ?의 값이 클수록 classifier가 적대적 예제를 더 높은 confidence로 틀리게 분류합니다.\
 
 ### :fairy: PGD
 ‘Towards Deep Learning Models Resistant to Adversarial Attacks’ [https://arxiv.org/abs/1706.06083]\
 Projected Gradient Descent 공격은 FGSM의 등장 이후 약 3년 뒤에 나온 공격 방법입니다.\
 현재까지도 universial first-order adversary로 알려져 있어 많은 논문들의 baseline 공격방법으로 차용됩니다.\
-FGSM을 응용한 방법으로 n번의 step만큼 공격을 반복하여 정해진 $L_{infinity}$ norm 아래에서 inner maximization을 수행합니다.\
-$X_0 = X, X_{i+1} = Π(X_i + α*sign(∇_xL(X_t, y_{true})))$\
+FGSM을 응용한 방법으로 n번의 step만큼 공격을 반복하여 정해진 ![lagrida_latex_editor](https://user-images.githubusercontent.com/80820556/140869893-19d6de49-dd3e-41b0-90d0-e2db3e3f95b8.png) norm 아래에서 inner maximization을 수행합니다.\
+![lagrida_latex_editor (1)](https://user-images.githubusercontent.com/80820556/140869899-c2590a17-944c-42e6-9cb9-6a815e03a14c.png)\
 \
 논문에서는 PGD기반의 공격을 통해 찾아낸 local maxima는 모델, 데이터셋에 상관없이 비슷한 손실값으로 수렴하는 것을 실험적으로 증명했습니다.\
 이 사실을 바탕으로 모델의 오분류를 유도하기 위한 local maxima를 찾는 최적해를 구하기 위해 first-order만을 사용한 공격 중에서 PGD를 사용하는 것이 가장 효과적이라고 주장합니다.\
