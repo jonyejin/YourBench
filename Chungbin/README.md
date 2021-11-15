@@ -15,6 +15,7 @@ Chungbin 폴더는 주피터노트북 + pytorch visdom 환경에서 보여주는
 ![1](https://user-images.githubusercontent.com/49296532/141850789-e3045c59-36b2-4ce6-9122-a9fc9334eee8.PNG)
 
 
-ㅋㅋㅋ
+torch와 visdom을 import하는 코드입니다. 앞에 개발환경 구축/최적화가 잘 되었으면 위의 창처럼 출력 됩니다.
 
 
+![2](https://user-images.githubusercontent.com/49296532/141851144-473a943b-35aa-4302-a290-d31567b1db98.PNG)
