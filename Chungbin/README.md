@@ -25,4 +25,4 @@ torch와 visdom을 import하는 코드입니다. 앞에 개발환경 구축/최�
 
 ![3](https://user-images.githubusercontent.com/49296532/141851656-93eba3f3-7ded-4c60-949f-334582caa3bf.PNG)
 
-위의 코드를 실행했을때 출력되는 결과 
+위의 코드를 실행했을때 출력되는 결과 , 밑에 1,2,3,4를 없애려고 했으나 visdom 환경에서는  양해 부탁드립니다.
