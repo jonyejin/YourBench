@@ -50,3 +50,4 @@ visdom에서는 json형식을 허용하지 않아 표의 틀을 직접 만들었
 
 ![6](https://user-images.githubusercontent.com/49296532/141879990-21ea6464-eb27-41e2-a0e7-9d0e4374e3ac.PNG)
 
+모델의 best/average/worst 평균값을 매깁니다. 계산으로 나온 평균값에 따라 점수/줄글설명 출력 결과가 달라질 것입니다.
