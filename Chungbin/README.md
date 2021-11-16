@@ -51,3 +51,16 @@ visdom에서는 json형식을 허용하지 않아 표의 틀을 직접 만들었
 ![6](https://user-images.githubusercontent.com/49296532/141879990-21ea6464-eb27-41e2-a0e7-9d0e4374e3ac.PNG)
 
 모델의 best/average/worst 평균값을 매깁니다. 계산으로 나온 평균값에 따라 점수/줄글설명 출력 결과가 달라질 것입니다.
+
+![7](https://user-images.githubusercontent.com/49296532/141880250-4de0855e-25a2-4559-9820-001e9acb6711.PNG)
+![8](https://user-images.githubusercontent.com/49296532/141880262-a8b5a31e-e450-43f3-8cce-e312533e3d1d.PNG)
+
+if/elif 함수를 통해 모델 4개 중 평균값이 높은 상위 2개를 고릅니다.
+
+![9](https://user-images.githubusercontent.com/49296532/141880363-cc7b90d9-5f2a-4683-a48e-2148009d0b74.PNG)
+
+평균값으로 각각 출력될 점수,설명과 대본을 써줍니다.
+
+![11](https://user-images.githubusercontent.com/49296532/141880470-51fa477a-0acd-4fb5-a43f-b05382b0a988.PNG)
+위의 코드를 실행했을때 출력되는 결과입니다
+
