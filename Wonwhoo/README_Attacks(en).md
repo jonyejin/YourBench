@@ -14,7 +14,7 @@ YourBench performs four attacks (FGSM, CW, PGD, DeepFool) by receiving the user'
 
 
 ```shell
-python main.py --pth "pth_경로" --model "model_정의_경로" --dataset "데이터_디렉토리" --dataindex "데이터_인덱스_디렉토리" --attack_medthod CW FGSM
+python main.py --pth "pth_route" --model "model_definition_route" --dataset "data_directory" --dataindex "data_index_directory" --attack_medthod CW FGSM
 ```
 
 ## input
