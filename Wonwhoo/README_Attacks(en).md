@@ -400,11 +400,11 @@ adv_images = attack(images, labels)
 ```
 ### :cloud_with_lightning_and_rain: DeepFool
 'DeepFool: A Simple and Accurate Method to Fool Deep Neural Networks' [https://arxiv.org/abs/1511.04599]\
-DeepFool은 L2 norm을 사용하는 공격입니다.\
-파라미터로 model, steps, overshoot를 받습니다.\
-model (nn.Module) : 공격할 모델\
-steps (int) : step의 갯수. (Default: 50)\
-overshoot (float) : noise 증폭을 위한 파라미터. (Default: 0.02)
+DeepFool is an attack that uses the L2 norm.\
+It takes model, steps and overshoot as parameters.\
+model (nn.Module) : model to attack\
+steps (int) : number of steps. (Default: 50)\
+overshoot (float) : Parameters for noise amplification. (Default: 0.02)
 ```python
 class DeepFool(Attack):
     r"""
@@ -521,18 +521,18 @@ adv_images = attack(images, labels)
 ```
 
 ## Result
-저장 디렉토리에 report.pdf파일이 생성됩니다. \
-pdf의 예시는 아래와 같습니다.
+Report.pdf file is created in the save directory. \
+Example of a pdf is below.
 ### accuracy against attacks
-공격 수행 결과를 도표를 통해 보여줍니다. \
-수행 결과에는 model의 accuracy (robustness)와 공격을 수행하는데 걸린 total elapsed time이 기재되어있습니다.
+Shows the attack performance results in a diagram. \
+In the execution result, the accuracy (robustness) of the model and the total elapsed time taken to execute the attack are described.
 ### attack results with graph
-표로 나온 결과를 그래프로 변환하여 제시합니다.
+The table results are converted into graphs and presented.
 ### adversarial examples
-생성된 adversarial examples 중 공격에 성공한 이미지를 보여줍니다.\
-이 모델이 어떤 레이블로 인식했는지 또한 같이 보여줍니다.
+Among the generated adversarial examples, it shows an image that successfully attacked.\
+It also shows what label this model recognized.
 ### advises
-보다 더 robust한 모델을 위해 개발자가 어떤 조치를 취해야하는지 가이드라인이 적혀있습니다.
+There are guidelines on what actions developers should take for more robust models.
 </br>\
 ![adversarial attack-17](https://user-images.githubusercontent.com/80820556/136702057-26e82c95-8536-4619-b9b1-d8cda12d9c55.jpg)
 
@@ -540,12 +540,12 @@ pdf의 예시는 아래와 같습니다.
 
 
 ##  Reference
-공격의 세부 내용과 메커니즘에 대해 궁금하다면 아래 원문과 내용을 참고바랍니다.
+If you are curious about the details and mechanism of the attack, please refer to the original text and contents below.
 ### :fairy: FGSM
 ‘Explaining and harnessing adversarial examples’ [https://arxiv.org/abs/1412.6572]\
-Fast Gradient Signed Method, FGSM은 Ian Goodfellow et al. 이 제시한 adversarial attack입니다.\
-η이 매우 작을 경우, 분류기는 x와 x'을 같은 class로 구분합니다.\
-값들 사이의 관계는 다음과 같습니다.\
+Fast Gradient, Signed Method and FGSM are described by Ian Goodfellow et al. This is an adversarial attack suggested by this.\
+If η is very small, the classifier classifies x and x' into the same class.\
+The relationship between the values is like this\
 \
 ![lagrida_latex_editor (1)](https://user-images.githubusercontent.com/80820556/140866522-4ceeab47-06d6-4824-a948-42b15e958613.png)
 \
