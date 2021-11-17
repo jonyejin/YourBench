@@ -19,24 +19,24 @@ python main.py --pth "pth_route" --model "model_definition_route" --dataset "dat
 
 ## input
 
-### :point_right: 모듈 입력받기
-YourBench는 사용자의 모델 정의를 .py의 형태로 받습니다. state_dict 정보가 담겨있는 .pth 또는 .pt와 함께 입력해주세요. \
-사용자로부터 worst case, average case, best case에 해당하는 최대 3개의 state_dict를 받을 수 있습니다. 
+### :point_right: Get module input
+YourBench receives your model definition in the form of a .py. Please enter it with .pth or .pt containing state_dict information. \
+You can receive up to 3 state_dicts from the user, corresponding to the worst case, average case, and best case.
 
 ```python
-#모델 불러오기
+#Import model
 model = "/home/auspiciouswho47/adversarial-attacks-pytorch/demos/lenet_state_dict.pth"
 from LeNet_model_definition import Net
 model = Net().to(device)
 model.eval()
 ```
 
-### :point_right: 데이터셋 입력받기
-사용자의 데이터셋이 custom data set이라면 데이터셋을 입력을 따로 해주세요.
-데이터의 인덱스가 들어있는 json 파일과 사진 파일이 필요합니다.
+### :point_right: Get data set input
+If your data set is a custom data set, enter the data set separately.
+Need a json file containing an index of the data and a picture file.
 ```
-1.jpg //테스트 데이터
-image_class_index.json//이미지의 인덱스가 정의되어있는 json파일
+1.jpg //test data
+image_class_index.json// json file where the index of the image is defined
 ```
 ```python
 ##json파일 예시##
