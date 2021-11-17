@@ -570,7 +570,7 @@ FGSM is a representative one-step attack algorithm.\
 Update the image along the gradient direction of the loss to increase J(θ, ?, ?) in the steepest direction.
 
 
-적대적 예제 x′은 다음과 같이 생성됩니다.\
+The adversarial example x′ is generated like this\
 ![lagrida_latex_editor](https://user-images.githubusercontent.com/80820556/140867337-93debfbf-4ae0-4399-8c35-b2d2ae43c206.png)\
 ![lagrida_latex_editor (1)](https://user-images.githubusercontent.com/80820556/140867335-f40cb6e3-a652-46ef-a846-6674c7bc4325.png)\
 ![lagrida_latex_editor (2)](https://user-images.githubusercontent.com/80820556/140867333-3b2015a3-b2d8-4bfd-8194-5b16c095016e.png)\
