@@ -71,14 +71,14 @@ atk2 = torchattacks.CW(model, c=1, steps=1000, lr=0.01)
 atk = torchattacks.MultiAttack([atk1, atk2])
 ```
 
-* 예시 Report 
+* Example Report 
 </br>\
 ![adversarial attack-17](https://user-images.githubusercontent.com/80820556/136702057-26e82c95-8536-4619-b9b1-d8cda12d9c55.jpg)
 
 </p></details>
 
 
-### :fire: 수행하는 공격의 종류와 인용 논문
+### :fire: Types of attacks performed and quoted papers
 
 |          Name          | Paper                                                        | Remark                                                       |
 | :--------------------: | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -92,7 +92,7 @@ atk = torchattacks.MultiAttack([atk1, atk2])
 
 ## Performance-Comparison
 
-모델에 대한 점수의 신뢰도를 얻기 위해서 [Robustbench](https://github.com/RobustBench/robustbench) 를 인용합니다. 
+Cite [Robustbench](https://github.com/RobustBench/robustbench) to get the reliability of the score for the model.
 
 
 |  **Attack**  |     **Package**     |     Standard |     [Wong2020Fast](https://arxiv.org/abs/2001.03994) |     [Rice2020Overfitting](https://arxiv.org/abs/2002.11569) |     **Remark**     |
@@ -110,12 +110,12 @@ atk = torchattacks.MultiAttack([atk1, atk2])
 |                    | Foolbox<sup>*</sup> | 0% / 0.41 (396ms) |                       68% / 0.5<br /> (57ms) |                     70% / 0.5<br /> (1968ms) |                    |
 |                    |         ART         | 0% / 0.40 (1364ms) |                       68% / 0.5<br /> (429ms) | 70% / 0.5<br /> (4777ms) |                           |
 
-<sup>*</sup> FoolBox는 정확도와 adversarial image를 동시에 반환하기 때문에 실제 image generation 시간은 기재된 것보다 짧을 수 있습니다.
+<sup>*</sup> Because FoolBox returns both accuracy and adversarial images, the actual image generation time may be shorter than stated.
 
 
 ## Contribution
-### :star2: Contribution 은 언제나 환영입니다. 
-Adversarial Attack은 앞으로도 계속 새롭게 나올 것입니다. YourBench는 추후에도 model의 adversarial robustness를 증명할 때  사용되는 라이브러리가 될 수 있도록 노력하고자 합니다. 앞으로 새로운 adversarial attack이 나온다면 알려주세요! YourBench 에 contribute 하고 싶다면 아래를 참고해주세요.
+### :star2: Contributions are always welcome. 
+Adversarial Attack will continue to be reborn in the future. YourBench intends to be a library used to prove the adversarial robustness of models in the future. Let me know if there are any new adversarial attacks in the future! If you would like to contribute to YourBench, please see below.
 [CONTRIBUTING.md](CONTRIBUTING.md).
 
 
