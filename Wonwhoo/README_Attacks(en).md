@@ -612,13 +612,12 @@ In fact, the adversarial trained model trained on PDG examples in several papers
 \
 In FGSM, one step gradient is calculated to find the optimal δ.\
 In the case of PGD, the attack strength increases according to the step n.\
-일반적으로 7, 40등을 사용하고 (Default) 사용자의 조정에 따라 더 정교한 local optima를 찾기 위해 step수를 증가할 수 있습니다.\
-하지만 논문에서 손실함수 값이 특정 값이 빠르게 수렴하는 것으로 나타납니다.\
-즉, step수가 커질 수록 그 영향력 정도가 감소하기 때문에 적절한 step수를 조절하는 것이 중요합니다.\
+In general, 7, 40, etc. are used (Default), and the number of steps can be increased to find a more sophisticated local optima according to the user's adjustment.\
+However, in the paper, it appears that the loss function value converges rapidly to a specific value.\
+In other words, as the number of steps increases, the degree of influence decreases, so it is important to adjust the number of steps appropriately.\
 
 ### :fairy: DeepFool
 'DeepFool: A Simple and Accurate Method to Fool Deep Neural Networks' [https://arxiv.org/abs/1511.04599]\
-Moosavi-Dezfooli 등이 제안한 DeepFool 은 타겟 모델이 선형이라고 가정하고 적대적 예제 ?′ 을 찾습니다.\
-Input image ?와 가장 가까운 decision boundary를 찾고, 이 방향으로 ?′를 갱신합니다.\
-?′가 decision boundary를 넘어갈 때까지 해당 과정을 반복하고, 작은 크기의 perturbation으로 적대적 예제를 찾을 수 있습니
-다.
+DeepFool as suggested by Moosavi-Dezfooli et al. assumes that the target model is linear and finds the adversarial example ?'.\
+Find the decision boundary closest to the input image ?, and update ?' in this direction.\
+We repeat the process until ?′ crosses the decision boundary, and find adversarial examples with small-scale perturbations.
