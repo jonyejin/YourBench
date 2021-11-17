@@ -579,8 +579,8 @@ The adversarial example x′ is generated like this\
 ![lagrida_latex_editor (4)](https://user-images.githubusercontent.com/80820556/140867343-e93515f6-77be-44ed-85b5-deda44e14877.png)\
 ![lagrida_latex_editor (5)](https://user-images.githubusercontent.com/80820556/140867340-1f2d6ee6-4be0-4fe2-aa94-c51f9663aeab.png)\
 ![lagrida_latex_editor (6)](https://user-images.githubusercontent.com/80820556/140867339-223b588e-dc7f-49ed-bb19-30c53a05eb75.png)\
-loss를 극대화시켜 오분류를 유도해야하기 때문에 loss를 감산합니다.\
-gradient는 backpropagation으로 계산할 수 있습니다.\
+We subtract the loss because we need to maximize the loss to induce misclassification.\
+gradient can be computed with backpropagation.
 
 ### :fairy: CW
 ‘Towards Evaluating the Robustness of Neural Networks’ [https://arxiv.org/abs/1608.04644]\
