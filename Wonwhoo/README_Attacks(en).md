@@ -584,21 +584,21 @@ gradient can be computed with backpropagation.
 
 ### :fairy: CW
 ‘Towards Evaluating the Robustness of Neural Networks’ [https://arxiv.org/abs/1608.04644]\
-Carlini와 Wagner은 L0, L2, L∞세 개의 metric을 이용하여 적대적 예제를 생성해내는 최적화 기반의 적대적 공격을 제안하였습니다.\
-최적화 목적함수는 다음과 같습니다.\
+Carlini and Wagner proposed an optimization-based adversarial attack that generates adversarial examples using three metrics L0, L2, and L∞.\
+The optimization objective function like this.\
 ![lagrida_latex_editor](https://user-images.githubusercontent.com/80820556/140867829-12d01026-04a8-4d65-93be-251d46563175.png)\
 ![lagrida_latex_editor (1)](https://user-images.githubusercontent.com/80820556/140867828-bd1bb87a-39a0-409e-a0e2-51e55296167a.png)\
 ![lagrida_latex_editor (2)](https://user-images.githubusercontent.com/80820556/140867824-470ea915-0e98-49c3-8a88-7f5e047282a7.png)\
 ![lagrida_latex_editor (3)](https://user-images.githubusercontent.com/80820556/140867832-c7f56f0a-1fe3-44d5-b95f-251cbf427dfa.png)\
 \
-f(x')은 다음과 같이 정의됩니다.\
+f(x') is defined as\
 ![lagrida_latex_editor](https://user-images.githubusercontent.com/80820556/140869591-9d21badd-3c47-458e-ac54-c6ec9c34bdb2.png)\
 
 ![lagrida_latex_editor (5)](https://user-images.githubusercontent.com/80820556/140867830-7ba8762f-21f7-46dc-9f07-4bd48e9f2ab7.png)\
 ![lagrida_latex_editor (1)](https://user-images.githubusercontent.com/80820556/140869637-ce2858b7-db1a-4546-8c04-173afbf2ce57.png)
 \
-CW attack은 파라미터 값들을 조정하여 공격의 강도를 조절 할 수 있다는 장점이 있습니다.\
- ?의 값이 클수록 classifier가 적대적 예제를 더 높은 confidence로 틀리게 분류합니다.\
+CW attack has the advantage of being able to control the strength of the attack by adjusting the parameter values.\
+Larger values of ? cause the classifier to incorrectly classify adversarial examples with higher confidence.\
 
 ### :fairy: PGD
 ‘Towards Deep Learning Models Resistant to Adversarial Attacks’ [https://arxiv.org/abs/1706.06083]\
