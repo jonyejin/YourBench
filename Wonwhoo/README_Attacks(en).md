@@ -174,7 +174,7 @@ adv_images = attack(images, labels)
 ![lagrida_latex_editor (3)](https://user-images.githubusercontent.com/80820556/140870614-967c2adf-d54d-4c85-9271-0162355607f9.png)
 \
 **steps (int) : step in progress (Default: 1000)**\
-**lr (float) : Adam optimizer의 learning rate (Default: 0.01)**
+**lr (float) : Adam optimizer's learning rate (Default: 0.01)**
 
 ```python
 class CW(Attack):
@@ -305,19 +305,19 @@ class CW(Attack):
         else:
             return torch.clamp((j-i), min=-self.kappa)
 ```
-* 사용예시
+* Example of use
 ```python
 attack = torchattacks.CW(model, c=1e-4, kappa=0, steps=1000, lr=0.01)
 adv_images = attack(images, labels)
 ```
 ### :cloud_with_lightning_and_rain: PGD
 ‘Towards Deep Learning Models Resistant to Adversarial Attacks’ [https://arxiv.org/abs/1706.06083]\
-파라미터로 model, eps, alpha, steps, random_start를 받습니다.\
-model (nn.Module) : 공격할 모델.\
-eps (float) : 최대 섭동 (maximum perturbation). (Default: 0.3)\
-alpha (float) : step의 크기 (Default: 2/255)\
-steps (int) : step 횟수. (Default: 40)\
-random_start (bool) : delta의 랜덤 초기화 여부. (Default: True)\
+It takes model, eps, alpha, steps, random_start as parameters.\
+model (nn.Module) : model to attack.\
+eps (float) : maximum perturbation. (Default: 0.3)\
+alpha (float) : size of step (Default: 2/255)\
+steps (int) : number of steps. (Default: 40)\
+random_start (bool) : Whether delta is initialized at random. (Default: True)\
 ```python
 class PGD(Attack):
     r"""
@@ -393,7 +393,7 @@ class PGD(Attack):
 
         return adv_images
 ```
-* 사용예시
+* Example of use
 ```python
 attack = torchattacks.PGD(model, eps=8/255, alpha=1/255, steps=40, random_start=True)
 adv_images = attack(images, labels)
@@ -514,7 +514,7 @@ class DeepFool(Attack):
             x_grads.append(x.grad.clone().detach())
         return torch.stack(x_grads).reshape(*y.shape, *x.shape)
 ```
-* 사용예시
+* Example of use
 ```python
 attack = torchattacks.DeepFool(model, steps=50, overshoot=0.02)
 adv_images = attack(images, labels)
