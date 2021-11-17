@@ -603,7 +603,6 @@ Larger values of ? cause the classifier to incorrectly classify adversarial exam
 ‘Towards Deep Learning Models Resistant to Adversarial Attacks’ [https://arxiv.org/abs/1706.06083]\
 Projected Gradient Descent attack is an attack method that came out about three years after the advent of FGSM.\
 Even today, it is known as a universal first-order adversary and is used as a baseline attack method in many papers.\
-
 In a method applying FGSM, the attack is repeated as many as n steps to perform inner maximization under the determined  ![lagrida_latex_editor](https://user-images.githubusercontent.com/80820556/140869893-19d6de49-dd3e-41b0-90d0-e2db3e3f95b8.png) norm.\
 
 ![lagrida_latex_editor (1)](https://user-images.githubusercontent.com/80820556/140869899-c2590a17-944c-42e6-9cb9-6a815e03a14c.png)\
