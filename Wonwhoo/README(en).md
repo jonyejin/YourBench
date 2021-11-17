@@ -10,7 +10,7 @@ YourBench is pytorch library, which takes the user's model as input and evaluate
 
 1. [Introduction](#Introduction)
 2. [How-to-use](#How-to-use)
-3. [Performance Comparison](#Performance  Comparison)
+3. [Performance-Comparison](#Performance-Comparison)
 4. [Contribution](#contribution)
 5. [reference](#reference)
 
@@ -90,7 +90,7 @@ atk = torchattacks.MultiAttack([atk1, atk2])
 
 
 
-## Performance Comparison
+## Performance-Comparison
 
 모델에 대한 점수의 신뢰도를 얻기 위해서 [Robustbench](https://github.com/RobustBench/robustbench) 를 인용합니다. 
 
