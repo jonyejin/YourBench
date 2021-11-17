@@ -39,17 +39,16 @@ Need a json file containing an index of the data and a picture file.
 image_class_index.json// json file where the index of the image is defined
 ```
 ```python
-##json파일 예시##
+##json file example##
 {"0": ["n01440764", "tench"], "1": ["n01443537", "goldfish"], "2": ["n01484850", "great_white_shark"], "3": ["n01491361", "tiger_shark"], "4": ["n01494475", "hammerhead"], "5": ["n01496331", "electric_ray"], "6": ["n01498041", "stingray"], "7": ["n01514668", "cock"], "8": ["n01514859", "hen"], "9": ["n01518878", "ostrich"], "10": ["n01530575", "brambling"], "11": ["n01531178", "goldfinch"], "12": ["n01532829", "house_finch"], "13": ["n01534433", "junco"], "14": ["n01537544", "indigo_bunting"], "15": ["n01558993", "robin"], "16": ["n01560419", "bulbul"], "17": ["n01580077", "jay"], "18": ["n01582220", "magpie"], "19": ["n01592084", "chickadee"], "20": ["n01601694", "water_ouzel"], "21": ["n01608432", "kite"], "22": ["n01614925", "bald_eagle"], "23": ["n01616318", "vulture"], "24": ["n01622779", "great_grey_owl"], "25": ["n01629819", "European_fire_salamander"], "26": ["n01630670", "common_newt"], "27": ["n01631663", "eft"]
 ```
 
-###  :warning: 제약사항
-YourBench는 보다 정확한 test를 수행하고 report를 제공하기 위해서 측정 가능한 모델에 대해서 제약사항을 둡니다.
+###  :warning: Constraint
+YourBench places constraints on the measurable model to perform more accurate tests and provide reports.
 * **No Zero Gradients** \
-Obfuscated Gradients로 알려진 Vanishing/Exploding gradients, Shattered Gradients, 그리고 Stochastic Gradients를 사용하는 모델에 대해서는 사용을 권장하지 않습니다. 위 gradients를 사용하는 모델은 적합한 방어 기법이 아니며, adversarial attack generation이 매우 힘듭니다. Obfuscated gradients를 사용하는 모델들은 EOT나 BPDA, Reparameterizing을 통해 공격하는 것을 권장합니다.
+Not recommended for models that use Vanishing/Exploding gradients, Shattered Gradients, and Stochastic Gradients, also known as Obfuscated Gradients. The model using the above gradients is not a suitable defense technique, and adversarial attack generation is very difficult. Models using obfuscated gradients are recommended to attack through EOT, BPDA, and reparameterizing.
 * **No Loops in Forward Pass** \
-Forward pass에 loop가 있는 모델은 backpropagation의 비용을 증가시키고, 시간이 오래 걸리게 합니다. 이러한 모델들에 대해선 loop의 loss와 해당 모델의 task를 합하여 적응적으로 적용할 수 있는 공격을 권장합니다.
-
+Models with loops in the forward pass increase the cost of backpropagation and take a long time. For these models, we recommend an attack that can be adaptively applied by combining the loop loss and the task of the model.
 ## Attack
 YourBench는 4가지 공격을 제공합니다.\
 공격이 요구하는 파라미터의 기본값은 모두 논문을 참조합니다.
