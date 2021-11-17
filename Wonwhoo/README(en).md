@@ -18,8 +18,8 @@ YourBench is pytorch library, which takes the user's model as input and evaluate
 
 ## Introduction
 
-### :mega: 적대적 공격이란?
-적대적 공격은 딥러닝 모델을 공격하는 가장 대표적인 방법입니다. 딥러닝 모델을 학습시키는 방법을 역으로 모델 공격에 이용하여 모델이 올바른 예측을 하지 못하도록 방해할 수 있습니다. 인간의 눈에는 똑같은 데이터이지만, 모델에 입력하면 전혀 다른 결과가 나올 수 있는 것이죠. **모델이 테스트 이미지를 잘 분류하더라도, 이러한 적대적 공격에 취약하다면 사용하기 어려울 것입니다.**
+### :mega: What is a adversarial attack?
+Adversarial attacks are the most representative way to attack deep learning models. Conversely, the method of training a deep learning model can be used to attack the model, preventing the model from making correct predictions. It is the same data to the human eye, but when it is input to the model, it can produce completely different results. **Even if the model classifies the test images well, it will be difficult to use if it is vulnerable to such hostile attacks.**
 
 
 ### :pencil2: 적대적 학습의 중요성
