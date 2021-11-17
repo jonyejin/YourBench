@@ -35,7 +35,7 @@ Unlike other libraries, YourBench takes personal neural networks as input and pr
 pip install yourbench
 ```
 
-###  :warning: 제약사항
+###  :warning: Restrictions
 YourBench는 보다 정확한 test를 수행하고 report를 제공하기 위해서 측정 가능한 모델에 대해서 제약사항을 둡니다.
 * **No Zero Gradients** \
 Obfuscated Gradients로 알려진 Vanishing/Exploding gradients, Shattered Gradients, 그리고 Stochastic Gradients를 사용하는 모델에 대해서는 사용을 권장하지 않습니다. 위 gradients를 사용하는 모델은 적합한 방어 기법이 아니며, adversarial attack generation이 매우 힘듭니다. Obfuscated gradients를 사용하는 모델들은 EOT나 BPDA, Reparameterizing을 통해 공격하는 것을 권장합니다.
