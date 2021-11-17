@@ -545,7 +545,7 @@ If you are curious about the details and mechanism of the attack, please refer t
 ‘Explaining and harnessing adversarial examples’ [https://arxiv.org/abs/1412.6572]\
 Fast Gradient, Signed Method and FGSM are described by Ian Goodfellow et al. This is an adversarial attack suggested by this.\
 If η is very small, the classifier classifies x and x' into the same class.\
-The relationship between the values is like this\
+The relationship between the values is like this.\
 \
 ![lagrida_latex_editor (1)](https://user-images.githubusercontent.com/80820556/140866522-4ceeab47-06d6-4824-a948-42b15e958613.png)
 \
@@ -558,17 +558,18 @@ The relationship between the values is like this\
 ![lagrida_latex_editor (4)](https://user-images.githubusercontent.com/80820556/140866887-dd166c33-3dc0-4f54-93ac-7bb3554ae796.png)
 \
 \
-이때 max norm contraint에 따라 η=sign(w)로 이 perturbation을 최대화 시킬 수 있습니다.\
+At this time, this perturbation can be maximized with η=sign(w) according to the max norm constraint.\
 ![lagrida_latex_editor (1)](https://user-images.githubusercontent.com/80820556/140867054-cd759d0b-135a-4022-8d80-61b7224b7cdd.png)
 \
-w가 n차원의 벡터이고, element의 절댓값 평균이 m이라면 η값은 εmn이 됩니다.\
-wη는 차원n에 비례하기 증가할 수 있으며, 높은 차원의 문제에서 input에 작은 차이가 output에 큰 차이를 만들 수 잇습니다.\
-즉, 높은 차원에서 input에 작은 노이즈를 추가하여 Decision Boundary를 크게 넘길 수 있습니다.\
-논문에서는 input에 충분한 차원이 있는 경우, 간단한 선형 모델에 adversarial example이 있다고 암시합니다.\
+If w is an n-dimensional vector and the mean of the absolute values of the elements is m, then the value of η is εmn.\
+wη can increase proportionally to dimension n, and in high-dimensional problems, small differences in input can make large differences in output.\
+In other words, at a high dimensionality, by adding a small noise to the input, you can significantly bypass the Decision Boundary.\
+The paper suggests that a simple linear model has an adversarial example if the input has enough dimensions.\
 \
-FGSM은 대표적인 one-step 공격 알고리즘입니다.\
-가장 가파른 (steepest) 방향으로 optimization loss J(θ, ?, ?)
-를 증가시키기 위해 loss의 gradient 방향 을 따라 이미지를 갱신합니다.\
+FGSM is a representative one-step attack algorithm.\
+Update the image along the gradient direction of the loss to increase J(θ, ?, ?) in the steepest direction.\
+
+
 적대적 예제 x′은 다음과 같이 생성됩니다.\
 ![lagrida_latex_editor](https://user-images.githubusercontent.com/80820556/140867337-93debfbf-4ae0-4399-8c35-b2d2ae43c206.png)\
 ![lagrida_latex_editor (1)](https://user-images.githubusercontent.com/80820556/140867335-f40cb6e3-a652-46ef-a846-6674c7bc4325.png)\
