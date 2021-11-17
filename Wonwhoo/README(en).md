@@ -4,7 +4,7 @@
   <a href="https://github.com/jonye/blob/master/LICENSE"><img alt="MIT License" src="https://img.shields.io/github/license/jonyejin/YourBench?&color=brightgreen" /></a>
 
   
-YourBench is pytorch library, which takes the user's model as input and evaluates how robust it is to adversarial attack. To make it easier for model developers to do 10, the evaluation index of the model is provided along with the Report.  
+YourBench is pytorch library, which takes the user's model as input and evaluates how robust it is to adversarial attack. To make it easier for model developers to do adversarial training, the evaluation index of the model is provided along with the Report.  
   
 ## 목차
 
