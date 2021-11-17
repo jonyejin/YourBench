@@ -42,15 +42,15 @@ Not recommended for models that use Vanishing/Exploding gradients, Shattered Gra
 * **No Loops in Forward Pass** \
 Models with loops in the forward pass increase the cost of backpropagation and take a long time. For these models, we recommend an attack that can be adaptively applied by combining the loop loss and the task of the model.
 
-### :rocket: 데모
+### :rocket: Demo
 
-* 내장 모델로 실행하기
+* Running with built-in models
 ```python
 import yourbench
 atk = yourbench.PGD(model, eps=8/255, alpha=2/255, steps=4)
 adv_images = atk(images, labels)
 ```
-* 사용자로부터 데이터셋과 모델, 그리고 이미지 레이블을 입력받아 다음을 수행할 수 있습니다.
+* You can take data sets, models, and image labels from the user and do the following.
 
 ```python
 # label from mapping function
