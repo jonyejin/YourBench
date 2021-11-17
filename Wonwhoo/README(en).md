@@ -18,8 +18,8 @@ YourBench is pytorch library, which takes the user's model as input and evaluate
 
 ## Introduction
 
-### :mega: What is a adversarial attack?
-Adversarial attacks are the most representative way to attack deep learning models. Conversely, the method of training a deep learning model can be used to attack the model, preventing the model from making correct predictions. It is the same data to the human eye, but when it is input to the model, it can produce completely different results. **Even if the model classifies the test images well, it will be difficult to use if it is vulnerable to such hostile attacks.**
+### :mega: What is adversarial attacks?
+Adversarial attacks are the most representative way to attack deep learning models. Conversely, the method of training a deep learning model can be used to attack the model, preventing the model from making correct predictions. It is the same data to the human eye, but when it is input to the model, it can produce completely different results. **Even if the model classifies the test images well, it will be difficult to use if it is vulnerable to such adversarial attacks.**
 
 
 ### :pencil2: 적대적 학습의 중요성
