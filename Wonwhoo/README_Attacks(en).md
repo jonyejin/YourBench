@@ -606,12 +606,12 @@ Even today, it is known as a universal first-order adversary and is used as a ba
 In a method applying FGSM, the attack is repeated as many as n steps to perform inner maximization under the determined  ![lagrida_latex_editor](https://user-images.githubusercontent.com/80820556/140869893-19d6de49-dd3e-41b0-90d0-e2db3e3f95b8.png) norm.\
 ![lagrida_latex_editor (1)](https://user-images.githubusercontent.com/80820556/140869899-c2590a17-944c-42e6-9cb9-6a815e03a14c.png)\
 \
-논문에서는 PGD기반의 공격을 통해 찾아낸 local maxima는 모델, 데이터셋에 상관없이 비슷한 손실값으로 수렴하는 것을 실험적으로 증명했습니다.\
-이 사실을 바탕으로 모델의 오분류를 유도하기 위한 local maxima를 찾는 최적해를 구하기 위해 first-order만을 사용한 공격 중에서 PGD를 사용하는 것이 가장 효과적이라고 주장합니다.\
-실제로 여러 논문에서 PDG example을 훈련시킨 adversarial trained 모델은 어떠한 공격에도 일관된 성능을 보여줍니다.
+In this paper, it was experimentally proven that the local maxima found through the PGD-based attack converge to a similar loss value regardless of the model or dataset.\
+Based on this fact, it is argued that using PGD is the most effective among first-order attacks to find the optimal solution to find the local maxima for inducing misclassification of the model.\
+In fact, the adversarial trained model trained on PDG examples in several papers shows consistent performance in any attack.
 \
-FGSM에서는 optimal δ를 찾기 위해 1 step gradient를 계산합니다.\
-PGD의 경우 step의 n에 따라 공격 강도가 강해집니다.\
+In FGSM, one step gradient is calculated to find the optimal δ.\
+In the case of PGD, the attack strength increases according to the step n.\
 일반적으로 7, 40등을 사용하고 (Default) 사용자의 조정에 따라 더 정교한 local optima를 찾기 위해 step수를 증가할 수 있습니다.\
 하지만 논문에서 손실함수 값이 특정 값이 빠르게 수렴하는 것으로 나타납니다.\
 즉, step수가 커질 수록 그 영향력 정도가 감소하기 때문에 적절한 step수를 조절하는 것이 중요합니다.\
