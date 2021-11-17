@@ -6,17 +6,17 @@
   
 YourBench is pytorch library, which takes the user's model as input and evaluates how robust it is to adversarial attack. To make it easier for model developers to do adversarial training, the evaluation index of the model is provided along with the Report.  
   
-## 목차
+## Contents
 
-1. [서론](#서론)
-2. [사용방법](#사용방법)
-3. [성능비교](#성능비교)
+1. [Introduction](#Introduction)
+2. [How to use](#How to use)
+3. [Performance Comparison](#Performance Comparison)
 4. [Contribution](#contribution)
-5. [참고사항](#참고사항)
+5. [reference](#reference)
 
 
 
-## 서론
+## Introduction
 
 ### :mega: 적대적 공격이란?
 적대적 공격은 딥러닝 모델을 공격하는 가장 대표적인 방법입니다. 딥러닝 모델을 학습시키는 방법을 역으로 모델 공격에 이용하여 모델이 올바른 예측을 하지 못하도록 방해할 수 있습니다. 인간의 눈에는 똑같은 데이터이지만, 모델에 입력하면 전혀 다른 결과가 나올 수 있는 것이죠. **모델이 테스트 이미지를 잘 분류하더라도, 이러한 적대적 공격에 취약하다면 사용하기 어려울 것입니다.**
@@ -29,7 +29,7 @@ YourBench is pytorch library, which takes the user's model as input and evaluate
 다른 라이브러리와는 달리, YourBench는 개인 Neural Network를 입력받아 adversarial attack에 대한 Benchmark 점수를 report와 함께 제공합니다. Report는 모델의 취약점과 그에 대한 개선 방안을 제안합니다.개발자는 이를 통해서 자신의 모델의 안정성이 어느정도 인지 가늠할 수 있을 것입니다. 
 
 
-## 사용방법
+## How to use
 
 ```
 pip install yourbench
@@ -89,7 +89,7 @@ atk = torchattacks.MultiAttack([atk1, atk2])
 
 
 
-## 성능비교
+## Performance Comparison
 
 모델에 대한 점수의 신뢰도를 얻기 위해서 [Robustbench](https://github.com/RobustBench/robustbench) 를 인용합니다. 
 
@@ -119,7 +119,7 @@ Adversarial Attack은 앞으로도 계속 새롭게 나올 것입니다. YourBen
 
 
 
-##  참고사항
+##  reference
 
 * **Adversarial Attack Packages:**
   
