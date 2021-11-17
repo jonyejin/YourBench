@@ -3,21 +3,21 @@
 <p>
   <a href="https://github.com/jonye/blob/master/LICENSE"><img alt="MIT License" src="https://img.shields.io/github/license/jonyejin/YourBench?&color=brightgreen" /></a>
 
-YourBench는 사용자의 모델과 파라미터, 데이터셋을 입력받아 총 4가지(FGSM, CW, PGD, DeepFool)의 공격을 수행합니다.
+YourBench performs four attacks (FGSM, CW, PGD, DeepFool) by receiving the user's model, parameters, and dataset as input.
 
 ## 목차
 
-1. [입력](#입력)
-2. [공격](#공격)
-3. [결과](#결과)
-4. [참고사항](#참고사항)
+1. [input](#input)
+2. [attack](#attack)
+3. [result](#result)
+4. [reference](#reference)
 
 
 ```shell
 python main.py --pth "pth_경로" --model "model_정의_경로" --dataset "데이터_디렉토리" --dataindex "데이터_인덱스_디렉토리" --attack_medthod CW FGSM
 ```
 
-## 입력
+## input
 
 ### :point_right: 모듈 입력받기
 YourBench는 사용자의 모델 정의를 .py의 형태로 받습니다. state_dict 정보가 담겨있는 .pth 또는 .pt와 함께 입력해주세요. \
@@ -50,7 +50,7 @@ Obfuscated Gradients로 알려진 Vanishing/Exploding gradients, Shattered Gradi
 * **No Loops in Forward Pass** \
 Forward pass에 loop가 있는 모델은 backpropagation의 비용을 증가시키고, 시간이 오래 걸리게 합니다. 이러한 모델들에 대해선 loop의 loss와 해당 모델의 task를 합하여 적응적으로 적용할 수 있는 공격을 권장합니다.
 
-## 공격
+## attack
 YourBench는 4가지 공격을 제공합니다.\
 공격이 요구하는 파라미터의 기본값은 모두 논문을 참조합니다.
 
@@ -521,7 +521,7 @@ attack = torchattacks.DeepFool(model, steps=50, overshoot=0.02)
 adv_images = attack(images, labels)
 ```
 
-## 결과
+## result
 저장 디렉토리에 report.pdf파일이 생성됩니다. \
 pdf의 예시는 아래와 같습니다.
 ### accuracy against attacks
@@ -540,7 +540,7 @@ pdf의 예시는 아래와 같습니다.
 </p></details>
 
 
-##  참고사항
+##  reference
 공격의 세부 내용과 메커니즘에 대해 궁금하다면 아래 원문과 내용을 참고바랍니다.
 ### :fairy: FGSM
 ‘Explaining and harnessing adversarial examples’ [https://arxiv.org/abs/1412.6572]\
