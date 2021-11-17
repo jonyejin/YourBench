@@ -50,12 +50,12 @@ Not recommended for models that use Vanishing/Exploding gradients, Shattered Gra
 * **No Loops in Forward Pass** \
 Models with loops in the forward pass increase the cost of backpropagation and take a long time. For these models, we recommend an attack that can be adaptively applied by combining the loop loss and the task of the model.
 ## Attack
-YourBench는 4가지 공격을 제공합니다.\
-공격이 요구하는 파라미터의 기본값은 모두 논문을 참조합니다.
+YourBench offers 4 attacks.\
+The default values of the parameters required by the attack are all referenced in the paper.
 
 ### :sunny: Vanilla
-input image를 그대로 리턴합니다.\
-파라미터로 model만을 받습니다.
+Returns the input image as is.\
+It takes only model as parameter.
 ```python
 class VANILA(Attack):
     """
@@ -89,16 +89,16 @@ class VANILA(Attack):
 
         return adv_images
 ```
-* 사용예시
+* Example of use
 ```python
 attack = yourbench.VANILLA(model)
 adv_images = attack(images, labels)
 ```
 ### :cloud_with_lightning_and_rain: FGSM
  **‘Explaining and harnessing adversarial examples’ [https://arxiv.org/abs/1412.6572]**\
- FGSM은 Linf norm을 사용하는 공격입니다.\
-파라미터로 model과 eps를 받습니다.\
-eps(float): 최대 섭동 (maximum perturbation) (Default: 0.007)
+ FGSM is an attack using the Linf norm.\
+It takes model and eps as parameters.\
+eps(float): maximum perturbation (Default: 0.007)
 ```python
 class FGSM(Attack):
     r"""
@@ -158,7 +158,7 @@ class FGSM(Attack):
 
         return adv_images
 ```
-* 사용예시
+* Example of use
 ```python
 attack = torchattacks.FGSM(model, eps=0.007)
 adv_images = attack(images, labels)
@@ -166,14 +166,14 @@ adv_images = attack(images, labels)
 
 ### :cloud_with_lightning_and_rain: CW
 **‘Towards Evaluating the Robustness of Neural Networks’ [https://arxiv.org/abs/1608.04644]**\
-**CW는 L2 norm을 사용하는 공격입니다.**\
-**파라미터로 model, c, kappa, steps, lr을 받습니다.**\
-**c(float) : box-constraint를 위한 값입니다. (Default: 1e-4)**\
+**CW is an attack using the L2 norm.**\
+**It takes model, c, kappa, steps and lr as parameters.**\
+**c(float) : The value for the box-constraint. (Default: 1e-4)**\
 ![lagrida_latex_editor (2)](https://user-images.githubusercontent.com/80820556/140870613-5f61196a-54d6-4220-87f5-09a1188b0a9e.png)\
-**kappa(float) : 논문에서 confidence로 등장합니다. (Default: 0)**\
+**kappa(float) : Appears with confidence in the paper. (Default: 0)**\
 ![lagrida_latex_editor (3)](https://user-images.githubusercontent.com/80820556/140870614-967c2adf-d54d-4c85-9271-0162355607f9.png)
 \
-**steps (int) : 진행할 단계 (Default: 1000)**\
+**steps (int) : step in progress (Default: 1000)**\
 **lr (float) : Adam optimizer의 learning rate (Default: 0.01)**
 
 ```python
