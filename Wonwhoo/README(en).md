@@ -9,8 +9,8 @@ YourBench is pytorch library, which takes the user's model as input and evaluate
 ## Contents
 
 1. [Introduction](#Introduction)
-2. [How to use](#How to use)
-3. [Performance Comparison](#Performance Comparison)
+2. [How to  use](#How to  use)
+3. [Performance Comparison](#Performance  Comparison)
 4. [Contribution](#contribution)
 5. [reference](#reference)
 
@@ -29,7 +29,7 @@ YourBench is pytorch library, which takes the user's model as input and evaluate
 다른 라이브러리와는 달리, YourBench는 개인 Neural Network를 입력받아 adversarial attack에 대한 Benchmark 점수를 report와 함께 제공합니다. Report는 모델의 취약점과 그에 대한 개선 방안을 제안합니다.개발자는 이를 통해서 자신의 모델의 안정성이 어느정도 인지 가늠할 수 있을 것입니다. 
 
 
-## How to use
+## How  to  use
 
 ```
 pip install yourbench
