@@ -22,8 +22,8 @@ YourBench is pytorch library, which takes the user's model as input and evaluate
 Adversarial attacks are the most representative way to attack deep learning models. Conversely, the method of training a deep learning model can be used to attack the model, preventing the model from making correct predictions. It is the same data to the human eye, but when it is input to the model, it can produce completely different results. **Even if the model classifies the test images well, it will be difficult to use if it is vulnerable to such adversarial attacks.**
 
 
-### :pencil2: 적대적 학습의 중요성
-모델이 test data에 대해서 충분히 신뢰성 있는 결과를 낼지라도, 간단한 데이터 조작에 취약하다면 모델을 쓸 수 없게됩니다. adversarial attack과 model robustness는 경찰과 도둑 관계입니다. 서로 꾸준히 발전하면서 따라잡으려고 하기 때문입니다. 현재 자신의 신경망, 또는 모델이 adversarial attack에 대해서 robust 할지라도, 언제든지 새로운 공격 기법이 나타날 수 있습니다. 따라서 모델 개발자 입장에서 새로운 공격기법에 대해서 늘 대비하는 자세가 중요합니다. **다만 그 비용과 시간이 많이 들기 때문에 자신의 신경망이 현재까지 알려지 있는 강력한 adversarial attack에 얼마나 robust한지 확인하는 프로세스 또한 중요하다고 할 수 있습니다.**
+### :pencil2: The importance of adversarial learning
+Even if the model gives sufficiently reliable results on the test data, it becomes unusable if it is vulnerable to simple data manipulation. Adversarial attack and model robustness are the relationship between police and thieves. Because they are constantly evolving and trying to catch up with each other. Even if your current neural network or model is robust against adversarial attacks, new attack techniques may appear at any time. Therefore, it is important to be prepared always for new attack techniques from the model developer's point of view. **However, it is costly and time consuming. So the process of checking how robust your neural network is against known strong adversarial attacks is also important.**
 
 ### :bulb: 라이브러리의 목적
 다른 라이브러리와는 달리, YourBench는 개인 Neural Network를 입력받아 adversarial attack에 대한 Benchmark 점수를 report와 함께 제공합니다. Report는 모델의 취약점과 그에 대한 개선 방안을 제안합니다.개발자는 이를 통해서 자신의 모델의 안정성이 어느정도 인지 가늠할 수 있을 것입니다. 
