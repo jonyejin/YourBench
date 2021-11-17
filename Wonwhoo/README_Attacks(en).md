@@ -567,7 +567,7 @@ In other words, at a high dimensionality, by adding a small noise to the input, 
 The paper suggests that a simple linear model has an adversarial example if the input has enough dimensions.\
 \
 FGSM is a representative one-step attack algorithm.\
-Update the image along the gradient direction of the loss to increase J(θ, ?, ?) in the steepest direction.\
+Update the image along the gradient direction of the loss to increase J(θ, ?, ?) in the steepest direction.
 
 
 적대적 예제 x′은 다음과 같이 생성됩니다.\
