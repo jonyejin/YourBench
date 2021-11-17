@@ -26,7 +26,7 @@ Adversarial attacks are the most representative way to attack deep learning mode
 Even if the model gives sufficiently reliable results on the test data, it becomes unusable if it is vulnerable to simple data manipulation. Adversarial attack and model robustness are the relationship between police and thieves. Because they are constantly evolving and trying to catch up with each other. Even if your current neural network or model is robust against adversarial attacks, new attack techniques may appear at any time. Therefore, it is important to be prepared always for new attack techniques from the model developer's point of view. **However, it is costly and time consuming. So the process of checking how robust your neural network is against known strong adversarial attacks is also important.**
 
 ### :bulb: Purpose of the library
-Unlike other libraries, YourBench takes personal neural networks as input and provides Benchmark scores for adversarial attacks with report. Report suggests weaknesses in the model and ways to improve them. Developers can assess the stability of their model through this.. 
+Unlike other libraries, YourBench takes personal neural networks as input and provides Benchmark scores for adversarial attacks with report. Report suggests weaknesses in the model and gives way to improve them. Developers can assess the stability of their model through this.. 
 
 
 ## How-to-use
