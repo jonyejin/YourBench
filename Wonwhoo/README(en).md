@@ -3,8 +3,9 @@
 <p>
   <a href="https://github.com/jonye/blob/master/LICENSE"><img alt="MIT License" src="https://img.shields.io/github/license/jonyejin/YourBench?&color=brightgreen" /></a>
 
-YourBench는 사용자의 모델을 입력받아 adversarial attack 에 얼마나 robust한지 평가를 해주는 pytorch library입니다. 모델 개발자들이 더욱 쉽게 adversarial training을 할 수 있도록 모델의 평가 지표를 Report와 함께 제공합니다.
-
+  
+YourBench is pytorch library, which takes the user's model as input and evaluates how robust it is to adversarial attack. To make it easier for model developers to do 10, the evaluation index of the model is provided along with the Report.  
+  
 ## 목차
 
 1. [서론](#서론)
