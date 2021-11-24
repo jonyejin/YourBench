@@ -3,60 +3,59 @@
 <p>
   <a href="https://github.com/jonye/blob/master/LICENSE"><img alt="MIT License" src="https://img.shields.io/github/license/jonyejin/YourBench?&color=brightgreen" /></a>
 
-YourBench´Â »ç¿ëÀÚÀÇ ¸ğµ¨°ú ÆÄ¶ó¹ÌÅÍ, µ¥ÀÌÅÍ¼ÂÀ» ÀÔ·Â¹Ş¾Æ ÃÑ 4°¡Áö(FGSM, CW, PGD, DeepFool)ÀÇ °ø°İÀ» ¼öÇàÇÕ´Ï´Ù.
+YourBench performs four attacks (FGSM, CW, PGD, DeepFool) by receiving the user's model, parameters, and dataset as input.
 
-## ¸ñÂ÷
+## ëª©ì°¨
 
-1. [ÀÔ·Â](#ÀÔ·Â)
-2. [°ø°İ](#°ø°İ)
-3. [°á°ú](#°á°ú)
-4. [Âü°í»çÇ×](#Âü°í»çÇ×)
+1. [Input](#Input)
+2. [Attack](#Attack)
+3. [Result](#Result)
+4. [Reference](#Reference)
 
 
 ```shell
-python main.py --pth "pth_°æ·Î" --model "model_Á¤ÀÇ_°æ·Î" --dataset "µ¥ÀÌÅÍ_µğ·ºÅä¸®" --dataindex "µ¥ÀÌÅÍ_ÀÎµ¦½º_µğ·ºÅä¸®" --attack_medthod CW FGSM
+python main.py --pth "pth_route" --model "model_definition_route" --dataset "data_directory" --dataindex "data_index_directory" --attack_medthod CW FGSM
 ```
 
-## ÀÔ·Â
+## Input
 
-### :point_right: ¸ğµâ ÀÔ·Â¹Ş±â
-YourBench´Â »ç¿ëÀÚÀÇ ¸ğµ¨ Á¤ÀÇ¸¦ .pyÀÇ ÇüÅÂ·Î ¹Ş½À´Ï´Ù. state_dict Á¤º¸°¡ ´ã°ÜÀÖ´Â .pth ¶Ç´Â .pt¿Í ÇÔ²² ÀÔ·ÂÇØÁÖ¼¼¿ä. \
-»ç¿ëÀÚ·ÎºÎÅÍ worst case, average case, best case¿¡ ÇØ´çÇÏ´Â ÃÖ´ë 3°³ÀÇ state_dict¸¦ ¹ŞÀ» ¼ö ÀÖ½À´Ï´Ù. 
+### :point_right: Get module input
+YourBench receives your model definition in the form of a .py. Please enter it with .pth or .pt containing state_dict information. \
+You can receive up to 3 state_dicts from the user, corresponding to the worst case, average case, and best case.
 
 ```python
-#¸ğµ¨ ºÒ·¯¿À±â
+#Import model
 model = "/home/auspiciouswho47/adversarial-attacks-pytorch/demos/lenet_state_dict.pth"
 from LeNet_model_definition import Net
 model = Net().to(device)
 model.eval()
 ```
 
-### :point_right: µ¥ÀÌÅÍ¼Â ÀÔ·Â¹Ş±â
-»ç¿ëÀÚÀÇ µ¥ÀÌÅÍ¼ÂÀÌ custom data setÀÌ¶ó¸é µ¥ÀÌÅÍ¼ÂÀ» ÀÔ·ÂÀ» µû·Î ÇØÁÖ¼¼¿ä.
-µ¥ÀÌÅÍÀÇ ÀÎµ¦½º°¡ µé¾îÀÖ´Â json ÆÄÀÏ°ú »çÁø ÆÄÀÏÀÌ ÇÊ¿äÇÕ´Ï´Ù.
+### :point_right: Get data set input
+If your data set is a custom data set, enter the data set separately.
+Need a json file containing an index of the data and a picture file.
 ```
-1.jpg //Å×½ºÆ® µ¥ÀÌÅÍ
-image_class_index.json//ÀÌ¹ÌÁöÀÇ ÀÎµ¦½º°¡ Á¤ÀÇµÇ¾îÀÖ´Â jsonÆÄÀÏ
+1.jpg //test data
+image_class_index.json// json file where the index of the image is defined
 ```
 ```python
-##jsonÆÄÀÏ ¿¹½Ã##
+##json file example##
 {"0": ["n01440764", "tench"], "1": ["n01443537", "goldfish"], "2": ["n01484850", "great_white_shark"], "3": ["n01491361", "tiger_shark"], "4": ["n01494475", "hammerhead"], "5": ["n01496331", "electric_ray"], "6": ["n01498041", "stingray"], "7": ["n01514668", "cock"], "8": ["n01514859", "hen"], "9": ["n01518878", "ostrich"], "10": ["n01530575", "brambling"], "11": ["n01531178", "goldfinch"], "12": ["n01532829", "house_finch"], "13": ["n01534433", "junco"], "14": ["n01537544", "indigo_bunting"], "15": ["n01558993", "robin"], "16": ["n01560419", "bulbul"], "17": ["n01580077", "jay"], "18": ["n01582220", "magpie"], "19": ["n01592084", "chickadee"], "20": ["n01601694", "water_ouzel"], "21": ["n01608432", "kite"], "22": ["n01614925", "bald_eagle"], "23": ["n01616318", "vulture"], "24": ["n01622779", "great_grey_owl"], "25": ["n01629819", "European_fire_salamander"], "26": ["n01630670", "common_newt"], "27": ["n01631663", "eft"]
 ```
 
-###  :warning: Á¦¾à»çÇ×
-YourBench´Â º¸´Ù Á¤È®ÇÑ test¸¦ ¼öÇàÇÏ°í report¸¦ Á¦°øÇÏ±â À§ÇØ¼­ ÃøÁ¤ °¡´ÉÇÑ ¸ğµ¨¿¡ ´ëÇØ¼­ Á¦¾à»çÇ×À» µÓ´Ï´Ù.
+###  :warning: Constraint
+YourBench places constraints on the measurable model to perform more accurate tests and provide reports.
 * **No Zero Gradients** \
-Obfuscated Gradients·Î ¾Ë·ÁÁø Vanishing/Exploding gradients, Shattered Gradients, ±×¸®°í Stochastic Gradients¸¦ »ç¿ëÇÏ´Â ¸ğµ¨¿¡ ´ëÇØ¼­´Â »ç¿ëÀ» ±ÇÀåÇÏÁö ¾Ê½À´Ï´Ù. À§ gradients¸¦ »ç¿ëÇÏ´Â ¸ğµ¨Àº ÀûÇÕÇÑ ¹æ¾î ±â¹ıÀÌ ¾Æ´Ï¸ç, adversarial attack generationÀÌ ¸Å¿ì Èûµì´Ï´Ù. Obfuscated gradients¸¦ »ç¿ëÇÏ´Â ¸ğµ¨µéÀº EOT³ª BPDA, ReparameterizingÀ» ÅëÇØ °ø°İÇÏ´Â °ÍÀ» ±ÇÀåÇÕ´Ï´Ù.
+Not recommended for models that use Vanishing/Exploding gradients, Shattered Gradients, and Stochastic Gradients, also known as Obfuscated Gradients. The model using the above gradients is not a suitable defense technique, and adversarial attack generation is very difficult. Models using obfuscated gradients are recommended to attack through EOT, BPDA, and reparameterizing.
 * **No Loops in Forward Pass** \
-Forward pass¿¡ loop°¡ ÀÖ´Â ¸ğµ¨Àº backpropagationÀÇ ºñ¿ëÀ» Áõ°¡½ÃÅ°°í, ½Ã°£ÀÌ ¿À·¡ °É¸®°Ô ÇÕ´Ï´Ù. ÀÌ·¯ÇÑ ¸ğµ¨µé¿¡ ´ëÇØ¼± loopÀÇ loss¿Í ÇØ´ç ¸ğµ¨ÀÇ task¸¦ ÇÕÇÏ¿© ÀûÀÀÀûÀ¸·Î Àû¿ëÇÒ ¼ö ÀÖ´Â °ø°İÀ» ±ÇÀåÇÕ´Ï´Ù.
-
-## °ø°İ
-YourBench´Â 4°¡Áö °ø°İÀ» Á¦°øÇÕ´Ï´Ù.\
-°ø°İÀÌ ¿ä±¸ÇÏ´Â ÆÄ¶ó¹ÌÅÍÀÇ ±âº»°ªÀº ¸ğµÎ ³í¹®À» ÂüÁ¶ÇÕ´Ï´Ù.
+Models with loops in the forward pass increase the cost of backpropagation and take a long time. For these models, we recommend an attack that can be adaptively applied by combining the loop loss and the task of the model.
+## Attack
+YourBench offers 4 attacks.\
+The default values of the parameters required by the attack are all referenced in the paper.
 
 ### :sunny: Vanilla
-input image¸¦ ±×´ë·Î ¸®ÅÏÇÕ´Ï´Ù.\
-ÆÄ¶ó¹ÌÅÍ·Î model¸¸À» ¹Ş½À´Ï´Ù.
+Returns the input image as is.\
+It takes only model as parameter.
 ```python
 class VANILA(Attack):
     """
@@ -90,16 +89,16 @@ class VANILA(Attack):
 
         return adv_images
 ```
-* »ç¿ë¿¹½Ã
+* Example of use
 ```python
 attack = yourbench.VANILLA(model)
 adv_images = attack(images, labels)
 ```
 ### :cloud_with_lightning_and_rain: FGSM
- **¡®Explaining and harnessing adversarial examples¡¯ [https://arxiv.org/abs/1412.6572]**\
- FGSMÀº Linf normÀ» »ç¿ëÇÏ´Â °ø°İÀÔ´Ï´Ù.\
-ÆÄ¶ó¹ÌÅÍ·Î model°ú eps¸¦ ¹Ş½À´Ï´Ù.\
-eps(float): ÃÖ´ë ¼·µ¿ (maximum perturbation) (Default: 0.007)
+ **â€˜Explaining and harnessing adversarial examplesâ€™ [https://arxiv.org/abs/1412.6572]**\
+ FGSM is an attack using the Linf norm.\
+It takes model and eps as parameters.\
+eps(float): maximum perturbation (Default: 0.007)
 ```python
 class FGSM(Attack):
     r"""
@@ -159,23 +158,23 @@ class FGSM(Attack):
 
         return adv_images
 ```
-* »ç¿ë¿¹½Ã
+* Example of use
 ```python
 attack = torchattacks.FGSM(model, eps=0.007)
 adv_images = attack(images, labels)
 ```
 
 ### :cloud_with_lightning_and_rain: CW
-**¡®Towards Evaluating the Robustness of Neural Networks¡¯ [https://arxiv.org/abs/1608.04644]**\
-**CW´Â L2 normÀ» »ç¿ëÇÏ´Â °ø°İÀÔ´Ï´Ù.**\
-**ÆÄ¶ó¹ÌÅÍ·Î model, c, kappa, steps, lrÀ» ¹Ş½À´Ï´Ù.**\
-**c(float) : box-constraint¸¦ À§ÇÑ °ªÀÔ´Ï´Ù. (Default: 1e-4)**\
+**â€˜Towards Evaluating the Robustness of Neural Networksâ€™ [https://arxiv.org/abs/1608.04644]**\
+**CW is an attack using the L2 norm.**\
+**It takes model, c, kappa, steps and lr as parameters.**\
+**c(float) : The value for the box-constraint. (Default: 1e-4)**\
 ![lagrida_latex_editor (2)](https://user-images.githubusercontent.com/80820556/140870613-5f61196a-54d6-4220-87f5-09a1188b0a9e.png)\
-**kappa(float) : ³í¹®¿¡¼­ confidence·Î µîÀåÇÕ´Ï´Ù. (Default: 0)**\
+**kappa(float) : Appears with confidence in the paper. (Default: 0)**\
 ![lagrida_latex_editor (3)](https://user-images.githubusercontent.com/80820556/140870614-967c2adf-d54d-4c85-9271-0162355607f9.png)
 \
-**steps (int) : ÁøÇàÇÒ ´Ü°è (Default: 1000)**\
-**lr (float) : Adam optimizerÀÇ learning rate (Default: 0.01)**
+**steps (int) : step in progress (Default: 1000)**\
+**lr (float) : Adam optimizer's learning rate (Default: 0.01)**
 
 ```python
 class CW(Attack):
@@ -306,19 +305,19 @@ class CW(Attack):
         else:
             return torch.clamp((j-i), min=-self.kappa)
 ```
-* »ç¿ë¿¹½Ã
+* Example of use
 ```python
 attack = torchattacks.CW(model, c=1e-4, kappa=0, steps=1000, lr=0.01)
 adv_images = attack(images, labels)
 ```
 ### :cloud_with_lightning_and_rain: PGD
-¡®Towards Deep Learning Models Resistant to Adversarial Attacks¡¯ [https://arxiv.org/abs/1706.06083]\
-ÆÄ¶ó¹ÌÅÍ·Î model, eps, alpha, steps, random_start¸¦ ¹Ş½À´Ï´Ù.\
-model (nn.Module) : °ø°İÇÒ ¸ğµ¨.\
-eps (float) : ÃÖ´ë ¼·µ¿ (maximum perturbation). (Default: 0.3)\
-alpha (float) : stepÀÇ Å©±â (Default: 2/255)\
-steps (int) : step È½¼ö. (Default: 40)\
-random_start (bool) : deltaÀÇ ·£´ı ÃÊ±âÈ­ ¿©ºÎ. (Default: True)\
+â€˜Towards Deep Learning Models Resistant to Adversarial Attacksâ€™ [https://arxiv.org/abs/1706.06083]\
+It takes model, eps, alpha, steps, random_start as parameters.\
+model (nn.Module) : model to attack.\
+eps (float) : maximum perturbation. (Default: 0.3)\
+alpha (float) : size of step (Default: 2/255)\
+steps (int) : number of steps. (Default: 40)\
+random_start (bool) : Whether delta is initialized at random. (Default: True)\
 ```python
 class PGD(Attack):
     r"""
@@ -394,18 +393,18 @@ class PGD(Attack):
 
         return adv_images
 ```
-* »ç¿ë¿¹½Ã
+* Example of use
 ```python
 attack = torchattacks.PGD(model, eps=8/255, alpha=1/255, steps=40, random_start=True)
 adv_images = attack(images, labels)
 ```
 ### :cloud_with_lightning_and_rain: DeepFool
 'DeepFool: A Simple and Accurate Method to Fool Deep Neural Networks' [https://arxiv.org/abs/1511.04599]\
-DeepFoolÀº L2 normÀ» »ç¿ëÇÏ´Â °ø°İÀÔ´Ï´Ù.\
-ÆÄ¶ó¹ÌÅÍ·Î model, steps, overshoot¸¦ ¹Ş½À´Ï´Ù.\
-model (nn.Module) : °ø°İÇÒ ¸ğµ¨\
-steps (int) : stepÀÇ °¹¼ö. (Default: 50)\
-overshoot (float) : noise ÁõÆøÀ» À§ÇÑ ÆÄ¶ó¹ÌÅÍ. (Default: 0.02)
+DeepFool is an attack that uses the L2 norm.\
+It takes model, steps and overshoot as parameters.\
+model (nn.Module) : model to attack\
+steps (int) : number of steps. (Default: 50)\
+overshoot (float) : Parameters for noise amplification. (Default: 0.02)
 ```python
 class DeepFool(Attack):
     r"""
@@ -515,38 +514,38 @@ class DeepFool(Attack):
             x_grads.append(x.grad.clone().detach())
         return torch.stack(x_grads).reshape(*y.shape, *x.shape)
 ```
-* »ç¿ë¿¹½Ã
+* Example of use
 ```python
 attack = torchattacks.DeepFool(model, steps=50, overshoot=0.02)
 adv_images = attack(images, labels)
 ```
 
-## °á°ú
-ÀúÀå µğ·ºÅä¸®¿¡ report.pdfÆÄÀÏÀÌ »ı¼ºµË´Ï´Ù. \
-pdfÀÇ ¿¹½Ã´Â ¾Æ·¡¿Í °°½À´Ï´Ù.
+## Result
+Report.pdf file is created in the save directory. \
+Example of a pdf is below.
 ### accuracy against attacks
-°ø°İ ¼öÇà °á°ú¸¦ µµÇ¥¸¦ ÅëÇØ º¸¿©Áİ´Ï´Ù. \
-¼öÇà °á°ú¿¡´Â modelÀÇ accuracy (robustness)¿Í °ø°İÀ» ¼öÇàÇÏ´Âµ¥ °É¸° total elapsed timeÀÌ ±âÀçµÇ¾îÀÖ½À´Ï´Ù.
+Shows the attack performance results in a diagram. \
+In the execution result, the accuracy (robustness) of the model and the total elapsed time taken to execute the attack are described.
 ### attack results with graph
-Ç¥·Î ³ª¿Â °á°ú¸¦ ±×·¡ÇÁ·Î º¯È¯ÇÏ¿© Á¦½ÃÇÕ´Ï´Ù.
+The table results are converted into graphs and presented.
 ### adversarial examples
-»ı¼ºµÈ adversarial examples Áß °ø°İ¿¡ ¼º°øÇÑ ÀÌ¹ÌÁö¸¦ º¸¿©Áİ´Ï´Ù.\
-ÀÌ‹š ¸ğµ¨ÀÌ ¾î¶² ·¹ÀÌºí·Î ÀÎ½ÄÇß´ÂÁö ¶ÇÇÑ °°ÀÌ º¸¿©Áİ´Ï´Ù.
+Among the generated adversarial examples, it shows an image that successfully attacked.\
+It also shows what label this model recognized.
 ### advises
-º¸´Ù ´õ robustÇÑ ¸ğµ¨À» À§ÇØ °³¹ßÀÚ°¡ ¾î¶² Á¶Ä¡¸¦ ÃëÇØ¾ßÇÏ´ÂÁö °¡ÀÌµå¶óÀÎÀÌ ÀûÇôÀÖ½À´Ï´Ù.
+There are guidelines on what actions developers should take for more robust models.
 </br>\
 ![adversarial attack-17](https://user-images.githubusercontent.com/80820556/136702057-26e82c95-8536-4619-b9b1-d8cda12d9c55.jpg)
 
 </p></details>
 
 
-##  Âü°í»çÇ×
-°ø°İÀÇ ¼¼ºÎ ³»¿ë°ú ¸ŞÄ¿´ÏÁò¿¡ ´ëÇØ ±Ã±İÇÏ´Ù¸é ¾Æ·¡ ¿ø¹®°ú ³»¿ëÀ» Âü°í¹Ù¶ø´Ï´Ù.
+##  Reference
+If you are curious about the details and mechanism of the attack, please refer to the original text and contents below.
 ### :fairy: FGSM
-¡®Explaining and harnessing adversarial examples¡¯ [https://arxiv.org/abs/1412.6572]\
-Fast Gradient Signed Method, FGSMÀº Ian Goodfellow et al. ÀÌ Á¦½ÃÇÑ adversarial attackÀÔ´Ï´Ù.\
-¥çÀÌ ¸Å¿ì ÀÛÀ» °æ¿ì, ºĞ·ù±â´Â x¿Í x'À» °°Àº class·Î ±¸ºĞÇÕ´Ï´Ù.\
-°ªµé »çÀÌÀÇ °ü°è´Â ´ÙÀ½°ú °°½À´Ï´Ù.\
+â€˜Explaining and harnessing adversarial examplesâ€™ [https://arxiv.org/abs/1412.6572]\
+Fast Gradient, Signed Method and FGSM are described by Ian Goodfellow et al. This is an adversarial attack suggested by this.\
+If Î· is very small, the classifier classifies x and x' into the same class.\
+The relationship between the values is like this.\
 \
 ![lagrida_latex_editor (1)](https://user-images.githubusercontent.com/80820556/140866522-4ceeab47-06d6-4824-a948-42b15e958613.png)
 \
@@ -559,18 +558,19 @@ Fast Gradient Signed Method, FGSMÀº Ian Goodfellow et al. ÀÌ Á¦½ÃÇÑ adversarial 
 ![lagrida_latex_editor (4)](https://user-images.githubusercontent.com/80820556/140866887-dd166c33-3dc0-4f54-93ac-7bb3554ae796.png)
 \
 \
-ÀÌ¶§ max norm contraint¿¡ µû¶ó ¥ç=sign(w)·Î ÀÌ perturbationÀ» ÃÖ´ëÈ­ ½ÃÅ³ ¼ö ÀÖ½À´Ï´Ù.\
+At this time, this perturbation can be maximized with Î·=sign(w) according to the max norm constraint.\
 ![lagrida_latex_editor (1)](https://user-images.githubusercontent.com/80820556/140867054-cd759d0b-135a-4022-8d80-61b7224b7cdd.png)
 \
-w°¡ nÂ÷¿øÀÇ º¤ÅÍÀÌ°í, elementÀÇ Àı´ñ°ª Æò±ÕÀÌ mÀÌ¶ó¸é ¥ç°ªÀº ¥åmnÀÌ µË´Ï´Ù.\
-w¥ç´Â Â÷¿øn¿¡ ºñ·ÊÇÏ±â Áõ°¡ÇÒ ¼ö ÀÖÀ¸¸ç, ³ôÀº Â÷¿øÀÇ ¹®Á¦¿¡¼­ input¿¡ ÀÛÀº Â÷ÀÌ°¡ output¿¡ Å« Â÷ÀÌ¸¦ ¸¸µé ¼ö ÀÕ½À´Ï´Ù.\
-Áï, ³ôÀº Â÷¿ø¿¡¼­ input¿¡ ÀÛÀº ³ëÀÌÁî¸¦ Ãß°¡ÇÏ¿© Decision Boundary¸¦ Å©°Ô ³Ñ±æ ¼ö ÀÖ½À´Ï´Ù.\
-³í¹®¿¡¼­´Â input¿¡ ÃæºĞÇÑ Â÷¿øÀÌ ÀÖ´Â °æ¿ì, °£´ÜÇÑ ¼±Çü ¸ğµ¨¿¡ adversarial exampleÀÌ ÀÖ´Ù°í ¾Ï½ÃÇÕ´Ï´Ù.\
+If w is an n-dimensional vector and the mean of the absolute values of the elements is m, then the value of Î· is Îµmn.\
+wÎ· can increase proportionally to dimension n, and in high-dimensional problems, small differences in input can make large differences in output.\
+In other words, at a high dimensionality, by adding a small noise to the input, you can significantly bypass the Decision Boundary.\
+The paper suggests that a simple linear model has an adversarial example if the input has enough dimensions.\
 \
-FGSMÀº ´ëÇ¥ÀûÀÎ one-step °ø°İ ¾Ë°í¸®ÁòÀÔ´Ï´Ù.\
-°¡Àå °¡ÆÄ¸¥ (steepest) ¹æÇâÀ¸·Î optimization loss J(¥è, ?, ?)
-¸¦ Áõ°¡½ÃÅ°±â À§ÇØ lossÀÇ gradient ¹æÇâ À» µû¶ó ÀÌ¹ÌÁö¸¦ °»½ÅÇÕ´Ï´Ù.\
-Àû´ëÀû ¿¹Á¦ x¡ÇÀº ´ÙÀ½°ú °°ÀÌ »ı¼ºµË´Ï´Ù.\
+FGSM is a representative one-step attack algorithm.\
+Update the image along the gradient direction of the loss to increase J(Î¸, ?, ?) in the steepest direction.
+
+
+The adversarial example xâ€² is generated like this\
 ![lagrida_latex_editor](https://user-images.githubusercontent.com/80820556/140867337-93debfbf-4ae0-4399-8c35-b2d2ae43c206.png)\
 ![lagrida_latex_editor (1)](https://user-images.githubusercontent.com/80820556/140867335-f40cb6e3-a652-46ef-a846-6674c7bc4325.png)\
 ![lagrida_latex_editor (2)](https://user-images.githubusercontent.com/80820556/140867333-3b2015a3-b2d8-4bfd-8194-5b16c095016e.png)\
@@ -579,49 +579,45 @@ FGSMÀº ´ëÇ¥ÀûÀÎ one-step °ø°İ ¾Ë°í¸®ÁòÀÔ´Ï´Ù.\
 ![lagrida_latex_editor (4)](https://user-images.githubusercontent.com/80820556/140867343-e93515f6-77be-44ed-85b5-deda44e14877.png)\
 ![lagrida_latex_editor (5)](https://user-images.githubusercontent.com/80820556/140867340-1f2d6ee6-4be0-4fe2-aa94-c51f9663aeab.png)\
 ![lagrida_latex_editor (6)](https://user-images.githubusercontent.com/80820556/140867339-223b588e-dc7f-49ed-bb19-30c53a05eb75.png)\
-loss¸¦ ±Ø´ëÈ­½ÃÄÑ ¿ÀºĞ·ù¸¦ À¯µµÇØ¾ßÇÏ±â ¶§¹®¿¡ loss¸¦ °¨»êÇÕ´Ï´Ù.\
-gradient´Â backpropagationÀ¸·Î °è»êÇÒ ¼ö ÀÖ½À´Ï´Ù.\
+We subtract the loss because we need to maximize the loss to induce misclassification.\
+gradient can be computed with backpropagation.
 
 ### :fairy: CW
-¡®Towards Evaluating the Robustness of Neural Networks¡¯ [https://arxiv.org/abs/1608.04644]\
-Carlini¿Í WagnerÀº L0, L2, L¡Ä¼¼ °³ÀÇ metricÀ» ÀÌ¿ëÇÏ¿© Àû´ëÀû ¿¹Á¦¸¦ »ı¼ºÇØ³»´Â ÃÖÀûÈ­ ±â¹İÀÇ Àû´ëÀû °ø°İÀ» Á¦¾ÈÇÏ¿´½À´Ï´Ù.\
-ÃÖÀûÈ­ ¸ñÀûÇÔ¼ö´Â ´ÙÀ½°ú °°½À´Ï´Ù.\
+â€˜Towards Evaluating the Robustness of Neural Networksâ€™ [https://arxiv.org/abs/1608.04644]\
+Carlini and Wagner proposed an optimization-based adversarial attack that generates adversarial examples using three metrics L0, L2, and Lâˆ.\
+The optimization objective function like this.\
 ![lagrida_latex_editor](https://user-images.githubusercontent.com/80820556/140867829-12d01026-04a8-4d65-93be-251d46563175.png)\
 ![lagrida_latex_editor (1)](https://user-images.githubusercontent.com/80820556/140867828-bd1bb87a-39a0-409e-a0e2-51e55296167a.png)\
 ![lagrida_latex_editor (2)](https://user-images.githubusercontent.com/80820556/140867824-470ea915-0e98-49c3-8a88-7f5e047282a7.png)\
 ![lagrida_latex_editor (3)](https://user-images.githubusercontent.com/80820556/140867832-c7f56f0a-1fe3-44d5-b95f-251cbf427dfa.png)\
 \
-f(x')Àº ´ÙÀ½°ú °°ÀÌ Á¤ÀÇµË´Ï´Ù.\
+f(x') is defined as\
 ![lagrida_latex_editor](https://user-images.githubusercontent.com/80820556/140869591-9d21badd-3c47-458e-ac54-c6ec9c34bdb2.png)\
-
 ![lagrida_latex_editor (5)](https://user-images.githubusercontent.com/80820556/140867830-7ba8762f-21f7-46dc-9f07-4bd48e9f2ab7.png)\
 ![lagrida_latex_editor (1)](https://user-images.githubusercontent.com/80820556/140869637-ce2858b7-db1a-4546-8c04-173afbf2ce57.png)
 \
-CW attackÀº ÆÄ¶ó¹ÌÅÍ °ªµéÀ» Á¶Á¤ÇÏ¿© °ø°İÀÇ °­µµ¸¦ Á¶Àı ÇÒ ¼ö ÀÖ´Ù´Â ÀåÁ¡ÀÌ ÀÖ½À´Ï´Ù.\
- ?ÀÇ °ªÀÌ Å¬¼ö·Ï classifier°¡ Àû´ëÀû ¿¹Á¦¸¦ ´õ ³ôÀº confidence·Î Æ²¸®°Ô ºĞ·ùÇÕ´Ï´Ù.\
+CW attack has the advantage of being able to control the strength of the attack by adjusting the parameter values.\
+Larger values of ? cause the classifier to incorrectly classify adversarial examples with higher confidence.
 
 ### :fairy: PGD
-¡®Towards Deep Learning Models Resistant to Adversarial Attacks¡¯ [https://arxiv.org/abs/1706.06083]\
-Projected Gradient Descent °ø°İÀº FGSMÀÇ µîÀå ÀÌÈÄ ¾à 3³â µÚ¿¡ ³ª¿Â °ø°İ ¹æ¹ıÀÔ´Ï´Ù.\
-ÇöÀç±îÁöµµ universial first-order adversary·Î ¾Ë·ÁÁ® ÀÖ¾î ¸¹Àº ³í¹®µéÀÇ baseline °ø°İ¹æ¹ıÀ¸·Î Â÷¿ëµË´Ï´Ù.\
-FGSMÀ» ÀÀ¿ëÇÑ ¹æ¹ıÀ¸·Î n¹øÀÇ step¸¸Å­ °ø°İÀ» ¹İº¹ÇÏ¿© Á¤ÇØÁø ![lagrida_latex_editor](https://user-images.githubusercontent.com/80820556/140869893-19d6de49-dd3e-41b0-90d0-e2db3e3f95b8.png) norm ¾Æ·¡¿¡¼­ inner maximizationÀ» ¼öÇàÇÕ´Ï´Ù.\
+â€˜Towards Deep Learning Models Resistant to Adversarial Attacksâ€™ [https://arxiv.org/abs/1706.06083]\
+Projected Gradient Descent attack is an attack method that came out about three years after the advent of FGSM.\
+Even today, it is known as a universal first-order adversary and is used as a baseline attack method in many papers.\
+In a method applying FGSM, the attack is repeated as many as n steps to perform inner maximization under the determined  ![lagrida_latex_editor](https://user-images.githubusercontent.com/80820556/140869893-19d6de49-dd3e-41b0-90d0-e2db3e3f95b8.png) norm.\
 ![lagrida_latex_editor (1)](https://user-images.githubusercontent.com/80820556/140869899-c2590a17-944c-42e6-9cb9-6a815e03a14c.png)\
 \
-³í¹®¿¡¼­´Â PGD±â¹İÀÇ °ø°İÀ» ÅëÇØ Ã£¾Æ³½ local maxima´Â ¸ğµ¨, µ¥ÀÌÅÍ¼Â¿¡ »ó°ü¾øÀÌ ºñ½ÁÇÑ ¼Õ½Ç°ªÀ¸·Î ¼ö·ÅÇÏ´Â °ÍÀ» ½ÇÇèÀûÀ¸·Î Áõ¸íÇß½À´Ï´Ù.\
-ÀÌ »ç½ÇÀ» ¹ÙÅÁÀ¸·Î ¸ğµ¨ÀÇ ¿ÀºĞ·ù¸¦ À¯µµÇÏ±â À§ÇÑ local maxima¸¦ Ã£´Â ÃÖÀûÇØ¸¦ ±¸ÇÏ±â À§ÇØ first-order¸¸À» »ç¿ëÇÑ °ø°İ Áß¿¡¼­ PGD¸¦ »ç¿ëÇÏ´Â °ÍÀÌ °¡Àå È¿°úÀûÀÌ¶ó°í ÁÖÀåÇÕ´Ï´Ù.\
-½ÇÁ¦·Î ¿©·¯ ³í¹®¿¡¼­ PDG exampleÀ» ÈÆ·Ã½ÃÅ² adversarial trained ¸ğµ¨Àº ¾î¶°ÇÑ °ø°İ¿¡µµ ÀÏ°üµÈ ¼º´ÉÀ» º¸¿©Áİ´Ï´Ù.
+In this paper, it was experimentally proven that the local maxima found through the PGD-based attack converge to a similar loss value regardless of the model or dataset.\
+Based on this fact, it is argued that using PGD is the most effective among first-order attacks to find the optimal solution to find the local maxima for inducing misclassification of the model.\
+In fact, the adversarial trained model trained on PDG examples in several papers shows consistent performance in any attack.
 \
-FGSM¿¡¼­´Â optimal ¥ä¸¦ Ã£±â À§ÇØ 1 step gradient¸¦ °è»êÇÕ´Ï´Ù.\
-PGDÀÇ °æ¿ì stepÀÇ n¿¡ µû¶ó °ø°İ °­µµ°¡ °­ÇØÁı´Ï´Ù.\
-ÀÏ¹İÀûÀ¸·Î 7, 40µîÀ» »ç¿ëÇÏ°í (Default) »ç¿ëÀÚÀÇ Á¶Á¤¿¡ µû¶ó ´õ Á¤±³ÇÑ local optima¸¦ Ã£±â À§ÇØ step¼ö¸¦ Áõ°¡ÇÒ ¼ö ÀÖ½À´Ï´Ù.\
-ÇÏÁö¸¸ ³í¹®¿¡¼­ ¼Õ½ÇÇÔ¼ö °ªÀÌ Æ¯Á¤ °ªÀÌ ºü¸£°Ô ¼ö·ÅÇÏ´Â °ÍÀ¸·Î ³ªÅ¸³³´Ï´Ù.\
-Áï, step¼ö°¡ Ä¿Áú ¼ö·Ï ±× ¿µÇâ·Â Á¤µµ°¡ °¨¼ÒÇÏ±â ¶§¹®¿¡ ÀûÀıÇÑ step¼ö¸¦ Á¶ÀıÇÏ´Â °ÍÀÌ Áß¿äÇÕ´Ï´Ù.\
+In FGSM, one step gradient is calculated to find the optimal Î´.\
+In the case of PGD, the attack strength increases according to the step n.\
+In general, 7, 40, etc. are used (Default), and the number of steps can be increased to find a more sophisticated local optima according to the user's adjustment.\
+However, in the paper, it appears that the loss function value converges rapidly to a specific value.\
+In other words, as the number of steps increases, the degree of influence decreases, so it is important to adjust the number of steps appropriately.\
 
 ### :fairy: DeepFool
 'DeepFool: A Simple and Accurate Method to Fool Deep Neural Networks' [https://arxiv.org/abs/1511.04599]\
-Moosavi-Dezfooli µîÀÌ Á¦¾ÈÇÑ DeepFool Àº Å¸°Ù ¸ğµ¨ÀÌ ¼±ÇüÀÌ¶ó°í °¡Á¤ÇÏ°í Àû´ëÀû ¿¹Á¦ ?¡Ç À» Ã£½À´Ï´Ù.\
-Input image ?¿Í °¡Àå °¡±î¿î decision boundary¸¦ Ã£°í, ÀÌ ¹æÇâÀ¸·Î ?¡Ç¸¦ °»½ÅÇÕ´Ï´Ù.\
-?¡Ç°¡ decision boundary¸¦ ³Ñ¾î°¥ ¶§±îÁö ÇØ´ç °úÁ¤À» ¹İº¹ÇÏ°í, ÀÛÀº Å©±âÀÇ perturbationÀ¸·Î Àû´ëÀû ¿¹Á¦¸¦ Ã£À» ¼ö ÀÖ½À´Ï
-´Ù.
-
-
+DeepFool as suggested by Moosavi-Dezfooli et al. assumes that the target model is linear and finds the adversarial example ?'.\
+Find the decision boundary closest to the input image ?, and update ?' in this direction.\
+We repeat the process until ?â€² crosses the decision boundary, and find adversarial examples with small-scale perturbations.

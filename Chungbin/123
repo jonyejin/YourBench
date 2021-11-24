@@ -3,60 +3,60 @@
 <p>
   <a href="https://github.com/jonye/blob/master/LICENSE"><img alt="MIT License" src="https://img.shields.io/github/license/jonyejin/YourBench?&color=brightgreen" /></a>
 
-YourBench´Â »ç¿ëÀÚÀÇ ¸ğµ¨°ú ÆÄ¶ó¹ÌÅÍ, µ¥ÀÌÅÍ¼ÂÀ» ÀÔ·Â¹Ş¾Æ ÃÑ 4°¡Áö(FGSM, CW, PGD, DeepFool)ÀÇ °ø°İÀ» ¼öÇàÇÕ´Ï´Ù.
+YourBenchëŠ” ì‚¬ìš©ìì˜ ëª¨ë¸ê³¼ íŒŒë¼ë¯¸í„°, ë°ì´í„°ì…‹ì„ ì…ë ¥ë°›ì•„ ì´ 4ê°€ì§€(FGSM, CW, PGD, DeepFool)ì˜ ê³µê²©ì„ ìˆ˜í–‰í•©ë‹ˆë‹¤.
+12345
+## ëª©ì°¨
 
-## ¸ñÂ÷
-
-1. [ÀÔ·Â](#ÀÔ·Â)
-2. [°ø°İ](#°ø°İ)
-3. [°á°ú](#°á°ú)
-4. [Âü°í»çÇ×](#Âü°í»çÇ×)
+1. [ì…ë ¥](#ì…ë ¥)
+2. [ê³µê²©](#ê³µê²©)
+3. [ê²°ê³¼](#ê²°ê³¼)
+4. [ì°¸ê³ ì‚¬í•­](#ì°¸ê³ ì‚¬í•­)
 
 
 ```shell
-python main.py --pth "pth_°æ·Î" --model "model_Á¤ÀÇ_°æ·Î" --dataset "µ¥ÀÌÅÍ_µğ·ºÅä¸®" --dataindex "µ¥ÀÌÅÍ_ÀÎµ¦½º_µğ·ºÅä¸®" --attack_medthod CW FGSM
+python main.py --pth "pth_ê²½ë¡œ" --model "model_ì •ì˜_ê²½ë¡œ" --dataset "ë°ì´í„°_ë””ë ‰í† ë¦¬" --dataindex "ë°ì´í„°_ì¸ë±ìŠ¤_ë””ë ‰í† ë¦¬" --attack_medthod CW FGSM
 ```
 
-## ÀÔ·Â
+## ì…ë ¥
 
-### :point_right: ¸ğµâ ÀÔ·Â¹Ş±â
-YourBench´Â »ç¿ëÀÚÀÇ ¸ğµ¨ Á¤ÀÇ¸¦ .pyÀÇ ÇüÅÂ·Î ¹Ş½À´Ï´Ù. state_dict Á¤º¸°¡ ´ã°ÜÀÖ´Â .pth ¶Ç´Â .pt¿Í ÇÔ²² ÀÔ·ÂÇØÁÖ¼¼¿ä. \
-»ç¿ëÀÚ·ÎºÎÅÍ worst case, average case, best case¿¡ ÇØ´çÇÏ´Â ÃÖ´ë 3°³ÀÇ state_dict¸¦ ¹ŞÀ» ¼ö ÀÖ½À´Ï´Ù. 
+### :point_right: ëª¨ë“ˆ ì…ë ¥ë°›ê¸°
+YourBenchëŠ” ì‚¬ìš©ìì˜ ëª¨ë¸ ì •ì˜ë¥¼ .pyì˜ í˜•íƒœë¡œ ë°›ìŠµë‹ˆë‹¤. state_dict ì •ë³´ê°€ ë‹´ê²¨ìˆëŠ” .pth ë˜ëŠ” .ptì™€ í•¨ê»˜ ì…ë ¥í•´ì£¼ì„¸ìš”. \
+ì‚¬ìš©ìë¡œë¶€í„° worst case, average case, best caseì— í•´ë‹¹í•˜ëŠ” ìµœëŒ€ 3ê°œì˜ state_dictë¥¼ ë°›ì„ ìˆ˜ ìˆìŠµë‹ˆë‹¤. 
 
 ```python
-#¸ğµ¨ ºÒ·¯¿À±â
+#ëª¨ë¸ ë¶ˆëŸ¬ì˜¤ê¸°
 model = "/home/auspiciouswho47/adversarial-attacks-pytorch/demos/lenet_state_dict.pth"
 from LeNet_model_definition import Net
 model = Net().to(device)
 model.eval()
 ```
 
-### :point_right: µ¥ÀÌÅÍ¼Â ÀÔ·Â¹Ş±â
-»ç¿ëÀÚÀÇ µ¥ÀÌÅÍ¼ÂÀÌ custom data setÀÌ¶ó¸é µ¥ÀÌÅÍ¼ÂÀ» ÀÔ·ÂÀ» µû·Î ÇØÁÖ¼¼¿ä.
-µ¥ÀÌÅÍÀÇ ÀÎµ¦½º°¡ µé¾îÀÖ´Â json ÆÄÀÏ°ú »çÁø ÆÄÀÏÀÌ ÇÊ¿äÇÕ´Ï´Ù.
+### :point_right: ë°ì´í„°ì…‹ ì…ë ¥ë°›ê¸°
+ì‚¬ìš©ìì˜ ë°ì´í„°ì…‹ì´ custom data setì´ë¼ë©´ ë°ì´í„°ì…‹ì„ ì…ë ¥ì„ ë”°ë¡œ í•´ì£¼ì„¸ìš”.
+ë°ì´í„°ì˜ ì¸ë±ìŠ¤ê°€ ë“¤ì–´ìˆëŠ” json íŒŒì¼ê³¼ ì‚¬ì§„ íŒŒì¼ì´ í•„ìš”í•©ë‹ˆë‹¤.
 ```
-1.jpg //Å×½ºÆ® µ¥ÀÌÅÍ
-image_class_index.json//ÀÌ¹ÌÁöÀÇ ÀÎµ¦½º°¡ Á¤ÀÇµÇ¾îÀÖ´Â jsonÆÄÀÏ
+1.jpg //í…ŒìŠ¤íŠ¸ ë°ì´í„°
+image_class_index.json//ì´ë¯¸ì§€ì˜ ì¸ë±ìŠ¤ê°€ ì •ì˜ë˜ì–´ìˆëŠ” jsoníŒŒì¼
 ```
 ```python
-##jsonÆÄÀÏ ¿¹½Ã##
+##jsoníŒŒì¼ ì˜ˆì‹œ##
 {"0": ["n01440764", "tench"], "1": ["n01443537", "goldfish"], "2": ["n01484850", "great_white_shark"], "3": ["n01491361", "tiger_shark"], "4": ["n01494475", "hammerhead"], "5": ["n01496331", "electric_ray"], "6": ["n01498041", "stingray"], "7": ["n01514668", "cock"], "8": ["n01514859", "hen"], "9": ["n01518878", "ostrich"], "10": ["n01530575", "brambling"], "11": ["n01531178", "goldfinch"], "12": ["n01532829", "house_finch"], "13": ["n01534433", "junco"], "14": ["n01537544", "indigo_bunting"], "15": ["n01558993", "robin"], "16": ["n01560419", "bulbul"], "17": ["n01580077", "jay"], "18": ["n01582220", "magpie"], "19": ["n01592084", "chickadee"], "20": ["n01601694", "water_ouzel"], "21": ["n01608432", "kite"], "22": ["n01614925", "bald_eagle"], "23": ["n01616318", "vulture"], "24": ["n01622779", "great_grey_owl"], "25": ["n01629819", "European_fire_salamander"], "26": ["n01630670", "common_newt"], "27": ["n01631663", "eft"]
 ```
 
-###  :warning: Á¦¾à»çÇ×
-YourBench´Â º¸´Ù Á¤È®ÇÑ test¸¦ ¼öÇàÇÏ°í report¸¦ Á¦°øÇÏ±â À§ÇØ¼­ ÃøÁ¤ °¡´ÉÇÑ ¸ğµ¨¿¡ ´ëÇØ¼­ Á¦¾à»çÇ×À» µÓ´Ï´Ù.
+###  :warning: ì œì•½ì‚¬í•­
+YourBenchëŠ” ë³´ë‹¤ ì •í™•í•œ testë¥¼ ìˆ˜í–‰í•˜ê³  reportë¥¼ ì œê³µí•˜ê¸° ìœ„í•´ì„œ ì¸¡ì • ê°€ëŠ¥í•œ ëª¨ë¸ì— ëŒ€í•´ì„œ ì œì•½ì‚¬í•­ì„ ë‘¡ë‹ˆë‹¤.
 * **No Zero Gradients** \
-Obfuscated Gradients·Î ¾Ë·ÁÁø Vanishing/Exploding gradients, Shattered Gradients, ±×¸®°í Stochastic Gradients¸¦ »ç¿ëÇÏ´Â ¸ğµ¨¿¡ ´ëÇØ¼­´Â »ç¿ëÀ» ±ÇÀåÇÏÁö ¾Ê½À´Ï´Ù. À§ gradients¸¦ »ç¿ëÇÏ´Â ¸ğµ¨Àº ÀûÇÕÇÑ ¹æ¾î ±â¹ıÀÌ ¾Æ´Ï¸ç, adversarial attack generationÀÌ ¸Å¿ì Èûµì´Ï´Ù. Obfuscated gradients¸¦ »ç¿ëÇÏ´Â ¸ğµ¨µéÀº EOT³ª BPDA, ReparameterizingÀ» ÅëÇØ °ø°İÇÏ´Â °ÍÀ» ±ÇÀåÇÕ´Ï´Ù.
+Obfuscated Gradientsë¡œ ì•Œë ¤ì§„ Vanishing/Exploding gradients, Shattered Gradients, ê·¸ë¦¬ê³  Stochastic Gradientsë¥¼ ì‚¬ìš©í•˜ëŠ” ëª¨ë¸ì— ëŒ€í•´ì„œëŠ” ì‚¬ìš©ì„ ê¶Œì¥í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤. ìœ„ gradientsë¥¼ ì‚¬ìš©í•˜ëŠ” ëª¨ë¸ì€ ì í•©í•œ ë°©ì–´ ê¸°ë²•ì´ ì•„ë‹ˆë©°, adversarial attack generationì´ ë§¤ìš° í˜ë“­ë‹ˆë‹¤. Obfuscated gradientsë¥¼ ì‚¬ìš©í•˜ëŠ” ëª¨ë¸ë“¤ì€ EOTë‚˜ BPDA, Reparameterizingì„ í†µí•´ ê³µê²©í•˜ëŠ” ê²ƒì„ ê¶Œì¥í•©ë‹ˆë‹¤.
 * **No Loops in Forward Pass** \
-Forward pass¿¡ loop°¡ ÀÖ´Â ¸ğµ¨Àº backpropagationÀÇ ºñ¿ëÀ» Áõ°¡½ÃÅ°°í, ½Ã°£ÀÌ ¿À·¡ °É¸®°Ô ÇÕ´Ï´Ù. ÀÌ·¯ÇÑ ¸ğµ¨µé¿¡ ´ëÇØ¼± loopÀÇ loss¿Í ÇØ´ç ¸ğµ¨ÀÇ task¸¦ ÇÕÇÏ¿© ÀûÀÀÀûÀ¸·Î Àû¿ëÇÒ ¼ö ÀÖ´Â °ø°İÀ» ±ÇÀåÇÕ´Ï´Ù.
+Forward passì— loopê°€ ìˆëŠ” ëª¨ë¸ì€ backpropagationì˜ ë¹„ìš©ì„ ì¦ê°€ì‹œí‚¤ê³ , ì‹œê°„ì´ ì˜¤ë˜ ê±¸ë¦¬ê²Œ í•©ë‹ˆë‹¤. ì´ëŸ¬í•œ ëª¨ë¸ë“¤ì— ëŒ€í•´ì„  loopì˜ lossì™€ í•´ë‹¹ ëª¨ë¸ì˜ taskë¥¼ í•©í•˜ì—¬ ì ì‘ì ìœ¼ë¡œ ì ìš©í•  ìˆ˜ ìˆëŠ” ê³µê²©ì„ ê¶Œì¥í•©ë‹ˆë‹¤.
 
-## °ø°İ
-YourBench´Â 4°¡Áö °ø°İÀ» Á¦°øÇÕ´Ï´Ù.\
-°ø°İÀÌ ¿ä±¸ÇÏ´Â ÆÄ¶ó¹ÌÅÍÀÇ ±âº»°ªÀº ¸ğµÎ ³í¹®À» ÂüÁ¶ÇÕ´Ï´Ù.
+## ê³µê²©
+YourBenchëŠ” 4ê°€ì§€ ê³µê²©ì„ ì œê³µí•©ë‹ˆë‹¤.\
+ê³µê²©ì´ ìš”êµ¬í•˜ëŠ” íŒŒë¼ë¯¸í„°ì˜ ê¸°ë³¸ê°’ì€ ëª¨ë‘ ë…¼ë¬¸ì„ ì°¸ì¡°í•©ë‹ˆë‹¤.
 
 ### :sunny: Vanilla
-input image¸¦ ±×´ë·Î ¸®ÅÏÇÕ´Ï´Ù.\
-ÆÄ¶ó¹ÌÅÍ·Î model¸¸À» ¹Ş½À´Ï´Ù.
+input imageë¥¼ ê·¸ëŒ€ë¡œ ë¦¬í„´í•©ë‹ˆë‹¤.\
+íŒŒë¼ë¯¸í„°ë¡œ modelë§Œì„ ë°›ìŠµë‹ˆë‹¤.
 ```python
 class VANILA(Attack):
     """
@@ -90,16 +90,16 @@ class VANILA(Attack):
 
         return adv_images
 ```
-* »ç¿ë¿¹½Ã
+* ì‚¬ìš©ì˜ˆì‹œ
 ```python
 attack = yourbench.VANILLA(model)
 adv_images = attack(images, labels)
 ```
 ### :cloud_with_lightning_and_rain: FGSM
- **¡®Explaining and harnessing adversarial examples¡¯ [https://arxiv.org/abs/1412.6572]**\
- FGSMÀº Linf normÀ» »ç¿ëÇÏ´Â °ø°İÀÔ´Ï´Ù.\
-ÆÄ¶ó¹ÌÅÍ·Î model°ú eps¸¦ ¹Ş½À´Ï´Ù.\
-eps(float): ÃÖ´ë ¼·µ¿ (maximum perturbation) (Default: 0.007)
+ **â€˜Explaining and harnessing adversarial examplesâ€™ [https://arxiv.org/abs/1412.6572]**\
+ FGSMì€ Linf normì„ ì‚¬ìš©í•˜ëŠ” ê³µê²©ì…ë‹ˆë‹¤.\
+íŒŒë¼ë¯¸í„°ë¡œ modelê³¼ epsë¥¼ ë°›ìŠµë‹ˆë‹¤.\
+eps(float): ìµœëŒ€ ì„­ë™ (maximum perturbation) (Default: 0.007)
 ```python
 class FGSM(Attack):
     r"""
@@ -159,23 +159,23 @@ class FGSM(Attack):
 
         return adv_images
 ```
-* »ç¿ë¿¹½Ã
+* ì‚¬ìš©ì˜ˆì‹œ
 ```python
 attack = torchattacks.FGSM(model, eps=0.007)
 adv_images = attack(images, labels)
 ```
 
 ### :cloud_with_lightning_and_rain: CW
-**¡®Towards Evaluating the Robustness of Neural Networks¡¯ [https://arxiv.org/abs/1608.04644]**\
-**CW´Â L2 normÀ» »ç¿ëÇÏ´Â °ø°İÀÔ´Ï´Ù.**\
-**ÆÄ¶ó¹ÌÅÍ·Î model, c, kappa, steps, lrÀ» ¹Ş½À´Ï´Ù.**\
-**c(float) : box-constraint¸¦ À§ÇÑ °ªÀÔ´Ï´Ù. (Default: 1e-4)**\
+**â€˜Towards Evaluating the Robustness of Neural Networksâ€™ [https://arxiv.org/abs/1608.04644]**\
+**CWëŠ” L2 normì„ ì‚¬ìš©í•˜ëŠ” ê³µê²©ì…ë‹ˆë‹¤.**\
+**íŒŒë¼ë¯¸í„°ë¡œ model, c, kappa, steps, lrì„ ë°›ìŠµë‹ˆë‹¤.**\
+**c(float) : box-constraintë¥¼ ìœ„í•œ ê°’ì…ë‹ˆë‹¤. (Default: 1e-4)**\
 ![lagrida_latex_editor (2)](https://user-images.githubusercontent.com/80820556/140870613-5f61196a-54d6-4220-87f5-09a1188b0a9e.png)\
-**kappa(float) : ³í¹®¿¡¼­ confidence·Î µîÀåÇÕ´Ï´Ù. (Default: 0)**\
+**kappa(float) : ë…¼ë¬¸ì—ì„œ confidenceë¡œ ë“±ì¥í•©ë‹ˆë‹¤. (Default: 0)**\
 ![lagrida_latex_editor (3)](https://user-images.githubusercontent.com/80820556/140870614-967c2adf-d54d-4c85-9271-0162355607f9.png)
 \
-**steps (int) : ÁøÇàÇÒ ´Ü°è (Default: 1000)**\
-**lr (float) : Adam optimizerÀÇ learning rate (Default: 0.01)**
+**steps (int) : ì§„í–‰í•  ë‹¨ê³„ (Default: 1000)**\
+**lr (float) : Adam optimizerì˜ learning rate (Default: 0.01)**
 
 ```python
 class CW(Attack):
@@ -306,19 +306,19 @@ class CW(Attack):
         else:
             return torch.clamp((j-i), min=-self.kappa)
 ```
-* »ç¿ë¿¹½Ã
+* ì‚¬ìš©ì˜ˆì‹œ
 ```python
 attack = torchattacks.CW(model, c=1e-4, kappa=0, steps=1000, lr=0.01)
 adv_images = attack(images, labels)
 ```
 ### :cloud_with_lightning_and_rain: PGD
-¡®Towards Deep Learning Models Resistant to Adversarial Attacks¡¯ [https://arxiv.org/abs/1706.06083]\
-ÆÄ¶ó¹ÌÅÍ·Î model, eps, alpha, steps, random_start¸¦ ¹Ş½À´Ï´Ù.\
-model (nn.Module) : °ø°İÇÒ ¸ğµ¨.\
-eps (float) : ÃÖ´ë ¼·µ¿ (maximum perturbation). (Default: 0.3)\
-alpha (float) : stepÀÇ Å©±â (Default: 2/255)\
-steps (int) : step È½¼ö. (Default: 40)\
-random_start (bool) : deltaÀÇ ·£´ı ÃÊ±âÈ­ ¿©ºÎ. (Default: True)\
+â€˜Towards Deep Learning Models Resistant to Adversarial Attacksâ€™ [https://arxiv.org/abs/1706.06083]\
+íŒŒë¼ë¯¸í„°ë¡œ model, eps, alpha, steps, random_startë¥¼ ë°›ìŠµë‹ˆë‹¤.\
+model (nn.Module) : ê³µê²©í•  ëª¨ë¸.\
+eps (float) : ìµœëŒ€ ì„­ë™ (maximum perturbation). (Default: 0.3)\
+alpha (float) : stepì˜ í¬ê¸° (Default: 2/255)\
+steps (int) : step íšŸìˆ˜. (Default: 40)\
+random_start (bool) : deltaì˜ ëœë¤ ì´ˆê¸°í™” ì—¬ë¶€. (Default: True)\
 ```python
 class PGD(Attack):
     r"""
@@ -394,18 +394,18 @@ class PGD(Attack):
 
         return adv_images
 ```
-* »ç¿ë¿¹½Ã
+* ì‚¬ìš©ì˜ˆì‹œ
 ```python
 attack = torchattacks.PGD(model, eps=8/255, alpha=1/255, steps=40, random_start=True)
 adv_images = attack(images, labels)
 ```
 ### :cloud_with_lightning_and_rain: DeepFool
 'DeepFool: A Simple and Accurate Method to Fool Deep Neural Networks' [https://arxiv.org/abs/1511.04599]\
-DeepFoolÀº L2 normÀ» »ç¿ëÇÏ´Â °ø°İÀÔ´Ï´Ù.\
-ÆÄ¶ó¹ÌÅÍ·Î model, steps, overshoot¸¦ ¹Ş½À´Ï´Ù.\
-model (nn.Module) : °ø°İÇÒ ¸ğµ¨\
-steps (int) : stepÀÇ °¹¼ö. (Default: 50)\
-overshoot (float) : noise ÁõÆøÀ» À§ÇÑ ÆÄ¶ó¹ÌÅÍ. (Default: 0.02)
+DeepFoolì€ L2 normì„ ì‚¬ìš©í•˜ëŠ” ê³µê²©ì…ë‹ˆë‹¤.\
+íŒŒë¼ë¯¸í„°ë¡œ model, steps, overshootë¥¼ ë°›ìŠµë‹ˆë‹¤.\
+model (nn.Module) : ê³µê²©í•  ëª¨ë¸\
+steps (int) : stepì˜ ê°¯ìˆ˜. (Default: 50)\
+overshoot (float) : noise ì¦í­ì„ ìœ„í•œ íŒŒë¼ë¯¸í„°. (Default: 0.02)
 ```python
 class DeepFool(Attack):
     r"""
@@ -515,38 +515,38 @@ class DeepFool(Attack):
             x_grads.append(x.grad.clone().detach())
         return torch.stack(x_grads).reshape(*y.shape, *x.shape)
 ```
-* »ç¿ë¿¹½Ã
+* ì‚¬ìš©ì˜ˆì‹œ
 ```python
 attack = torchattacks.DeepFool(model, steps=50, overshoot=0.02)
 adv_images = attack(images, labels)
 ```
 
-## °á°ú
-ÀúÀå µğ·ºÅä¸®¿¡ report.pdfÆÄÀÏÀÌ »ı¼ºµË´Ï´Ù. \
-pdfÀÇ ¿¹½Ã´Â ¾Æ·¡¿Í °°½À´Ï´Ù.
+## ê²°ê³¼
+ì €ì¥ ë””ë ‰í† ë¦¬ì— report.pdfíŒŒì¼ì´ ìƒì„±ë©ë‹ˆë‹¤. \
+pdfì˜ ì˜ˆì‹œëŠ” ì•„ë˜ì™€ ê°™ìŠµë‹ˆë‹¤.
 ### accuracy against attacks
-°ø°İ ¼öÇà °á°ú¸¦ µµÇ¥¸¦ ÅëÇØ º¸¿©Áİ´Ï´Ù. \
-¼öÇà °á°ú¿¡´Â modelÀÇ accuracy (robustness)¿Í °ø°İÀ» ¼öÇàÇÏ´Âµ¥ °É¸° total elapsed timeÀÌ ±âÀçµÇ¾îÀÖ½À´Ï´Ù.
+ê³µê²© ìˆ˜í–‰ ê²°ê³¼ë¥¼ ë„í‘œë¥¼ í†µí•´ ë³´ì—¬ì¤ë‹ˆë‹¤. \
+ìˆ˜í–‰ ê²°ê³¼ì—ëŠ” modelì˜ accuracy (robustness)ì™€ ê³µê²©ì„ ìˆ˜í–‰í•˜ëŠ”ë° ê±¸ë¦° total elapsed timeì´ ê¸°ì¬ë˜ì–´ìˆìŠµë‹ˆë‹¤.
 ### attack results with graph
-Ç¥·Î ³ª¿Â °á°ú¸¦ ±×·¡ÇÁ·Î º¯È¯ÇÏ¿© Á¦½ÃÇÕ´Ï´Ù.
+í‘œë¡œ ë‚˜ì˜¨ ê²°ê³¼ë¥¼ ê·¸ë˜í”„ë¡œ ë³€í™˜í•˜ì—¬ ì œì‹œí•©ë‹ˆë‹¤.
 ### adversarial examples
-»ı¼ºµÈ adversarial examples Áß °ø°İ¿¡ ¼º°øÇÑ ÀÌ¹ÌÁö¸¦ º¸¿©Áİ´Ï´Ù.\
-ÀÌ‹š ¸ğµ¨ÀÌ ¾î¶² ·¹ÀÌºí·Î ÀÎ½ÄÇß´ÂÁö ¶ÇÇÑ °°ÀÌ º¸¿©Áİ´Ï´Ù.
+ìƒì„±ëœ adversarial examples ì¤‘ ê³µê²©ì— ì„±ê³µí•œ ì´ë¯¸ì§€ë¥¼ ë³´ì—¬ì¤ë‹ˆë‹¤.\
+ì´Â‹Âš ëª¨ë¸ì´ ì–´ë–¤ ë ˆì´ë¸”ë¡œ ì¸ì‹í–ˆëŠ”ì§€ ë˜í•œ ê°™ì´ ë³´ì—¬ì¤ë‹ˆë‹¤.
 ### advises
-º¸´Ù ´õ robustÇÑ ¸ğµ¨À» À§ÇØ °³¹ßÀÚ°¡ ¾î¶² Á¶Ä¡¸¦ ÃëÇØ¾ßÇÏ´ÂÁö °¡ÀÌµå¶óÀÎÀÌ ÀûÇôÀÖ½À´Ï´Ù.
+ë³´ë‹¤ ë” robustí•œ ëª¨ë¸ì„ ìœ„í•´ ê°œë°œìê°€ ì–´ë–¤ ì¡°ì¹˜ë¥¼ ì·¨í•´ì•¼í•˜ëŠ”ì§€ ê°€ì´ë“œë¼ì¸ì´ ì í˜€ìˆìŠµë‹ˆë‹¤.
 </br>\
 ![adversarial attack-17](https://user-images.githubusercontent.com/80820556/136702057-26e82c95-8536-4619-b9b1-d8cda12d9c55.jpg)
 
 </p></details>
 
 
-##  Âü°í»çÇ×
-°ø°İÀÇ ¼¼ºÎ ³»¿ë°ú ¸ŞÄ¿´ÏÁò¿¡ ´ëÇØ ±Ã±İÇÏ´Ù¸é ¾Æ·¡ ¿ø¹®°ú ³»¿ëÀ» Âü°í¹Ù¶ø´Ï´Ù.
+##  ì°¸ê³ ì‚¬í•­
+ê³µê²©ì˜ ì„¸ë¶€ ë‚´ìš©ê³¼ ë©”ì»¤ë‹ˆì¦˜ì— ëŒ€í•´ ê¶ê¸ˆí•˜ë‹¤ë©´ ì•„ë˜ ì›ë¬¸ê³¼ ë‚´ìš©ì„ ì°¸ê³ ë°”ëë‹ˆë‹¤.
 ### :fairy: FGSM
-¡®Explaining and harnessing adversarial examples¡¯ [https://arxiv.org/abs/1412.6572]\
-Fast Gradient Signed Method, FGSMÀº Ian Goodfellow et al. ÀÌ Á¦½ÃÇÑ adversarial attackÀÔ´Ï´Ù.\
-¥çÀÌ ¸Å¿ì ÀÛÀ» °æ¿ì, ºĞ·ù±â´Â x¿Í x'À» °°Àº class·Î ±¸ºĞÇÕ´Ï´Ù.\
-°ªµé »çÀÌÀÇ °ü°è´Â ´ÙÀ½°ú °°½À´Ï´Ù.\
+â€˜Explaining and harnessing adversarial examplesâ€™ [https://arxiv.org/abs/1412.6572]\
+Fast Gradient Signed Method, FGSMì€ Ian Goodfellow et al. ì´ ì œì‹œí•œ adversarial attackì…ë‹ˆë‹¤.\
+Î·ì´ ë§¤ìš° ì‘ì„ ê²½ìš°, ë¶„ë¥˜ê¸°ëŠ” xì™€ x'ì„ ê°™ì€ classë¡œ êµ¬ë¶„í•©ë‹ˆë‹¤.\
+ê°’ë“¤ ì‚¬ì´ì˜ ê´€ê³„ëŠ” ë‹¤ìŒê³¼ ê°™ìŠµë‹ˆë‹¤.\
 \
 ![lagrida_latex_editor (1)](https://user-images.githubusercontent.com/80820556/140866522-4ceeab47-06d6-4824-a948-42b15e958613.png)
 \
@@ -559,18 +559,18 @@ Fast Gradient Signed Method, FGSMÀº Ian Goodfellow et al. ÀÌ Á¦½ÃÇÑ adversarial 
 ![lagrida_latex_editor (4)](https://user-images.githubusercontent.com/80820556/140866887-dd166c33-3dc0-4f54-93ac-7bb3554ae796.png)
 \
 \
-ÀÌ¶§ max norm contraint¿¡ µû¶ó ¥ç=sign(w)·Î ÀÌ perturbationÀ» ÃÖ´ëÈ­ ½ÃÅ³ ¼ö ÀÖ½À´Ï´Ù.\
+ì´ë•Œ max norm contraintì— ë”°ë¼ Î·=sign(w)ë¡œ ì´ perturbationì„ ìµœëŒ€í™” ì‹œí‚¬ ìˆ˜ ìˆìŠµë‹ˆë‹¤.\
 ![lagrida_latex_editor (1)](https://user-images.githubusercontent.com/80820556/140867054-cd759d0b-135a-4022-8d80-61b7224b7cdd.png)
 \
-w°¡ nÂ÷¿øÀÇ º¤ÅÍÀÌ°í, elementÀÇ Àı´ñ°ª Æò±ÕÀÌ mÀÌ¶ó¸é ¥ç°ªÀº ¥åmnÀÌ µË´Ï´Ù.\
-w¥ç´Â Â÷¿øn¿¡ ºñ·ÊÇÏ±â Áõ°¡ÇÒ ¼ö ÀÖÀ¸¸ç, ³ôÀº Â÷¿øÀÇ ¹®Á¦¿¡¼­ input¿¡ ÀÛÀº Â÷ÀÌ°¡ output¿¡ Å« Â÷ÀÌ¸¦ ¸¸µé ¼ö ÀÕ½À´Ï´Ù.\
-Áï, ³ôÀº Â÷¿ø¿¡¼­ input¿¡ ÀÛÀº ³ëÀÌÁî¸¦ Ãß°¡ÇÏ¿© Decision Boundary¸¦ Å©°Ô ³Ñ±æ ¼ö ÀÖ½À´Ï´Ù.\
-³í¹®¿¡¼­´Â input¿¡ ÃæºĞÇÑ Â÷¿øÀÌ ÀÖ´Â °æ¿ì, °£´ÜÇÑ ¼±Çü ¸ğµ¨¿¡ adversarial exampleÀÌ ÀÖ´Ù°í ¾Ï½ÃÇÕ´Ï´Ù.\
+wê°€ nì°¨ì›ì˜ ë²¡í„°ì´ê³ , elementì˜ ì ˆëŒ“ê°’ í‰ê· ì´ mì´ë¼ë©´ Î·ê°’ì€ Îµmnì´ ë©ë‹ˆë‹¤.\
+wÎ·ëŠ” ì°¨ì›nì— ë¹„ë¡€í•˜ê¸° ì¦ê°€í•  ìˆ˜ ìˆìœ¼ë©°, ë†’ì€ ì°¨ì›ì˜ ë¬¸ì œì—ì„œ inputì— ì‘ì€ ì°¨ì´ê°€ outputì— í° ì°¨ì´ë¥¼ ë§Œë“¤ ìˆ˜ ì‡ìŠµë‹ˆë‹¤.\
+ì¦‰, ë†’ì€ ì°¨ì›ì—ì„œ inputì— ì‘ì€ ë…¸ì´ì¦ˆë¥¼ ì¶”ê°€í•˜ì—¬ Decision Boundaryë¥¼ í¬ê²Œ ë„˜ê¸¸ ìˆ˜ ìˆìŠµë‹ˆë‹¤.\
+ë…¼ë¬¸ì—ì„œëŠ” inputì— ì¶©ë¶„í•œ ì°¨ì›ì´ ìˆëŠ” ê²½ìš°, ê°„ë‹¨í•œ ì„ í˜• ëª¨ë¸ì— adversarial exampleì´ ìˆë‹¤ê³  ì•”ì‹œí•©ë‹ˆë‹¤.\
 \
-FGSMÀº ´ëÇ¥ÀûÀÎ one-step °ø°İ ¾Ë°í¸®ÁòÀÔ´Ï´Ù.\
-°¡Àå °¡ÆÄ¸¥ (steepest) ¹æÇâÀ¸·Î optimization loss J(¥è, ?, ?)
-¸¦ Áõ°¡½ÃÅ°±â À§ÇØ lossÀÇ gradient ¹æÇâ À» µû¶ó ÀÌ¹ÌÁö¸¦ °»½ÅÇÕ´Ï´Ù.\
-Àû´ëÀû ¿¹Á¦ x¡ÇÀº ´ÙÀ½°ú °°ÀÌ »ı¼ºµË´Ï´Ù.\
+FGSMì€ ëŒ€í‘œì ì¸ one-step ê³µê²© ì•Œê³ ë¦¬ì¦˜ì…ë‹ˆë‹¤.\
+ê°€ì¥ ê°€íŒŒë¥¸ (steepest) ë°©í–¥ìœ¼ë¡œ optimization loss J(Î¸, ?, ?)
+ë¥¼ ì¦ê°€ì‹œí‚¤ê¸° ìœ„í•´ lossì˜ gradient ë°©í–¥ ì„ ë”°ë¼ ì´ë¯¸ì§€ë¥¼ ê°±ì‹ í•©ë‹ˆë‹¤.\
+ì ëŒ€ì  ì˜ˆì œ xâ€²ì€ ë‹¤ìŒê³¼ ê°™ì´ ìƒì„±ë©ë‹ˆë‹¤.\
 ![lagrida_latex_editor](https://user-images.githubusercontent.com/80820556/140867337-93debfbf-4ae0-4399-8c35-b2d2ae43c206.png)\
 ![lagrida_latex_editor (1)](https://user-images.githubusercontent.com/80820556/140867335-f40cb6e3-a652-46ef-a846-6674c7bc4325.png)\
 ![lagrida_latex_editor (2)](https://user-images.githubusercontent.com/80820556/140867333-3b2015a3-b2d8-4bfd-8194-5b16c095016e.png)\
@@ -579,49 +579,47 @@ FGSMÀº ´ëÇ¥ÀûÀÎ one-step °ø°İ ¾Ë°í¸®ÁòÀÔ´Ï´Ù.\
 ![lagrida_latex_editor (4)](https://user-images.githubusercontent.com/80820556/140867343-e93515f6-77be-44ed-85b5-deda44e14877.png)\
 ![lagrida_latex_editor (5)](https://user-images.githubusercontent.com/80820556/140867340-1f2d6ee6-4be0-4fe2-aa94-c51f9663aeab.png)\
 ![lagrida_latex_editor (6)](https://user-images.githubusercontent.com/80820556/140867339-223b588e-dc7f-49ed-bb19-30c53a05eb75.png)\
-loss¸¦ ±Ø´ëÈ­½ÃÄÑ ¿ÀºĞ·ù¸¦ À¯µµÇØ¾ßÇÏ±â ¶§¹®¿¡ loss¸¦ °¨»êÇÕ´Ï´Ù.\
-gradient´Â backpropagationÀ¸·Î °è»êÇÒ ¼ö ÀÖ½À´Ï´Ù.\
+lossë¥¼ ê·¹ëŒ€í™”ì‹œì¼œ ì˜¤ë¶„ë¥˜ë¥¼ ìœ ë„í•´ì•¼í•˜ê¸° ë•Œë¬¸ì— lossë¥¼ ê°ì‚°í•©ë‹ˆë‹¤.\
+gradientëŠ” backpropagationìœ¼ë¡œ ê³„ì‚°í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.\
 
 ### :fairy: CW
-¡®Towards Evaluating the Robustness of Neural Networks¡¯ [https://arxiv.org/abs/1608.04644]\
-Carlini¿Í WagnerÀº L0, L2, L¡Ä¼¼ °³ÀÇ metricÀ» ÀÌ¿ëÇÏ¿© Àû´ëÀû ¿¹Á¦¸¦ »ı¼ºÇØ³»´Â ÃÖÀûÈ­ ±â¹İÀÇ Àû´ëÀû °ø°İÀ» Á¦¾ÈÇÏ¿´½À´Ï´Ù.\
-ÃÖÀûÈ­ ¸ñÀûÇÔ¼ö´Â ´ÙÀ½°ú °°½À´Ï´Ù.\
+â€˜Towards Evaluating the Robustness of Neural Networksâ€™ [https://arxiv.org/abs/1608.04644]\
+Carliniì™€ Wagnerì€ L0, L2, Lâˆì„¸ ê°œì˜ metricì„ ì´ìš©í•˜ì—¬ ì ëŒ€ì  ì˜ˆì œë¥¼ ìƒì„±í•´ë‚´ëŠ” ìµœì í™” ê¸°ë°˜ì˜ ì ëŒ€ì  ê³µê²©ì„ ì œì•ˆí•˜ì˜€ìŠµë‹ˆë‹¤.\
+ìµœì í™” ëª©ì í•¨ìˆ˜ëŠ” ë‹¤ìŒê³¼ ê°™ìŠµë‹ˆë‹¤.\
 ![lagrida_latex_editor](https://user-images.githubusercontent.com/80820556/140867829-12d01026-04a8-4d65-93be-251d46563175.png)\
 ![lagrida_latex_editor (1)](https://user-images.githubusercontent.com/80820556/140867828-bd1bb87a-39a0-409e-a0e2-51e55296167a.png)\
 ![lagrida_latex_editor (2)](https://user-images.githubusercontent.com/80820556/140867824-470ea915-0e98-49c3-8a88-7f5e047282a7.png)\
 ![lagrida_latex_editor (3)](https://user-images.githubusercontent.com/80820556/140867832-c7f56f0a-1fe3-44d5-b95f-251cbf427dfa.png)\
 \
-f(x')Àº ´ÙÀ½°ú °°ÀÌ Á¤ÀÇµË´Ï´Ù.\
+f(x')ì€ ë‹¤ìŒê³¼ ê°™ì´ ì •ì˜ë©ë‹ˆë‹¤.\
 ![lagrida_latex_editor](https://user-images.githubusercontent.com/80820556/140869591-9d21badd-3c47-458e-ac54-c6ec9c34bdb2.png)\
 
 ![lagrida_latex_editor (5)](https://user-images.githubusercontent.com/80820556/140867830-7ba8762f-21f7-46dc-9f07-4bd48e9f2ab7.png)\
 ![lagrida_latex_editor (1)](https://user-images.githubusercontent.com/80820556/140869637-ce2858b7-db1a-4546-8c04-173afbf2ce57.png)
 \
-CW attackÀº ÆÄ¶ó¹ÌÅÍ °ªµéÀ» Á¶Á¤ÇÏ¿© °ø°İÀÇ °­µµ¸¦ Á¶Àı ÇÒ ¼ö ÀÖ´Ù´Â ÀåÁ¡ÀÌ ÀÖ½À´Ï´Ù.\
- ?ÀÇ °ªÀÌ Å¬¼ö·Ï classifier°¡ Àû´ëÀû ¿¹Á¦¸¦ ´õ ³ôÀº confidence·Î Æ²¸®°Ô ºĞ·ùÇÕ´Ï´Ù.\
+CW attackì€ íŒŒë¼ë¯¸í„° ê°’ë“¤ì„ ì¡°ì •í•˜ì—¬ ê³µê²©ì˜ ê°•ë„ë¥¼ ì¡°ì ˆ í•  ìˆ˜ ìˆë‹¤ëŠ” ì¥ì ì´ ìˆìŠµë‹ˆë‹¤.\
+ ?ì˜ ê°’ì´ í´ìˆ˜ë¡ classifierê°€ ì ëŒ€ì  ì˜ˆì œë¥¼ ë” ë†’ì€ confidenceë¡œ í‹€ë¦¬ê²Œ ë¶„ë¥˜í•©ë‹ˆë‹¤.\
 
 ### :fairy: PGD
-¡®Towards Deep Learning Models Resistant to Adversarial Attacks¡¯ [https://arxiv.org/abs/1706.06083]\
-Projected Gradient Descent °ø°İÀº FGSMÀÇ µîÀå ÀÌÈÄ ¾à 3³â µÚ¿¡ ³ª¿Â °ø°İ ¹æ¹ıÀÔ´Ï´Ù.\
-ÇöÀç±îÁöµµ universial first-order adversary·Î ¾Ë·ÁÁ® ÀÖ¾î ¸¹Àº ³í¹®µéÀÇ baseline °ø°İ¹æ¹ıÀ¸·Î Â÷¿ëµË´Ï´Ù.\
-FGSMÀ» ÀÀ¿ëÇÑ ¹æ¹ıÀ¸·Î n¹øÀÇ step¸¸Å­ °ø°İÀ» ¹İº¹ÇÏ¿© Á¤ÇØÁø ![lagrida_latex_editor](https://user-images.githubusercontent.com/80820556/140869893-19d6de49-dd3e-41b0-90d0-e2db3e3f95b8.png) norm ¾Æ·¡¿¡¼­ inner maximizationÀ» ¼öÇàÇÕ´Ï´Ù.\
+â€˜Towards Deep Learning Models Resistant to Adversarial Attacksâ€™ [https://arxiv.org/abs/1706.06083]\
+Projected Gradient Descent ê³µê²©ì€ FGSMì˜ ë“±ì¥ ì´í›„ ì•½ 3ë…„ ë’¤ì— ë‚˜ì˜¨ ê³µê²© ë°©ë²•ì…ë‹ˆë‹¤.\
+í˜„ì¬ê¹Œì§€ë„ universial first-order adversaryë¡œ ì•Œë ¤ì ¸ ìˆì–´ ë§ì€ ë…¼ë¬¸ë“¤ì˜ baseline ê³µê²©ë°©ë²•ìœ¼ë¡œ ì°¨ìš©ë©ë‹ˆë‹¤.\
+FGSMì„ ì‘ìš©í•œ ë°©ë²•ìœ¼ë¡œ në²ˆì˜ stepë§Œí¼ ê³µê²©ì„ ë°˜ë³µí•˜ì—¬ ì •í•´ì§„ ![lagrida_latex_editor](https://user-images.githubusercontent.com/80820556/140869893-19d6de49-dd3e-41b0-90d0-e2db3e3f95b8.png) norm ì•„ë˜ì—ì„œ inner maximizationì„ ìˆ˜í–‰í•©ë‹ˆë‹¤.\
 ![lagrida_latex_editor (1)](https://user-images.githubusercontent.com/80820556/140869899-c2590a17-944c-42e6-9cb9-6a815e03a14c.png)\
 \
-³í¹®¿¡¼­´Â PGD±â¹İÀÇ °ø°İÀ» ÅëÇØ Ã£¾Æ³½ local maxima´Â ¸ğµ¨, µ¥ÀÌÅÍ¼Â¿¡ »ó°ü¾øÀÌ ºñ½ÁÇÑ ¼Õ½Ç°ªÀ¸·Î ¼ö·ÅÇÏ´Â °ÍÀ» ½ÇÇèÀûÀ¸·Î Áõ¸íÇß½À´Ï´Ù.\
-ÀÌ »ç½ÇÀ» ¹ÙÅÁÀ¸·Î ¸ğµ¨ÀÇ ¿ÀºĞ·ù¸¦ À¯µµÇÏ±â À§ÇÑ local maxima¸¦ Ã£´Â ÃÖÀûÇØ¸¦ ±¸ÇÏ±â À§ÇØ first-order¸¸À» »ç¿ëÇÑ °ø°İ Áß¿¡¼­ PGD¸¦ »ç¿ëÇÏ´Â °ÍÀÌ °¡Àå È¿°úÀûÀÌ¶ó°í ÁÖÀåÇÕ´Ï´Ù.\
-½ÇÁ¦·Î ¿©·¯ ³í¹®¿¡¼­ PDG exampleÀ» ÈÆ·Ã½ÃÅ² adversarial trained ¸ğµ¨Àº ¾î¶°ÇÑ °ø°İ¿¡µµ ÀÏ°üµÈ ¼º´ÉÀ» º¸¿©Áİ´Ï´Ù.
+ë…¼ë¬¸ì—ì„œëŠ” PGDê¸°ë°˜ì˜ ê³µê²©ì„ í†µí•´ ì°¾ì•„ë‚¸ local maximaëŠ” ëª¨ë¸, ë°ì´í„°ì…‹ì— ìƒê´€ì—†ì´ ë¹„ìŠ·í•œ ì†ì‹¤ê°’ìœ¼ë¡œ ìˆ˜ë ´í•˜ëŠ” ê²ƒì„ ì‹¤í—˜ì ìœ¼ë¡œ ì¦ëª…í–ˆìŠµë‹ˆë‹¤.\
+ì´ ì‚¬ì‹¤ì„ ë°”íƒ•ìœ¼ë¡œ ëª¨ë¸ì˜ ì˜¤ë¶„ë¥˜ë¥¼ ìœ ë„í•˜ê¸° ìœ„í•œ local maximaë¥¼ ì°¾ëŠ” ìµœì í•´ë¥¼ êµ¬í•˜ê¸° ìœ„í•´ first-orderë§Œì„ ì‚¬ìš©í•œ ê³µê²© ì¤‘ì—ì„œ PGDë¥¼ ì‚¬ìš©í•˜ëŠ” ê²ƒì´ ê°€ì¥ íš¨ê³¼ì ì´ë¼ê³  ì£¼ì¥í•©ë‹ˆë‹¤.\
+ì‹¤ì œë¡œ ì—¬ëŸ¬ ë…¼ë¬¸ì—ì„œ PDG exampleì„ í›ˆë ¨ì‹œí‚¨ adversarial trained ëª¨ë¸ì€ ì–´ë– í•œ ê³µê²©ì—ë„ ì¼ê´€ëœ ì„±ëŠ¥ì„ ë³´ì—¬ì¤ë‹ˆë‹¤.
 \
-FGSM¿¡¼­´Â optimal ¥ä¸¦ Ã£±â À§ÇØ 1 step gradient¸¦ °è»êÇÕ´Ï´Ù.\
-PGDÀÇ °æ¿ì stepÀÇ n¿¡ µû¶ó °ø°İ °­µµ°¡ °­ÇØÁı´Ï´Ù.\
-ÀÏ¹İÀûÀ¸·Î 7, 40µîÀ» »ç¿ëÇÏ°í (Default) »ç¿ëÀÚÀÇ Á¶Á¤¿¡ µû¶ó ´õ Á¤±³ÇÑ local optima¸¦ Ã£±â À§ÇØ step¼ö¸¦ Áõ°¡ÇÒ ¼ö ÀÖ½À´Ï´Ù.\
-ÇÏÁö¸¸ ³í¹®¿¡¼­ ¼Õ½ÇÇÔ¼ö °ªÀÌ Æ¯Á¤ °ªÀÌ ºü¸£°Ô ¼ö·ÅÇÏ´Â °ÍÀ¸·Î ³ªÅ¸³³´Ï´Ù.\
-Áï, step¼ö°¡ Ä¿Áú ¼ö·Ï ±× ¿µÇâ·Â Á¤µµ°¡ °¨¼ÒÇÏ±â ¶§¹®¿¡ ÀûÀıÇÑ step¼ö¸¦ Á¶ÀıÇÏ´Â °ÍÀÌ Áß¿äÇÕ´Ï´Ù.\
+FGSMì—ì„œëŠ” optimal Î´ë¥¼ ì°¾ê¸° ìœ„í•´ 1 step gradientë¥¼ ê³„ì‚°í•©ë‹ˆë‹¤.\
+PGDì˜ ê²½ìš° stepì˜ nì— ë”°ë¼ ê³µê²© ê°•ë„ê°€ ê°•í•´ì§‘ë‹ˆë‹¤.\
+ì¼ë°˜ì ìœ¼ë¡œ 7, 40ë“±ì„ ì‚¬ìš©í•˜ê³  (Default) ì‚¬ìš©ìì˜ ì¡°ì •ì— ë”°ë¼ ë” ì •êµí•œ local optimaë¥¼ ì°¾ê¸° ìœ„í•´ stepìˆ˜ë¥¼ ì¦ê°€í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.\
+í•˜ì§€ë§Œ ë…¼ë¬¸ì—ì„œ ì†ì‹¤í•¨ìˆ˜ ê°’ì´ íŠ¹ì • ê°’ì´ ë¹ ë¥´ê²Œ ìˆ˜ë ´í•˜ëŠ” ê²ƒìœ¼ë¡œ ë‚˜íƒ€ë‚©ë‹ˆë‹¤.\
+ì¦‰, stepìˆ˜ê°€ ì»¤ì§ˆ ìˆ˜ë¡ ê·¸ ì˜í–¥ë ¥ ì •ë„ê°€ ê°ì†Œí•˜ê¸° ë•Œë¬¸ì— ì ì ˆí•œ stepìˆ˜ë¥¼ ì¡°ì ˆí•˜ëŠ” ê²ƒì´ ì¤‘ìš”í•©ë‹ˆë‹¤.\
 
 ### :fairy: DeepFool
 'DeepFool: A Simple and Accurate Method to Fool Deep Neural Networks' [https://arxiv.org/abs/1511.04599]\
-Moosavi-Dezfooli µîÀÌ Á¦¾ÈÇÑ DeepFool Àº Å¸°Ù ¸ğµ¨ÀÌ ¼±ÇüÀÌ¶ó°í °¡Á¤ÇÏ°í Àû´ëÀû ¿¹Á¦ ?¡Ç À» Ã£½À´Ï´Ù.\
-Input image ?¿Í °¡Àå °¡±î¿î decision boundary¸¦ Ã£°í, ÀÌ ¹æÇâÀ¸·Î ?¡Ç¸¦ °»½ÅÇÕ´Ï´Ù.\
-?¡Ç°¡ decision boundary¸¦ ³Ñ¾î°¥ ¶§±îÁö ÇØ´ç °úÁ¤À» ¹İº¹ÇÏ°í, ÀÛÀº Å©±âÀÇ perturbationÀ¸·Î Àû´ëÀû ¿¹Á¦¸¦ Ã£À» ¼ö ÀÖ½À´Ï
-´Ù.
-
-
+Moosavi-Dezfooli ë“±ì´ ì œì•ˆí•œ DeepFool ì€ íƒ€ê²Ÿ ëª¨ë¸ì´ ì„ í˜•ì´ë¼ê³  ê°€ì •í•˜ê³  ì ëŒ€ì  ì˜ˆì œ ?â€² ì„ ì°¾ìŠµë‹ˆë‹¤.\
+Input image ?ì™€ ê°€ì¥ ê°€ê¹Œìš´ decision boundaryë¥¼ ì°¾ê³ , ì´ ë°©í–¥ìœ¼ë¡œ ?â€²ë¥¼ ê°±ì‹ í•©ë‹ˆë‹¤.\
+?â€²ê°€ decision boundaryë¥¼ ë„˜ì–´ê°ˆ ë•Œê¹Œì§€ í•´ë‹¹ ê³¼ì •ì„ ë°˜ë³µí•˜ê³ , ì‘ì€ í¬ê¸°ì˜ perturbationìœ¼ë¡œ ì ëŒ€ì  ì˜ˆì œë¥¼ ì°¾ì„ ìˆ˜ ìˆìŠµë‹ˆ
+ë‹¤.
