@@ -180,6 +180,13 @@ for atk in atks :
 
     print("Top5 Accuracy")
 
+print("==================")
+print(adv_images.shape)
+# Save Image in Folder
+for i in range(adv_images.shape[0]):
+    torchvision.utils.save_image(images[i], fp=f"./Data/Generated/image_original_{i+1}.jpg", normalize=True)    
+    torchvision.utils.save_image(adv_images[i], fp=f"./Data/Generated/image_adv_{i+1}.jpg", normalize=True)
+
 # 4. Report Generating
 
 # matplotlib로 그래프 그리기
@@ -193,8 +200,11 @@ plt.plot(x_val, cw_val, color='green')
 plt.plot(x_val, fgsm_val, color='blue')
 plt.plot(x_val, jsma_val, color='red')
 plt.plot(x_val, df_val, color='black')
-
+print("before save")
+plt.show()
 plt.savefig(f'./Data/Generated/graph.jpg', dip=300)
+print("after save")
+
 
 from fpdf import FPDF
 from torchvision.transforms.functional import to_pil_image
@@ -242,19 +252,7 @@ pdf.cell(0, 10, f"Succeeded Adversarial examples", 0, 1)
 epw = pdf.w - 2*pdf.l_margin
 img_size = epw/4 - 10
 
-for i in range(2):
-    pdf.image(f'./Data/Generated/image_original_{i+1}.jpg', w=img_size, h=img_size)
-    pdf.set_xy(pdf.get_x() + img_size + 10, pdf.get_y() - img_size)
-    pdf.image(f'./Data/Generated/image_adv_{i+1}.jpg', w=img_size, h=img_size)
-    pdf.ln(2)
-    
-for i in range(2):
-    pdf.image(f'./data/advImage/image_original_{i+1}.jpg', w=img_size, h=img_size)
-    pdf.set_xy(pdf.get_x() + img_size + 10, pdf.get_y() - img_size)
-    pdf.image(f'./data/advImage/image_adv_{i+1}.jpg', w=img_size, h=img_size)
-    pdf.ln(2)
-    
-for i in range(2):
+for i in range(max(5, adv_images.shape[0])):
     pdf.image(f'./Data/Generated/image_original_{i+1}.jpg', w=img_size, h=img_size)
     pdf.set_xy(pdf.get_x() + img_size + 10, pdf.get_y() - img_size)
     pdf.image(f'./Data/Generated/image_adv_{i+1}.jpg', w=img_size, h=img_size)
