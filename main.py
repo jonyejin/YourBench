@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import numpy as np
 import json
 import os
@@ -41,7 +42,7 @@ print("PyTorch", torch.__version__)
 print("Torchvision", torchvision.__version__)
 print("Torchattacks", torchattacks.__version__)
 print("Numpy", np.__version__)
-    
+
 # CUDA Settings
 USE_CUDA = torch.cuda.is_available() 
 device = torch.device('cuda:0' if USE_CUDA else 'cpu') 
@@ -131,10 +132,10 @@ attackMethodDict = {'FGSM': FGSM(model, eps=8/255),
                     'PGD' : PGD(model, eps=8/255, alpha=2/225, steps=100, random_start=True),
                     'DeepFool': DeepFool(model, steps=100)}
 atks = [
+    VANILA(model),
     #FGSM(model, eps=8/255),
     #CW(model, c=1, lr=0.01, steps=100, kappa=0),
     #PGD(model, eps=8/255, alpha=2/225, steps=100, random_start=True),
-    #VANILA(model),
     #DeepFool(model, steps=100),
 ]
 
@@ -145,6 +146,11 @@ for atk in args.parsedAttackMethod:
 print(atks)
 print("Adversarial Image & Predicted Label")
 
+# +
+vanilla_output = []
+untargeted_output= []
+targeted_output= []
+
 for atk in atks :
     print("-"*70)
     print(atk)
@@ -153,11 +159,10 @@ for atk in atks :
     top5_correct = 0
     total = 0
     
-    for images, labels in data_loader: # batch로 나눠서 돌리는듯.
+    for images, labels in data_loader:
         # images : torch.Size([1,3,299,299])
         # labels: torch.Size([10]),[7, 5, 388, 1, ...] -> cock, electric_ray, giant_panda...
-        #atk.set_mode_targeted_least_likely()
-        #tk.set_mode_targeted_random()
+        atk.set_mode_default()
         #print(images.shape)
         start = time.time()
         adv_images = atk(images, labels)
@@ -175,8 +180,42 @@ for atk in atks :
         break
     print('Total elapsed time (sec): %.2f' % (time.time() - start))
     print('Robust accuracy: %.2f %%' % (100 * float(correct) / total))
-
     print("Top5 Accuracy")
+    
+    if atk.attack == "VANILA":
+        for i in range (len(atks) - 1):
+            vanilla_output.append(str(100 * float(correct) / total)+'%')
+    else:
+        untargeted_output.append(str(100 * float(correct) / total)+'%')
+        print("untar")
+        print(untargeted_output)
+    
+    if atk.attack == ("FGSM" or "CW"):
+        print("-"*70)
+        print(atk)
+        for images, labels in data_loader:
+            atk.set_mode_targeted_least_likely()
+            start = time.time()
+            adv_images = atk(images, labels)
+            labels = labels.to(device)
+            outputs = model(adv_images) # outputs: torch.Size([batch_size, 1000]), adversarial image를 모델에 넣은 결과, outputs.data:[batch_size, 1000]
+            _, pre = torch.max(outputs.data, 1) # 1000 classes중 가장 큰 VALUE 1 남음, value, index 나온다. batch_size>1이면 batch_size크기의 array로 나온다.
+            _, top_5 = torch.topk(outputs.data, 5)
+            total += len(images)
+            correct += (pre == labels).sum()
+            break
+        print('Total elapsed time (sec): %.2f' % (time.time() - start))
+        print('Robust accuracy: %.2f %%' % (100 * float(correct) / total))
+        print("Top5 Accuracy")
+        targeted_output.append(str(100 * float(correct) / total) + '%')
+        print("tar")
+        print(targeted_output)
+    elif atk.attack != "VANILA" and (atk.attack == "PGD" or "DeepFool"):
+        targeted_output.append('unsupported')
+        print("tar")
+        print(targeted_output)
+    
+# -
 
 print("==================")
 print(adv_images.shape)
@@ -194,17 +233,21 @@ for i in range(adv_images.shape[0]):
 # 4. Report Generating
 
 # matplotlib로 그래프 그리기
-x_val = ['CW', 'FGSM', 'JSMA', 'DF']
-cw_val = [0.2, 0.6, 0.8, 0.2]
-fgsm_val = [0.3, 0.5, 0.3, 0.5]
-jsma_val = [0.1, 0.5, 0.8, 1]
-df_val = [0.3, 0.8, 1, 0.1]
+x_val =[]
+for atk in atks:
+    if atk.attack == "VANILA":
+        continue
+    x_val.append(atk.attack)
+#cw_val = [0.2, 0.6, 0.8, 0.2]
+#fgsm_val = [0.3, 0.5, 0.3, 0.5]
+#jsma_val = [0.1, 0.5, 0.8, 1]
+#df_val = [0.3, 0.8, 1, 0.1]
 
-plt.plot(x_val, cw_val, color='green')
-plt.plot(x_val, fgsm_val, color='blue')
-plt.plot(x_val, jsma_val, color='red')
-plt.plot(x_val, df_val, color='black')
-plt.show()
+plt.plot(x_val, vanilla_output, color='green')
+plt.plot(x_val, untargeted_output, color='blue')
+plt.plot(x_val, targeted_output, color='red')
+print("before save")
+#plt.show()
 plt.savefig(f'./Data/Generated/graph.jpg', dip=300)
 
 from fpdf import FPDF
@@ -258,7 +301,7 @@ for i in range(max(5, adv_images.shape[0])):
     pdf.set_xy(pdf.get_x() + img_size + 10, pdf.get_y() - img_size)
     pdf.image(f'./Data/Generated/image_adv_{i+1}.jpg', w=img_size, h=img_size)
     pdf.ln(2)
-    
+
 # second column
 ## 2. table 추가
 pdf.set_xy(epw /2 +pdf.l_margin, top_y)
@@ -266,22 +309,22 @@ pdf.set_font("Times", "B", size=12)
 pdf.cell(epw / 2 + 10, 10, txt=f"Top-5 Accuracy against attacks", border=0, ln=1) # ln: 커서 포지션을 다음줄로 바꾼다. 
 #pdf.set_xy(epw /2 +pdf.l_margin, pdf.get_y())
 
- 
+
 # Set column width to 1/4 of effective page width to distribute content 
 # evenly across table and page
 col_width = epw/10
- 
+
 # Since we do not need to draw lines anymore, there is no need to separate
 # headers from data matrix.
 
-data = [['Vanilla','20%'],
-['attacks','FGSM','CW','PGD', 'DeepFool'],
-['default','60%','60%','64%','22%'],
-['targeted','60%','60%','unsupported','unsupported'],]
+data = [['Vanilla']+vanilla_output,
+['attacks'] + x_val,
+['default'] + untargeted_output,
+['targeted'] + targeted_output,]
 
 pdf.set_font('Times','',10.0) 
 pdf.ln(0.5)
- 
+
 # Text height is the same as current font size
 th = pdf.font_size
 
@@ -313,7 +356,7 @@ pdf.cell(0, 10, f"Advise for your model robustness", 0, 1)
 pdf.set_font("Helvetica", "I", 12)
 #pdf.cell(w=0, h=0, txt=f"Your model is significantly weak against CW L2 Attack.Your model is significantly weak against CW L2 Attack. Your model is significantly weak against CW L2 Attack.Your model is significantly weak against CW L2 Attack.,Your model is significantly weak against CW L2 Attack", border=0, 1)
 
-#pdf.write(h=5, txt=f"Your model is significantly weak against CW L2 Attack.Your model is significantly weak against CW L2 Attack. Your model is significantly weak against CW L2 Attack.Your model is significantly weak against CW L2 Attack.,Your model is significantly weak against CW L2 Attack")
+# pdf.write(h=5, txt=f"Your model is significantly weak against CW L2 Attack.Your model is significantly weak against CW L2 Attack. Your model is significantly weak against CW L2 Attack.Your model is significantly weak against CW L2 Attack.,Your model is significantly weak against CW L2 Attack")
 
 pdf.set_xy(epw /2 +pdf.l_margin, pdf.get_y())
 advice_data={'0to10 accuracy attacks' : 'None1', '10to100 accuracy attacks' : ''}
