@@ -206,11 +206,8 @@ plt.plot(x_val, cw_val, color='green')
 plt.plot(x_val, fgsm_val, color='blue')
 plt.plot(x_val, jsma_val, color='red')
 plt.plot(x_val, df_val, color='black')
-print("before save")
 plt.show()
 plt.savefig(f'./Data/Generated/graph.jpg', dip=300)
-print("after save")
-
 
 from fpdf import FPDF
 from torchvision.transforms.functional import to_pil_image
