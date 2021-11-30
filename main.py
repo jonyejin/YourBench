@@ -41,8 +41,7 @@ print("PyTorch", torch.__version__)
 print("Torchvision", torchvision.__version__)
 print("Torchattacks", torchattacks.__version__)
 print("Numpy", np.__version__)
-
-
+    
 # CUDA Settings
 USE_CUDA = torch.cuda.is_available() 
 device = torch.device('cuda:0' if USE_CUDA else 'cpu') 
@@ -135,15 +134,23 @@ model = model.eval()
 
 # 3. Attacks
 from torchattacks import *
-
+attackMethodDict = {'FGSM': FGSM(model, eps=8/255),
+                    'CW' : CW(model, c=1, lr=0.01, steps=100, kappa=0),
+                    'PGD' : PGD(model, eps=8/255, alpha=2/225, steps=100, random_start=True),
+                    'DeepFool': DeepFool(model, steps=100)}
 atks = [
-    FGSM(model, eps=8/255),
+    #FGSM(model, eps=8/255),
     #CW(model, c=1, lr=0.01, steps=100, kappa=0),
     #PGD(model, eps=8/255, alpha=2/225, steps=100, random_start=True),
     #VANILA(model),
     #DeepFool(model, steps=100),
 ]
 
+# args로 읽어온 정보만 attack한다. 
+for atk in args.parsedAttackMethod:
+    atks.append(attackMethodDict[atk])
+
+print(atks)
 print("Adversarial Image & Predicted Label")
 
 for atk in atks :
@@ -173,7 +180,6 @@ for atk in atks :
         #print(labels.shape)
         total += len(images)
         correct += (pre == labels).sum()
-        print("one example done")
         break
     print('Total elapsed time (sec): %.2f' % (time.time() - start))
     print('Robust accuracy: %.2f %%' % (100 * float(correct) / total))
