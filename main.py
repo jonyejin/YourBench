@@ -83,6 +83,11 @@ class Normalize(nn.Module) :
         # Broadcasting
         mean = self.mean.reshape(1, 3, 1, 1)
         std = self.std.reshape(1, 3, 1, 1)
+
+        mean.to(device)
+        std.to(device)
+        input.to(device)
+
         return (input - mean) / std
 
 if args.parsedModel == 'WRN':
@@ -118,19 +123,6 @@ elif args.parsedModel == 'Custom':
   ).cuda()
 
 model = model.eval()
-
-# writer.add_graph(model, images)
-# writer.close()
-
-# from torchviz import make_dot
-# from torch.autograd import Variable
-
-# # Variable을 통하여 Input 생성
-# x = Variable(torch.randn(1, 8)) 
-
-# # 앞에서 생성한 model에 Input을 x로 입력한 뒤 (model(x))  graph.png 로 이미지를 출력합니다.
-# make_dot(model(x), params=dict(model.named_parameters())).render("graph", format="png")
-
 
 # 3. Attacks
 from torchattacks import *
@@ -188,6 +180,12 @@ for atk in atks :
 
 print("==================")
 print(adv_images.shape)
+
+# 기본 `log_dir` 은 "runs"이며, 여기서는 더 구체적으로 지정하였습니다
+# writer = SummaryWriter('Tutorials/runs/white_box_attack_image_net')
+# writer.add_graph(model, images)
+# writer.close()
+
 # Save Image in Folder
 for i in range(adv_images.shape[0]):
     torchvision.utils.save_image(images[i], fp=f"./Data/Generated/image_original_{i+1}.jpg", normalize=True)    
