@@ -26,8 +26,8 @@ import argparse
 
 parser = argparse.ArgumentParser(description='✨Welcome to YourBench-Adversarial Attack Robustness Benchmarking & Reporting tools.✨')
 parser.add_argument('-a', '--attack_method', required=True, type=str, nargs='*', choices=['FGSM', 'CW', 'PGD', 'DeepFool'], dest='parsedAttackMethod', action='store')
-parser.add_argument('-m', '--model', required=True, type=str, choices=['WRN', 'ResNet18, Custom'], dest='parsedModel')
-parser.add_argument('-d', '--dataset', required=True, type=str, choices=['CIFAR-10', 'CIFAR-100', 'ImageNet, Custom'], dest='parsedDataset')
+parser.add_argument('-m', '--model', required=True, type=str, choices=['WRN', 'ResNet18', 'Custom'], dest='parsedModel')
+parser.add_argument('-d', '--dataset', required=True, type=str, choices=['CIFAR-10', 'CIFAR-100', 'ImageNet', 'Custom'], dest='parsedDataset')
 
 args = parser.parse_args()
 
@@ -180,15 +180,12 @@ for atk in atks :
         break
     print('Total elapsed time (sec): %.2f' % (time.time() - start))
     print('Robust accuracy: %.2f %%' % (100 * float(correct) / total))
-    print("Top5 Accuracy")
     
     if atk.attack == "VANILA":
         for i in range (len(atks) - 1):
-            vanilla_output.append(str(100 * float(correct) / total)+'%')
+            vanilla_output.append(100 * float(correct) / total)
     else:
-        untargeted_output.append(str(100 * float(correct) / total)+'%')
-        print("untar")
-        print(untargeted_output)
+        untargeted_output.append(100 * float(correct) / total)
     
     if atk.attack == ("FGSM" or "CW"):
         print("-"*70)
@@ -206,14 +203,9 @@ for atk in atks :
             break
         print('Total elapsed time (sec): %.2f' % (time.time() - start))
         print('Robust accuracy: %.2f %%' % (100 * float(correct) / total))
-        print("Top5 Accuracy")
-        targeted_output.append(str(100 * float(correct) / total) + '%')
-        print("tar")
-        print(targeted_output)
+        targeted_output.append(100 * float(correct) / total)
     elif atk.attack != "VANILA" and (atk.attack == "PGD" or "DeepFool"):
-        targeted_output.append('unsupported')
-        print("tar")
-        print(targeted_output)
+        targeted_output.append(-10)
     
 # -
 
@@ -238,16 +230,15 @@ for atk in atks:
     if atk.attack == "VANILA":
         continue
     x_val.append(atk.attack)
-#cw_val = [0.2, 0.6, 0.8, 0.2]
-#fgsm_val = [0.3, 0.5, 0.3, 0.5]
-#jsma_val = [0.1, 0.5, 0.8, 1]
-#df_val = [0.3, 0.8, 1, 0.1]
 
-plt.plot(x_val, vanilla_output, color='green')
-plt.plot(x_val, untargeted_output, color='blue')
-plt.plot(x_val, targeted_output, color='red')
+plt.plot(x_val, vanilla_output, color='green', label = 'VANILLA')
+plt.plot(x_val, untargeted_output, color='blue', label = 'DEFAULT')
+plt.plot(x_val, targeted_output, color='red', label = 'TARGETED')
 print("before save")
-#plt.show()
+#plt.legend(loc=(0.73,0.775))
+plt.legend(loc=(0.0,0.775))
+plt.xlabel('Attack Method')
+plt.ylabel('Accuracy (%)\nnegative value for unsupported attacks')
 plt.savefig(f'./Data/Generated/graph.jpg', dip=300)
 
 from fpdf import FPDF
