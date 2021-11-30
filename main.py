@@ -173,6 +173,8 @@ for atk in atks :
         #print(labels.shape)
         total += len(images)
         correct += (pre == labels).sum()
+        print("one example done")
+        break
     print('Total elapsed time (sec): %.2f' % (time.time() - start))
     print('Robust accuracy: %.2f %%' % (100 * float(correct) / total))
 
@@ -192,7 +194,7 @@ plt.plot(x_val, fgsm_val, color='blue')
 plt.plot(x_val, jsma_val, color='red')
 plt.plot(x_val, df_val, color='black')
 
-plt.savefig(f'./data/advImage/graph.jpg', dip=300)
+plt.savefig(f'./Data/Generated/graph.jpg', dip=300)
 
 from fpdf import FPDF
 from torchvision.transforms.functional import to_pil_image
@@ -241,9 +243,9 @@ epw = pdf.w - 2*pdf.l_margin
 img_size = epw/4 - 10
 
 for i in range(2):
-    pdf.image(f'./data/advImage/image_original_{i+1}.jpg', w=img_size, h=img_size)
+    pdf.image(f'./Data/Generated/image_original_{i+1}.jpg', w=img_size, h=img_size)
     pdf.set_xy(pdf.get_x() + img_size + 10, pdf.get_y() - img_size)
-    pdf.image(f'./data/advImage/image_adv_{i+1}.jpg', w=img_size, h=img_size)
+    pdf.image(f'./Data/Generated/image_adv_{i+1}.jpg', w=img_size, h=img_size)
     pdf.ln(2)
     
 for i in range(2):
@@ -253,9 +255,9 @@ for i in range(2):
     pdf.ln(2)
     
 for i in range(2):
-    pdf.image(f'./data/advImage/image_original_{i+1}.jpg', w=img_size, h=img_size)
+    pdf.image(f'./Data/Generated/image_original_{i+1}.jpg', w=img_size, h=img_size)
     pdf.set_xy(pdf.get_x() + img_size + 10, pdf.get_y() - img_size)
-    pdf.image(f'./data/advImage/image_adv_{i+1}.jpg', w=img_size, h=img_size)
+    pdf.image(f'./Data/Generated/image_adv_{i+1}.jpg', w=img_size, h=img_size)
     pdf.ln(2)
     
 # second column
@@ -303,7 +305,7 @@ pdf.set_xy(epw /2 +pdf.l_margin, pdf.get_y())
 pdf.set_font("Times", "B", size=12)
 pdf.cell(epw / 2 + 10, 10, f"Attack Results with graph", 0, 1)
 pdf.set_xy(epw /2 +pdf.l_margin, pdf.get_y())
-pdf.image(f'./data/advImage/graph.jpg', w=epw /2)
+pdf.image(f'./Data/Generated/graph.jpg', w=epw /2)
 
 # 4. Advise
 pdf.set_xy(epw /2 +pdf.l_margin, pdf.get_y())
