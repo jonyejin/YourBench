@@ -2,3 +2,5 @@ Data/
 Tutorials/runs
 test.ipynb
 Benchmark Result.pdf
+custom_net.py
+my_model.pth
