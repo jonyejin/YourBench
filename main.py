@@ -24,6 +24,8 @@ from torch.utils.tensorboard import SummaryWriter
 import torch.nn.functional as F
 import argparse
 
+from Source.utils import stitch_images
+
 parser = argparse.ArgumentParser(description='✨Welcome to YourBench-Adversarial Attack Robustness Benchmarking & Reporting tools.✨')
 parser.add_argument('-a', '--attack_method', required=True, type=str, nargs='*', choices=['FGSM', 'CW', 'PGD', 'DeepFool'], dest='parsedAttackMethod', action='store')
 parser.add_argument('-m', '--model', required=True, type=str, choices=['ResNet101_2', 'ResNet18', 'Custom'], dest='parsedModel')
@@ -281,13 +283,26 @@ pdf.cell(0, 10, f"Succeeded Adversarial examples", 0, 1)
 
 # Effective page width, or just epw
 epw = pdf.w - 2*pdf.l_margin
-img_size = epw/4 - 10
+img_size = epw/2 - 20
 
-for i in range(max(5, adv_images.shape[0])):
-    pdf.image(f'./Data/Generated/image_original_{i+1}.jpg', w=img_size, h=img_size)
-    pdf.set_xy(pdf.get_x() + img_size + 10, pdf.get_y() - img_size)
-    pdf.image(f'./Data/Generated/image_adv_{i+1}.jpg', w=img_size, h=img_size)
-    pdf.ln(2)
+np_images = (images[0:5].cpu().numpy().transpose(0,2,3,1) * 255).astype(np.uint8)
+np_adv_images = (adv_images[0:5].cpu().numpy().transpose(0,2,3,1) * 255).astype(np.uint8)
+original_labels = [str(l) for l in labels.cpu().numpy()[0:5]]
+predicted_labels = [str(l) for l in pre.cpu().numpy()[0:5]]
+outputImage = stitch_images(np_images, np_adv_images, original_labels, predicted_labels)
+
+import cv2
+cv2.imwrite("./Data/Generated/stitchedImage.jpg", outputImage)
+#torchvision.utils.save_image(outputImage, fp=f"./Data/Generated/stitchedImage.jpg", normalize=True)    
+
+pdf.image(f'./Data/Generated/stitchedImage.jpg', w=img_size)
+
+# for i in range(max(5, adv_images.shape[0])):
+#     pdf.image(f'./Data/Generated/image_original_{i+1}.jpg', w=img_size, h=img_size)
+#     pdf.set_xy(pdf.get_x() + img_size + 10, pdf.get_y() - img_size)
+#     pdf.image(f'./Data/Generated/image_adv_{i+1}.jpg', w=img_size, h=img_size)
+    # pdf.ln(2)
+
 
 # second column
 ## 2. table 추가
