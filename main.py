@@ -30,6 +30,7 @@ parser.add_argument('-m', '--model', required=True, type=str, choices=['ResNet10
 parser.add_argument('-d', '--dataset', required=True, type=str, choices=['CIFAR-10', 'CIFAR-100', 'ImageNet', 'Custom'], dest='parsedDataset')
 
 args = parser.parse_args()
+simple_data = False
 
 print(args.parsedAttackMethod) # ['FGSM']
 print(args.parsedModel) # WRN
@@ -64,11 +65,12 @@ transform = transforms.Compose([
 if args.parsedDataset == 'CIFAR-10':
   cifar10_data = torchvision.datasets.CIFAR10('Data/CIFAR10', download=True, transform=transform)
   data_loader = torch.utils.data.DataLoader(cifar10_data, batch_size=5)
-
+  simple_data = True
 
 elif args.parsedDataset == 'CIFAR-100':
   cifar100_data = torchvision.datasets.CIFAR100('Data/CIFAR100', download=True, transform=transform)
   data_loader = torch.utils.data.DataLoader(cifar100_data, batch_size=5)
+  simple_data = True
 
 elif args.parsedDataset == 'ImageNet':
   imagenet_data = torchvision.datasets.ImageNet('Data/ImageNet', download=True, transform=transform)
@@ -237,6 +239,25 @@ plt.xlabel('Attack Method')
 plt.ylabel('Accuracy (%)\nnegative value for unsupported attacks')
 plt.savefig(f'./Data/Generated/graph.jpg', dip=300)
 
+#점수 계산하기
+total_result = 0
+for atk in untargeted_output:
+    total_result = total_result + atk
+total_result = total_result / 0.001 if vanilla_output[0] == 0 else vanilla_output[0] / len(untargeted_output)
+
+total_grade = ""
+if simple_data == True:
+    if total_result >= 45.0:
+        total_grade = "A"
+    elif total_result >= 35.0:
+        total_grade = "B"
+    elif total_result >= 25.0:
+        total_grade = "C"
+    elif total_result >= 15.0:
+        total_grade = "D"
+    else:
+        total_grade = "F"
+
 from fpdf import FPDF
 from torchvision.transforms.functional import to_pil_image
 from PIL.Image import Image
@@ -248,6 +269,7 @@ class PDF(FPDF):
         # Moving cursor to the right:
         self.cell(80)
         self.cell(30, 10, "Benchmark Result", 0, 0, "C")
+        self.cell(0, 10, ("Grade : " + total_grade if simple_data else "Score : " + str(total_result)),0, 0, "R")
         # Performing a line tbreak:
         self.ln(20)
 
