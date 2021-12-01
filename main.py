@@ -26,7 +26,7 @@ import argparse
 
 parser = argparse.ArgumentParser(description='✨Welcome to YourBench-Adversarial Attack Robustness Benchmarking & Reporting tools.✨')
 parser.add_argument('-a', '--attack_method', required=True, type=str, nargs='*', choices=['FGSM', 'CW', 'PGD', 'DeepFool'], dest='parsedAttackMethod', action='store')
-parser.add_argument('-m', '--model', required=True, type=str, choices=['WRN', 'ResNet18', 'Custom'], dest='parsedModel')
+parser.add_argument('-m', '--model', required=True, type=str, choices=['ResNet101_2', 'ResNet18', 'Custom'], dest='parsedModel')
 parser.add_argument('-d', '--dataset', required=True, type=str, choices=['CIFAR-10', 'CIFAR-100', 'ImageNet', 'Custom'], dest='parsedDataset')
 
 args = parser.parse_args()
@@ -91,7 +91,7 @@ class Normalize(nn.Module) :
 
         return (input - mean) / std
 
-if args.parsedModel == 'WRN':
+if args.parsedModel == 'ResNet101_2':
   norm_layer = Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
   model = nn.Sequential(
       norm_layer,
@@ -110,20 +110,16 @@ elif args.parsedModel == 'ResNet18':
 
 elif args.parsedModel == 'Custom':
   pkg = __import__('custom_net')
-  model_custom = pkg.wide_resnet50_2(pretrained = False)
+  model_custom = pkg.my_model(pretrained = False)
   #state_dict의 경로를 넣기.
-  model_custom.load_state_dict(torch.load('./wide_resnet50_2-95faca4d.pth'))
-  #sys.path.append()
-
-  #model_custom.eval()
-
+  model_custom.load_state_dict(torch.load('./my_model.pth'))
+  
   model = nn.Sequential(
       norm_layer,
-      #models.wide_resnet50_2(pretrained=True)
       model_custom
   ).cuda()
 
-model = model.eval()
+  model = model.eval()
 
 # 3. Attacks
 from torchattacks import *
