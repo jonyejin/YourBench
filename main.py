@@ -113,7 +113,8 @@ elif args.parsedModel == 'Custom':
   model_custom = pkg.my_model(pretrained = False)
   #state_dict의 경로를 넣기.
   model_custom.load_state_dict(torch.load('./my_model.pth'))
-  
+  norm_layer = Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+
   model = nn.Sequential(
       norm_layer,
       model_custom
@@ -230,7 +231,6 @@ for atk in atks:
 plt.plot(x_val, vanilla_output, color='green', label = 'VANILLA')
 plt.plot(x_val, untargeted_output, color='blue', label = 'DEFAULT')
 plt.plot(x_val, targeted_output, color='red', label = 'TARGETED')
-print("before save")
 #plt.legend(loc=(0.73,0.775))
 plt.legend(loc=(0.0,0.775))
 plt.xlabel('Attack Method')
