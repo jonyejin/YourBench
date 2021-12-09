@@ -215,8 +215,12 @@ print(adv_images.shape)
 
 # 기본 `log_dir` 은 "runs"이며, 여기서는 더 구체적으로 지정하였습니다
 writer = SummaryWriter('Tutorials/runs/white_box_attack_image_net')
+images = images.cuda()
 writer.add_graph(model, images)
 writer.close()
+
+#make Data/Generated directory
+os.makedirs("./Data/Generated", exist_ok=True)
 
 # Save Image in Folder
 for i in range(adv_images.shape[0]):
