@@ -1,5 +1,4 @@
 # YourBench - Pytorch
-\
 <p>
   <a href="https://github.com/jonye/blob/master/LICENSE"><img alt="MIT License" src="https://img.shields.io/github/license/jonyejin/YourBench?&color=brightgreen" /></a>
 
